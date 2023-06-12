@@ -31,9 +31,9 @@ Partial Class SelectForm
         Me.workDisplay = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.pathBox = New System.Windows.Forms.TextBox()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.folderList = New System.Windows.Forms.ListView()
-        Me.pathBox = New System.Windows.Forms.TextBox()
         Me.gp_select.SuspendLayout()
         Me.txtLog.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -157,6 +157,14 @@ Partial Class SelectForm
         Me.Panel1.Size = New System.Drawing.Size(267, 21)
         Me.Panel1.TabIndex = 3
         '
+        'pathBox
+        '
+        Me.pathBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pathBox.Location = New System.Drawing.Point(0, 0)
+        Me.pathBox.Name = "pathBox"
+        Me.pathBox.Size = New System.Drawing.Size(209, 21)
+        Me.pathBox.TabIndex = 3
+        '
         'Button2
         '
         Me.Button2.BackColor = System.Drawing.Color.DarkGoldenrod
@@ -185,14 +193,6 @@ Partial Class SelectForm
         Me.folderList.TabIndex = 0
         Me.folderList.UseCompatibleStateImageBehavior = False
         Me.folderList.View = System.Windows.Forms.View.Tile
-        '
-        'pathBox
-        '
-        Me.pathBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pathBox.Location = New System.Drawing.Point(0, 0)
-        Me.pathBox.Name = "pathBox"
-        Me.pathBox.Size = New System.Drawing.Size(209, 21)
-        Me.pathBox.TabIndex = 3
         '
         'SelectForm
         '

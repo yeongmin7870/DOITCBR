@@ -11,13 +11,17 @@ Module logger
 
     Sub loggerInit()
         Using reader As New StreamReader(filePath)
-            While Not reader.EndOfStream
-                Dim line As String = reader.ReadLine()
+            Dim line As String = reader.ReadLine()
+            While line IsNot Nothing
+                While line.IndexOf("]") < 0 AndAlso Not reader.EndOfStream
+                    Dim nextLine As String = reader.ReadLine()
+                    line &= Environment.NewLine & nextLine
+                End While
 
-
-                'Dim state As String = String.Join(Environment.NewLine, line.Split("]")(1).Substring(1))
-                Dim state As String = "h"
+                Dim states As String = line.Split("]")(1)
+                Dim state As String = states.Split("[")(0)
                 AddColoredText(line, CheckedState(state), CheckedColor(CheckedState(state)))
+                line = reader.ReadLine()
             End While
         End Using
 
@@ -46,14 +50,12 @@ Module logger
         If s = String.Empty Then
             Return "상태표시를 잘확인해주세요"
         Else
-            If s = "i" Or s = "I" Then
+            If s = "i" Or s = "I" Or s = "Info" Then
                 Return "Info"
-            ElseIf s = "w" Or s = "W" Then
+            ElseIf s = "w" Or s = "W" Or s = "Warn" Then
                 Return "Warn"
-            ElseIf s = "e" Or s = "E" Then
+            ElseIf s = "e" Or s = "E" Or s = "Error" Then
                 Return "Error"
-            ElseIf s = "h" Or s = "H" Then
-                Return "History"
             Else
                 Return "상태표시를 잘확인해주세요"
             End If

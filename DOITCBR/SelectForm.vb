@@ -8,6 +8,7 @@ Public Class SelectForm
 
 
     Private Sub SelectForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         loggerInit()
         logger.log("프로그램을 실행 시켰습니다.", "i")
 
@@ -68,21 +69,9 @@ Public Class SelectForm
             folderList.Items.AddRange(items.ToArray())
         Catch ex As Exception
             MessageBox.Show("파일 및 폴더를 가져오는 동안 오류가 발생하였습니다.")
+            pathBox.Text = Path.GetDirectoryName(pathBox.Text)
+            ListFilesAndFolders(pathBox.Text)
         End Try
-    End Sub
-
-    Sub pathBox_KeyDown(sender As Object, e As KeyEventArgs)
-
-        If e.KeyCode = Keys.Enter Then
-            If pathBox.Text Is Nothing Or pathBox.Text = "" Then
-                pathBox.Text = "C:\"
-            End If
-            Dim path As String = pathBox.Text
-            staticPath = path
-
-            ListFilesAndFolders(staticPath)
-        End If
-
     End Sub
 
     Private Sub logMSG_TextChanged(sender As Object, e As EventArgs) Handles logMSG.TextChanged
@@ -106,16 +95,21 @@ Public Class SelectForm
     End Sub
 
     Sub folderList_DoubleClick(sender As Object, e As EventArgs) Handles folderList.DoubleClick
-        If folderList.SelectedItems.Count > 0 Then
-            Dim selectedItem As ListViewItem = folderList.SelectedItems(0)
-            Dim path As String = CStr(selectedItem.Tag)
-            staticPath = path
-            If selectedItem.SubItems(1).Text = "파일" Then
-                Process.Start(staticPath)
-            Else
-                ListFilesAndFolders(staticPath)
+        Try
+            If folderList.SelectedItems.Count > 0 Then
+                Dim selectedItem As ListViewItem = folderList.SelectedItems(0)
+                Dim path As String = CStr(selectedItem.Tag)
+                staticPath = path
+                If selectedItem.SubItems(1).Text = "파일" Then
+                    Process.Start(staticPath)
+                Else
+                    ListFilesAndFolders(staticPath)
+                End If
             End If
-        End If
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
@@ -127,4 +121,15 @@ Public Class SelectForm
         End If
     End Sub
 
+    Private Sub pathBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles pathBox.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            If pathBox.Text Is Nothing Or pathBox.Text = "" Then
+                pathBox.Text = "C:\"
+            End If
+            Dim path As String = pathBox.Text
+            staticPath = path
+
+            ListFilesAndFolders(staticPath)
+        End If
+    End Sub
 End Class
