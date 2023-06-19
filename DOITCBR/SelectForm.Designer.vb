@@ -28,12 +28,12 @@ Partial Class SelectForm
         Me.Button1 = New System.Windows.Forms.Button()
         Me.txtLog = New System.Windows.Forms.GroupBox()
         Me.logMSG = New System.Windows.Forms.RichTextBox()
-        Me.workDisplay = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.pathBox = New System.Windows.Forms.TextBox()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.folderList = New System.Windows.Forms.ListView()
+        Me.workDisplay = New System.Windows.Forms.GroupBox()
         Me.gp_select.SuspendLayout()
         Me.txtLog.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -119,19 +119,6 @@ Partial Class SelectForm
         Me.logMSG.TabIndex = 4
         Me.logMSG.Text = ""
         '
-        'workDisplay
-        '
-        Me.workDisplay.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.workDisplay.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.workDisplay.Location = New System.Drawing.Point(217, 0)
-        Me.workDisplay.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.workDisplay.Name = "workDisplay"
-        Me.workDisplay.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.workDisplay.Size = New System.Drawing.Size(1133, 612)
-        Me.workDisplay.TabIndex = 5
-        Me.workDisplay.TabStop = False
-        Me.workDisplay.Text = "작업창"
-        '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.Panel1)
@@ -194,14 +181,27 @@ Partial Class SelectForm
         Me.folderList.UseCompatibleStateImageBehavior = False
         Me.folderList.View = System.Windows.Forms.View.Tile
         '
+        'workDisplay
+        '
+        Me.workDisplay.AutoSize = True
+        Me.workDisplay.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.workDisplay.Location = New System.Drawing.Point(223, 11)
+        Me.workDisplay.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.workDisplay.Name = "workDisplay"
+        Me.workDisplay.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.workDisplay.Size = New System.Drawing.Size(848, 599)
+        Me.workDisplay.TabIndex = 5
+        Me.workDisplay.TabStop = False
+        Me.workDisplay.Text = "작업창"
+        '
         'SelectForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DimGray
         Me.ClientSize = New System.Drawing.Size(1350, 729)
-        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.workDisplay)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.txtLog)
         Me.Controls.Add(Me.gp_select)
         Me.ForeColor = System.Drawing.SystemColors.Desktop
@@ -214,6 +214,7 @@ Partial Class SelectForm
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -223,11 +224,11 @@ Partial Class SelectForm
     Friend WithEvents txtLog As GroupBox
     Friend WithEvents logMSG As RichTextBox
     Friend WithEvents Button1 As Button
-    Friend WithEvents workDisplay As GroupBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents folderList As ListView
     Friend WithEvents pathFolderBox As TextBox
     Friend WithEvents pathBox As TextBox
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Button2 As Button
+    Friend WithEvents workDisplay As GroupBox
 End Class

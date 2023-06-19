@@ -8,7 +8,7 @@ Public Class SelectForm
 
 
     Private Sub SelectForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        Settinginit()
         loggerInit()
         logger.log("프로그램을 실행 시켰습니다.", "i")
 
@@ -24,7 +24,10 @@ Public Class SelectForm
     End Sub
     '일반용량 PDF 변환 버튼
     Private Sub btn_normal_Click(sender As Object, e As EventArgs) Handles btn_normal.Click
-
+        If preForm IsNot Nothing AndAlso Not preForm.IsDisposed Then
+            preForm.Close()
+        End If
+        PreFormFn(New NormalPDF)
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -40,6 +43,8 @@ Public Class SelectForm
         preForm.TopLevel = False
 
         preForm.Parent = Me
+        preForm.Size = workDisplay.ClientSize
+
         preForm.Dock = DockStyle.Fill
         workDisplay.Controls.Add(preForm)
         preForm.Show()
@@ -132,4 +137,5 @@ Public Class SelectForm
             ListFilesAndFolders(staticPath)
         End If
     End Sub
+
 End Class

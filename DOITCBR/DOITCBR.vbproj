@@ -82,6 +82,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="logger.vb" />
+    <Compile Include="NormalPDF.Designer.vb">
+      <DependentUpon>NormalPDF.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NormalPDF.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="NTBProcess.vb" />
     <Compile Include="SelectForm.vb">
       <SubType>Form</SubType>
@@ -111,10 +117,14 @@
     <Compile Include="HardPDF.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="settingPath.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="InfoForm.resx">
       <DependentUpon>InfoForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NormalPDF.resx">
+      <DependentUpon>NormalPDF.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectForm.resx">
       <DependentUpon>SelectForm.vb</DependentUpon>

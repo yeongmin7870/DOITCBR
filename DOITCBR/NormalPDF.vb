@@ -1,7 +1,4 @@
-﻿Imports DOITCBR.CheckExistenct
-Imports DOITCBR.logger
-Imports DOITCBR.NTBProcess
-Public Class HardPDF
+﻿Public Class NormalPDF
     Private background As Integer
     'SelectForm 인스턴스 생성
     Dim selectForm As SelectForm = CType(Application.OpenForms("SelectForm"), SelectForm)
@@ -29,35 +26,28 @@ Public Class HardPDF
         End Using
     End Sub
 
-
-    Private Sub HardPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        pdfYesBtn.Checked = True
-    End Sub
-
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-
         If pdfYesBtn.Checked Then
             background = 1
         ElseIf pdfNoBtn.Checked Then
             background = -1
         End If
         Me.Enabled = False
-        NTBProcess.CobraProcess(filePath, folderPath, background)
+        NTBProcess.CobraProcess2(filePath, folderPath, background)
         Me.Enabled = True
         selectForm.ListFilesAndFolders(folderPath)
     End Sub
-    Private Sub btnCRTPDFC_Click(sender As Object, e As EventArgs) Handles btnCRTPDFC.Click
+    Private Sub btnCRTACVRES_Click(sender As Object, e As EventArgs) Handles btnCRTACVRES.Click
         If pdfYesBtn.Checked Then
             background = 1
         ElseIf pdfNoBtn.Checked Then
             background = -1
         End If
         Me.Enabled = False
-        NTBProcess.CRPDFC(filePath)
+        NTBProcess.CRTAVRES(filePath)
         Me.Enabled = True
         selectForm.ListFilesAndFolders(folderPath)
     End Sub
-
     Private Sub btn_doc_Click(sender As Object, e As EventArgs) Handles btn_doc.Click
         If pdfYesBtn.Checked Then
             background = 1
@@ -65,7 +55,7 @@ Public Class HardPDF
             background = -1
         End If
         Me.Enabled = False
-        NTBProcess.CobraDoc(filePath, folderPath, background)
+        NTBProcess.CobraDoc2(filePath, folderPath, background)
         Me.Enabled = True
         selectForm.ListFilesAndFolders(folderPath)
     End Sub
@@ -135,6 +125,9 @@ Public Class HardPDF
         End If
     End Sub
 
+    Private Sub NormalPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        pdfYesBtn.Checked = True
+    End Sub
     Private Sub txtboxInput_TextChanged(sender As Object, e As EventArgs) Handles txtboxInput.TextChanged
         Dim outputPathlst As String() = txtboxInput.Text.Split("\")
         Dim outputPath As String = String.Empty
