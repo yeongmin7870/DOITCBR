@@ -51,6 +51,18 @@ Module NTBProcess
             logger.log(ex.Message, "w")
         End Try
     End Sub
+    Sub settingFile()
+        Try
+            Dim filePath2 As String = "C:\Windows\System32\notepad.exe"
+            Dim arguments2 As String = $"{settingPath.settingFilePath}"
+
+            ProcessFn(filePath2, arguments2)
+            logger.log("환경설정 파일을 열었습니다.", "i")
+        Catch ex As Exception
+            logger.log("환경설정 파일이 열리지 않습니다.", "w")
+            logger.log(ex.Message, "w")
+        End Try
+    End Sub
     'Cobradoc + CRPDFC
     Sub CobraProcess(inputPath, outputPath, background)
         Try

@@ -30,45 +30,47 @@ Public Class HardPDF
     End Sub
 
 
-    Private Sub HardPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        pdfYesBtn.Checked = True
-    End Sub
+    'Private Sub HardPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    '    pdfYesBtn.Checked = True
+    'End Sub
+    ''Cobradoc + CRTPDFC
+    'Private Sub Button3_Click(sender As Object, e As EventArgs)
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+    '    If pdfYesBtn.Checked Then
+    '        background = 1
+    '    ElseIf pdfNoBtn.Checked Then
+    '        background = -1
+    '    End If
+    '    Me.Enabled = False
+    '    NTBProcess.CobraProcess(filePath, folderPath, background)
+    '    Me.Enabled = True
+    '    selectForm.ListFilesAndFolders(folderPath)
+    'End Sub
+    ''CRTPDFC 버튼
+    'Private Sub btnCRTPDFC_Click(sender As Object, e As EventArgs)
+    '    If pdfYesBtn.Checked Then
+    '        background = 1
+    '    ElseIf pdfNoBtn.Checked Then
+    '        background = -1
+    '    End If
+    '    Me.Enabled = False
+    '    NTBProcess.CRPDFC(filePath)
+    '    Me.Enabled = True
+    '    selectForm.ListFilesAndFolders(folderPath)
+    'End Sub
+    'cobradoc 버튼
 
-        If pdfYesBtn.Checked Then
-            background = 1
-        ElseIf pdfNoBtn.Checked Then
-            background = -1
-        End If
-        Me.Enabled = False
-        NTBProcess.CobraProcess(filePath, folderPath, background)
-        Me.Enabled = True
-        selectForm.ListFilesAndFolders(folderPath)
-    End Sub
-    Private Sub btnCRTPDFC_Click(sender As Object, e As EventArgs) Handles btnCRTPDFC.Click
-        If pdfYesBtn.Checked Then
-            background = 1
-        ElseIf pdfNoBtn.Checked Then
-            background = -1
-        End If
-        Me.Enabled = False
-        NTBProcess.CRPDFC(filePath)
-        Me.Enabled = True
-        selectForm.ListFilesAndFolders(folderPath)
-    End Sub
-
-    Private Sub btn_doc_Click(sender As Object, e As EventArgs) Handles btn_doc.Click
-        If pdfYesBtn.Checked Then
-            background = 1
-        ElseIf pdfNoBtn.Checked Then
-            background = -1
-        End If
-        Me.Enabled = False
-        NTBProcess.CobraDoc(filePath, folderPath, background)
-        Me.Enabled = True
-        selectForm.ListFilesAndFolders(folderPath)
-    End Sub
+    'Private Sub btn_doc_Click(sender As Object, e As EventArgs)
+    '    If pdfYesBtn.Checked Then
+    '        background = 1
+    '    ElseIf pdfNoBtn.Checked Then
+    '        background = -1
+    '    End If
+    '    Me.Enabled = False
+    '    NTBProcess.CobraDoc(filePath, folderPath, background)
+    '    Me.Enabled = True
+    '    selectForm.ListFilesAndFolders(folderPath)
+    'End Sub
 
     Private Sub txtboxInput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxInput.DragEnter
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
@@ -93,15 +95,16 @@ Public Class HardPDF
             filePath = droppedText
         End If
     End Sub
-    Private Sub txtboxOutput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragEnter
-        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-            e.Effect = DragDropEffects.Copy
-        End If
+    'Output textbox 안에 파일을 떨어뜨리는 함수
+    'Private Sub txtboxOutput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragEnter
+    '    If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+    '        e.Effect = DragDropEffects.Copy
+    '    End If
 
-        If e.Data.GetDataPresent(DataFormats.Text) Then
-            e.Effect = DragDropEffects.Copy
-        End If
-    End Sub
+    '    If e.Data.GetDataPresent(DataFormats.Text) Then
+    '        e.Effect = DragDropEffects.Copy
+    '    End If
+    'End Sub
     Private Sub txtboxOutput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragDrop
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
 
@@ -150,4 +153,5 @@ Public Class HardPDF
         txtboxOutput.Text = outputPath
         folderPath = outputPath
     End Sub
+
 End Class

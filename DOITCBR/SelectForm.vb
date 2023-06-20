@@ -138,4 +138,7 @@ Public Class SelectForm
         End If
     End Sub
 
+    Private Sub 환경설정ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 환경설정ToolStripMenuItem.Click
+        NTBProcess.settingFile()
+    End Sub
 End Class
