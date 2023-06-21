@@ -11,7 +11,6 @@
             If ofd.ShowDialog() = DialogResult.OK Then
                 filePath = ofd.FileName
                 txtboxInput.Text = filePath
-                txtboxOutput.Text = folderPath
             End If
         End Using
     End Sub
@@ -83,35 +82,35 @@
             filePath = droppedText
         End If
     End Sub
-    Private Sub txtboxOutput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragEnter
-        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-            e.Effect = DragDropEffects.Copy
-        End If
+    'Private Sub txtboxOutput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragEnter
+    '    If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+    '        e.Effect = DragDropEffects.Copy
+    '    End If
 
-        If e.Data.GetDataPresent(DataFormats.Text) Then
-            e.Effect = DragDropEffects.Copy
-        End If
-    End Sub
-    Private Sub txtboxOutput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragDrop
-        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+    '    If e.Data.GetDataPresent(DataFormats.Text) Then
+    '        e.Effect = DragDropEffects.Copy
+    '    End If
+    'End Sub
+    'Private Sub txtboxOutput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragDrop
+    '    If e.Data.GetDataPresent(DataFormats.FileDrop) Then
 
-            Dim filePaths As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
+    '        Dim filePaths As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
 
-            If filePaths.Length > 0 Then
-                txtboxOutput.Text = filePaths(0)
-                folderPath = filePaths(0)
-                selectForm.ListFilesAndFolders(filePaths(0))
-            End If
+    '        If filePaths.Length > 0 Then
+    '            txtboxOutput.Text = filePaths(0)
+    '            folderPath = filePaths(0)
+    '            selectForm.ListFilesAndFolders(filePaths(0))
+    '        End If
 
-        End If
+    '    End If
 
-        If e.Data.GetDataPresent(DataFormats.Text) Then
-            Dim droppedText As String = CStr(e.Data.GetData(DataFormats.Text))
-            txtboxOutput.Text = droppedText
-            folderPath = droppedText
-            selectForm.ListFilesAndFolders(droppedText)
-        End If
-    End Sub
+    '    If e.Data.GetDataPresent(DataFormats.Text) Then
+    '        Dim droppedText As String = CStr(e.Data.GetData(DataFormats.Text))
+    '        txtboxOutput.Text = droppedText
+    '        folderPath = droppedText
+    '        selectForm.ListFilesAndFolders(droppedText)
+    '    End If
+    'End Sub
 
     Private Sub txtboxOutput_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtboxOutput.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
@@ -126,7 +125,7 @@
     End Sub
 
     Private Sub NormalPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        pdfYesBtn.Checked = True
+
     End Sub
     Private Sub txtboxInput_TextChanged(sender As Object, e As EventArgs) Handles txtboxInput.TextChanged
         Dim outputPathlst As String() = txtboxInput.Text.Split("\")

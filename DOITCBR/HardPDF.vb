@@ -14,7 +14,7 @@ Public Class HardPDF
             If ofd.ShowDialog() = DialogResult.OK Then
                 filePath = ofd.FileName
                 txtboxInput.Text = filePath
-                txtboxOutput.Text = folderPath
+                settingPath.WriteIni(filePath, "putFiles")
             End If
         End Using
     End Sub
@@ -24,7 +24,8 @@ Public Class HardPDF
             If ofd2.ShowDialog() = DialogResult.OK Then
                 folderPath = ofd2.SelectedPath
                 txtboxOutput.Text = folderPath
-                selectForm.ListFilesAndFolders(folderPath)
+                selectForm.ListFilesAndFolders(settingPath.data("txtOutput"))
+                UpdateIni(folderPath, "txtOutput")
             End If
         End Using
     End Sub
@@ -87,12 +88,16 @@ Public Class HardPDF
             If filePaths.Length > 0 Then
                 txtboxInput.Text = filePaths(0)
                 filePath = filePaths(0)
+                settingPath.WriteIni(filePaths(0), "putFiles")
+                Update_chkLst_putFilelst()
             End If
         End If
         If e.Data.GetDataPresent(DataFormats.Text) Then
             Dim droppedText As String = CStr(e.Data.GetData(DataFormats.Text))
             txtboxInput.Text = droppedText
             filePath = droppedText
+            settingPath.WriteIni(droppedText, "putFiles")
+            Update_chkLst_putFilelst()
         End If
     End Sub
     'Output textbox 안에 파일을 떨어뜨리는 함수
@@ -105,53 +110,86 @@ Public Class HardPDF
     '        e.Effect = DragDropEffects.Copy
     '    End If
     'End Sub
-    Private Sub txtboxOutput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragDrop
-        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+    'Private Sub txtboxOutput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragDrop
+    '    If e.Data.GetDataPresent(DataFormats.FileDrop) Then
 
-            Dim filePaths As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
+    '        Dim filePaths As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
 
-            If filePaths.Length > 0 Then
-                txtboxOutput.Text = filePaths(0)
-                folderPath = filePaths(0)
-                selectForm.ListFilesAndFolders(filePaths(0))
-            End If
+    '        If filePaths.Length > 0 Then
+    '            txtboxOutput.Text = filePaths(0)
+    '            folderPath = filePaths(0)
+    '            selectForm.ListFilesAndFolders(filePaths(0))
+    '        End If
 
-        End If
+    '    End If
 
-        If e.Data.GetDataPresent(DataFormats.Text) Then
-            Dim droppedText As String = CStr(e.Data.GetData(DataFormats.Text))
-            txtboxOutput.Text = droppedText
-            folderPath = droppedText
-            selectForm.ListFilesAndFolders(droppedText)
-        End If
-    End Sub
+    '    If e.Data.GetDataPresent(DataFormats.Text) Then
+    '        Dim droppedText As String = CStr(e.Data.GetData(DataFormats.Text))
+    '        txtboxOutput.Text = droppedText
+    '        folderPath = droppedText
+    '        selectForm.ListFilesAndFolders(droppedText)
+    '    End If
+    'End Sub
 
     Private Sub txtboxOutput_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtboxOutput.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             If txtboxOutput.Text Is Nothing Or txtboxOutput.Text = "" Then
-                txtboxOutput.Text = "C:\"
+                txtboxOutput.Text = settingPath.data("txtOutput")
             End If
             Dim path As String = txtboxOutput.Text
             folderPath = path
-
             selectForm.ListFilesAndFolders(folderPath)
+            UpdateIni(folderPath, "txtOutput")
         End If
     End Sub
 
-    Private Sub txtboxInput_TextChanged(sender As Object, e As EventArgs) Handles txtboxInput.TextChanged
-        Dim outputPathlst As String() = txtboxInput.Text.Split("\")
-        Dim outputPath As String = String.Empty
-        For i = 0 To outputPathlst.Length - 2
-            If i = outputPathlst.Length - 2 Then
-                outputPath += outputPathlst(i)
-            Else
-                outputPath += outputPathlst(i) + "\"
-            End If
+    'Private Sub txtboxInput_TextChanged(sender As Object, e As EventArgs) Handles txtboxInput.TextChanged
+    '    Dim outputPathlst As String() = txtboxInput.Text.Split("\")
+    '    Dim outputPath As String = String.Empty
+    '    For i = 0 To outputPathlst.Length - 2
+    '        If i = outputPathlst.Length - 2 Then
+    '            outputPath += outputPathlst(i)
+    '        Else
+    '            outputPath += outputPathlst(i) + "\"
+    '        End If
 
+    '    Next
+    '    selectForm.ListFilesAndFolders(outputPath)
+    '    txtboxOutput.Text = outputPath
+    '    folderPath = outputPath
+    'End Sub
+    '올려놓은 파일 체크리스트 박스 업데이트 함수
+    Sub Update_chkLst_putFilelst()
+        Settinginit()
+        '출력 경로
+        txtboxOutput.Text = settingPath.data("txtOutput")
+        selectForm.ListFilesAndFolders(txtboxOutput.Text)
+
+        '올려놓은 파일 체크리스트
+        chkLst_putFilelst.Items.Clear()
+        For Each d In data("putFiles").Split(",")
+            chkLst_putFilelst.Items.Add(d)
         Next
-        selectForm.ListFilesAndFolders(outputPath)
-        txtboxOutput.Text = outputPath
-        folderPath = outputPath
     End Sub
 
+    Private Sub HardPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Update_chkLst_putFilelst()
+    End Sub
+
+    Private Sub btn_putFileAllchk_Click(sender As Object, e As EventArgs) Handles btn_putFileAllchk.Click
+        For i = 0 To chkLst_putFilelst.Items.Count - 1
+            chkLst_putFilelst.SetItemChecked(i, True)
+        Next
+    End Sub
+    Private Sub btn_putFileAlldechk_Click(sender As Object, e As EventArgs) Handles btn_putFileAlldechk.Click
+        For i = 0 To chkLst_putFilelst.Items.Count - 1
+            chkLst_putFilelst.SetItemChecked(i, False)
+        Next
+    End Sub
+
+    Private Sub btn_putFileDelete_Click(sender As Object, e As EventArgs) Handles btn_putFileDelete.Click
+        For Each item In chkLst_putFilelst.CheckedItems
+            MessageBox.Show(item)
+        Next
+    End Sub
 End Class

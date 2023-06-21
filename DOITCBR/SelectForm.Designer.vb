@@ -216,7 +216,7 @@ Partial Class SelectForm
         '환경설정ToolStripMenuItem
         '
         Me.환경설정ToolStripMenuItem.Name = "환경설정ToolStripMenuItem"
-        Me.환경설정ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.환경설정ToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
         Me.환경설정ToolStripMenuItem.Text = "환경설정"
         '
         'workDisplay

@@ -73,7 +73,6 @@ Public Class SelectForm
             Next
             folderList.Items.AddRange(items.ToArray())
         Catch ex As Exception
-            MessageBox.Show("파일 및 폴더를 가져오는 동안 오류가 발생하였습니다.")
             pathBox.Text = Path.GetDirectoryName(pathBox.Text)
             ListFilesAndFolders(pathBox.Text)
         End Try
@@ -141,4 +140,5 @@ Public Class SelectForm
     Private Sub 환경설정ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 환경설정ToolStripMenuItem.Click
         NTBProcess.settingFile()
     End Sub
+
 End Class
