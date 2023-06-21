@@ -170,7 +170,7 @@ Public Class HardPDF
     Private Sub HardPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Update_chkLst_putFilelst()
         Update_chkLst_putLst()
-        Update_chkLst_worklst()
+        Update_cbbox_workLst()
     End Sub
 
     Private Sub btn_putFileAllchk_Click(sender As Object, e As EventArgs) Handles btn_putFileAllchk.Click
@@ -196,11 +196,12 @@ Public Class HardPDF
         Update_chkLst_putFilelst()
     End Sub
     '작업 리스트 갱신
-    Sub Update_chkLst_worklst()
-        chkLst_worklst.Items.Clear()
-        For Each item In settingPath.data("workList").Split(",")
+    Sub Update_cbbox_workLst()
+        cbbox_workLst.Items.Clear()
+        For Each item In settingPath.data("cbbox_workLst").Split(",")
             If item <> String.Empty Then
-                chkLst_worklst.Items.Add(item)
+                Dim name As String() = item.Split("\")
+                cbbox_workLst.Items.Add(name(name.Count - 1))
             End If
         Next
     End Sub
@@ -226,4 +227,5 @@ Public Class HardPDF
             chkLst_worklst.SetItemChecked(i, False)
         Next
     End Sub
+
 End Class

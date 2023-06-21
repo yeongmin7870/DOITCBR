@@ -33,6 +33,7 @@ Partial Class HardPDF
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cbbox_workLst = New System.Windows.Forms.ComboBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button11 = New System.Windows.Forms.Button()
@@ -52,7 +53,6 @@ Partial Class HardPDF
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.gb_path.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -143,7 +143,7 @@ Partial Class HardPDF
         'GroupBox1
         '
         Me.GroupBox1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.GroupBox1.Controls.Add(Me.ComboBox1)
+        Me.GroupBox1.Controls.Add(Me.cbbox_workLst)
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
         Me.GroupBox1.Controls.Add(Me.chkLst_worklst)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
@@ -153,6 +153,14 @@ Partial Class HardPDF
         Me.GroupBox1.TabIndex = 7
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "작업"
+        '
+        'cbbox_workLst
+        '
+        Me.cbbox_workLst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbbox_workLst.Location = New System.Drawing.Point(6, 17)
+        Me.cbbox_workLst.Name = "cbbox_workLst"
+        Me.cbbox_workLst.Size = New System.Drawing.Size(243, 20)
+        Me.cbbox_workLst.TabIndex = 7
         '
         'GroupBox4
         '
@@ -369,14 +377,6 @@ Partial Class HardPDF
         Me.Button5.Text = "?"
         Me.Button5.UseVisualStyleBackColor = False
         '
-        'ComboBox1
-        '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(6, 17)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(243, 20)
-        Me.ComboBox1.TabIndex = 7
-        '
         'HardPDF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -437,5 +437,5 @@ Partial Class HardPDF
     Friend WithEvents btn_putFileAllchk As Button
     Friend WithEvents Button11 As Button
     Friend WithEvents btn_putFileAlldechk As Button
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cbbox_workLst As ComboBox
 End Class
