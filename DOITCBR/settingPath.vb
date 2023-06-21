@@ -1,12 +1,12 @@
 ﻿Imports System.IO
 Module settingPath
     'ini 파일 주소
-    Public settingFilePath As String = "E:\연습프로젝트\결과폴더\DOITCBR.ini"
+    Public settingFilePath As String = "D:\#M08-15355_고객서비스팀_만기환급형보험계약에대한안내문\2023DATA\DOITCBR.ini"
     Public data As New Dictionary(Of String, String)()
     Sub Settinginit()
         Dim lines As String() = File.ReadAllLines(settingFilePath)
         For Each line As String In lines
-            If line.IndexOf("#") < 0 Then '주석이 아닐때
+            If line.IndexOf("#") <> 0 Then '주석이 아닐때
                 data(line.Split("=")(0)) = line.Split("=")(1)
             End If
         Next
@@ -43,14 +43,13 @@ Module settingPath
         Next
         File.WriteAllLines(settingFilePath, lines)
     End Sub
-    '라인을 업데이트 시켜주는 함수
+    '해당 라인 값을 그냥 업데이트해주는 함수
     Sub UpdateIni(content As String, keyName As String)
         Dim lines As String() = File.ReadAllLines(settingFilePath)
-        '중복 체크 변수
-        Dim chkControl As Boolean = False
+
         For i As Integer = 0 To lines.Length - 1
             If lines(i).Split("=")(0).StartsWith($"{keyName}") Then
-                lines(i) = $"{keyName}=" & lines(i).Split("=")(1) & content
+                lines(i) = $"{keyName}=" & content
                 logger.log($"ini 파일에 {keyName} 의 값이 Update 되었습니다.", "i")
                 Exit For
             End If
@@ -58,19 +57,24 @@ Module settingPath
         File.WriteAllLines(settingFilePath, lines)
     End Sub
     'ini 원하는 라인의 값에서 원하는 값을 삭제하는 함수
-    Sub RemoveFileini(content As String, keyName As String)
+    Sub RemoveFileini(content, keyName)
         Dim lines As String() = File.ReadAllLines(settingFilePath)
         Dim line_result As String = String.Empty
         For i As Integer = 0 To lines.Length - 1
             If lines(i).Split("=")(0).StartsWith($"{keyName}") Then
                 If lines(i).Split("=")(1) <> String.Empty Then 'null 값 체크
-                    '값들을 하나씩 비교
+                    '값들을 하나씩 비교해서 체크된 항목만 배제
                     For Each value In lines(i).Split("=")(1).Split(",")
                         If value <> content Then
-                            line_result += "," & content
+                            line_result += "," & value
                         End If
                     Next
-                    lines(i) = $"{keyName}=" & line_result
+                    'null 값 체크
+                    If line_result <> String.Empty Then
+                        lines(i) = $"{keyName}=" & line_result.Substring(1)
+                    Else
+                        lines(i) = $"{keyName}="
+                    End If
                     Exit For
                 Else
                     logger.log($"ini 파일에 {keyName} 의 값이 null이기 때문에 삭제되지 않았습니다.", "w")
@@ -78,6 +82,7 @@ Module settingPath
                 End If
             End If
         Next
+
         File.WriteAllLines(settingFilePath, lines)
         logger.log($"ini 파일에 {keyName} 의 값이 Update 되었습니다.", "i")
     End Sub

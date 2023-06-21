@@ -3,7 +3,7 @@ Imports DOITCBR.logger
 Imports System.IO
 Public Class SelectForm
     Private preForm As Form
-    Private staticPath As String = "C:\"
+    Private staticPath As String = String.Empty
     Private lastClickTime As DateTime = DateTime.Now
 
 
@@ -11,16 +11,19 @@ Public Class SelectForm
         Settinginit()
         loggerInit()
         logger.log("프로그램을 실행 시켰습니다.", "i")
-
+        HardForm()
         '파일 및 폴더 나열
-        ListFilesAndFolders(staticPath)
+        ListFilesAndFolders(settingPath.data("txtOutput"))
     End Sub
-    '대용량 PDF 변환 버튼
-    Private Sub btn_hard_Click(sender As Object, e As EventArgs) Handles btn_hard.Click
+    Sub HardForm()
         If preForm IsNot Nothing AndAlso Not preForm.IsDisposed Then
             preForm.Close()
         End If
         PreFormFn(New HardPDF)
+    End Sub
+    '대용량 PDF 변환 버튼
+    Private Sub btn_hard_Click(sender As Object, e As EventArgs) Handles btn_hard.Click
+        HardForm()
     End Sub
     '일반용량 PDF 변환 버튼
     Private Sub btn_normal_Click(sender As Object, e As EventArgs) Handles btn_normal.Click
@@ -128,17 +131,14 @@ Public Class SelectForm
     Private Sub pathBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles pathBox.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             If pathBox.Text Is Nothing Or pathBox.Text = "" Then
-                pathBox.Text = "C:\"
+                pathBox.Text = settingPath.data("txtOutput")
             End If
             Dim path As String = pathBox.Text
-            staticPath = path
-
-            ListFilesAndFolders(staticPath)
+            ListFilesAndFolders(path)
         End If
     End Sub
 
     Private Sub 환경설정ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 환경설정ToolStripMenuItem.Click
         NTBProcess.settingFile()
     End Sub
-
 End Class

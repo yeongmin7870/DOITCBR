@@ -37,7 +37,7 @@ Partial Class HardPDF
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button11 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.CheckedListBox1 = New System.Windows.Forms.CheckedListBox()
+        Me.chkLst_worklst = New System.Windows.Forms.CheckedListBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.command = New System.Windows.Forms.GroupBox()
@@ -52,6 +52,7 @@ Partial Class HardPDF
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.gb_path.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -142,8 +143,9 @@ Partial Class HardPDF
         'GroupBox1
         '
         Me.GroupBox1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.GroupBox1.Controls.Add(Me.ComboBox1)
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
-        Me.GroupBox1.Controls.Add(Me.CheckedListBox1)
+        Me.GroupBox1.Controls.Add(Me.chkLst_worklst)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(23, 215)
         Me.GroupBox1.Name = "GroupBox1"
@@ -209,14 +211,13 @@ Partial Class HardPDF
         Me.Button1.Text = "모두 선택"
         Me.Button1.UseVisualStyleBackColor = False
         '
-        'CheckedListBox1
+        'chkLst_worklst
         '
-        Me.CheckedListBox1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.CheckedListBox1.FormattingEnabled = True
-        Me.CheckedListBox1.Location = New System.Drawing.Point(3, 17)
-        Me.CheckedListBox1.Name = "CheckedListBox1"
-        Me.CheckedListBox1.Size = New System.Drawing.Size(842, 177)
-        Me.CheckedListBox1.TabIndex = 3
+        Me.chkLst_worklst.FormattingEnabled = True
+        Me.chkLst_worklst.Location = New System.Drawing.Point(6, 43)
+        Me.chkLst_worklst.Name = "chkLst_worklst"
+        Me.chkLst_worklst.Size = New System.Drawing.Size(839, 132)
+        Me.chkLst_worklst.TabIndex = 3
         '
         'RichTextBox1
         '
@@ -368,6 +369,14 @@ Partial Class HardPDF
         Me.Button5.Text = "?"
         Me.Button5.UseVisualStyleBackColor = False
         '
+        'ComboBox1
+        '
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(6, 17)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(243, 20)
+        Me.ComboBox1.TabIndex = 7
+        '
         'HardPDF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -410,7 +419,7 @@ Partial Class HardPDF
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents RichTextBox1 As RichTextBox
     Friend WithEvents command As GroupBox
-    Friend WithEvents CheckedListBox1 As CheckedListBox
+    Friend WithEvents chkLst_worklst As CheckedListBox
     Friend WithEvents Button1 As Button
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents chkLst_putFilelst As CheckedListBox
@@ -428,4 +437,5 @@ Partial Class HardPDF
     Friend WithEvents btn_putFileAllchk As Button
     Friend WithEvents Button11 As Button
     Friend WithEvents btn_putFileAlldechk As Button
+    Friend WithEvents ComboBox1 As ComboBox
 End Class

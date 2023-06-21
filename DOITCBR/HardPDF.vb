@@ -26,6 +26,7 @@ Public Class HardPDF
                 txtboxOutput.Text = folderPath
                 selectForm.ListFilesAndFolders(settingPath.data("txtOutput"))
                 UpdateIni(folderPath, "txtOutput")
+                selectForm.ListFilesAndFolders(folderPath)
             End If
         End Using
     End Sub
@@ -164,16 +165,12 @@ Public Class HardPDF
         '출력 경로
         txtboxOutput.Text = settingPath.data("txtOutput")
         selectForm.ListFilesAndFolders(txtboxOutput.Text)
-
-        '올려놓은 파일 체크리스트
-        chkLst_putFilelst.Items.Clear()
-        For Each d In data("putFiles").Split(",")
-            chkLst_putFilelst.Items.Add(d)
-        Next
     End Sub
 
     Private Sub HardPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Update_chkLst_putFilelst()
+        Update_chkLst_putLst()
+        Update_chkLst_worklst()
     End Sub
 
     Private Sub btn_putFileAllchk_Click(sender As Object, e As EventArgs) Handles btn_putFileAllchk.Click
@@ -188,8 +185,45 @@ Public Class HardPDF
     End Sub
 
     Private Sub btn_putFileDelete_Click(sender As Object, e As EventArgs) Handles btn_putFileDelete.Click
-        For Each item In chkLst_putFilelst.CheckedItems
-            MessageBox.Show(item)
+        If chkLst_putFilelst.CheckedItems.Count <> 0 Then
+            For Each item In chkLst_putFilelst.CheckedItems
+                settingPath.RemoveFileini(item, "putFiles")
+            Next
+        Else
+            MessageBox.Show("아무것도 선택하지 않았습니다.")
+            Exit Sub
+        End If
+        Update_chkLst_putFilelst()
+    End Sub
+    '작업 리스트 갱신
+    Sub Update_chkLst_worklst()
+        chkLst_worklst.Items.Clear()
+        For Each item In settingPath.data("workList").Split(",")
+            If item <> String.Empty Then
+                chkLst_worklst.Items.Add(item)
+            End If
+        Next
+    End Sub
+
+    '올려놓은 파일 체크리스트
+    Sub Update_chkLst_putLst()
+        chkLst_putFilelst.Items.Clear()
+        For Each d In data("putFiles").Split(",")
+            If d <> String.Empty Then
+                chkLst_putFilelst.Items.Add(d)
+            End If
+        Next
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        For i = 0 To chkLst_worklst.Items.Count - 1
+            chkLst_worklst.SetItemChecked(i, True)
+        Next
+    End Sub
+
+    Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
+        For i = 0 To chkLst_worklst.Items.Count - 1
+            chkLst_worklst.SetItemChecked(i, False)
         Next
     End Sub
 End Class
