@@ -3,18 +3,25 @@ Imports DOITCBR.logger
 Imports System.IO
 Public Class SelectForm
     Private preForm As Form
-    Private staticPath As String = String.Empty
+    Public staticPath As String = String.Empty
     Private lastClickTime As DateTime = DateTime.Now
 
 
     Private Sub SelectForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'ini 파일 초기화
         Settinginit()
-        loggerInit()
-        logger.log("프로그램을 실행 시켰습니다.", "i")
-        HardForm()
-        '파일 및 폴더 나열
-        ListFilesAndFolders(settingPath.data("txtOutput"))
+        Try
+            logger.loggerInit()
+            logger.log("프로그램을 실행 시켰습니다.", "i")
+            HardForm()
+            '파일 및 폴더 나열
+            ListFilesAndFolders(settingPath.data("txtOutput"))
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString)
+            logger.log($"{ex}", "w")
+        End Try
     End Sub
+
     Sub HardForm()
         If preForm IsNot Nothing AndAlso Not preForm.IsDisposed Then
             preForm.Close()
@@ -76,7 +83,8 @@ Public Class SelectForm
             Next
             folderList.Items.AddRange(items.ToArray())
         Catch ex As Exception
-            pathBox.Text = Path.GetDirectoryName(pathBox.Text)
+            logger.log("txtOutpt 경로가 잘못됐습니다.", "w")
+            pathBox.Text = Interaction.InputBox("경로를 입력하세요", "입력창")
             ListFilesAndFolders(pathBox.Text)
         End Try
     End Sub

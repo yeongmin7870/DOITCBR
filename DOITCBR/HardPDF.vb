@@ -90,7 +90,6 @@ Public Class HardPDF
                 txtboxInput.Text = filePaths(0)
                 filePath = filePaths(0)
                 settingPath.WriteIni(filePaths(0), "putFiles")
-                Update_chkLst_putFilelst()
             End If
         End If
         If e.Data.GetDataPresent(DataFormats.Text) Then
@@ -98,7 +97,6 @@ Public Class HardPDF
             txtboxInput.Text = droppedText
             filePath = droppedText
             settingPath.WriteIni(droppedText, "putFiles")
-            Update_chkLst_putFilelst()
         End If
     End Sub
     'Output textbox 안에 파일을 떨어뜨리는 함수
@@ -160,15 +158,11 @@ Public Class HardPDF
     '    folderPath = outputPath
     'End Sub
     '올려놓은 파일 체크리스트 박스 업데이트 함수
-    Sub Update_chkLst_putFilelst()
-        Settinginit()
-        '출력 경로
-        txtboxOutput.Text = settingPath.data("txtOutput")
-        selectForm.ListFilesAndFolders(txtboxOutput.Text)
-    End Sub
+
+
 
     Private Sub HardPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Update_chkLst_putFilelst()
+        txtboxOutput.Text = data("txtOutput")
         Update_chkLst_putLst()
         Update_cbbox_workLst()
     End Sub
@@ -193,7 +187,6 @@ Public Class HardPDF
             MessageBox.Show("아무것도 선택하지 않았습니다.")
             Exit Sub
         End If
-        Update_chkLst_putFilelst()
     End Sub
     '작업 리스트 갱신
     Sub Update_cbbox_workLst()
@@ -227,5 +220,6 @@ Public Class HardPDF
             chkLst_worklst.SetItemChecked(i, False)
         Next
     End Sub
+
 
 End Class
