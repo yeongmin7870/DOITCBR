@@ -128,8 +128,8 @@ Partial Class SelectForm
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Button2)
         Me.GroupBox2.Controls.Add(Me.folderList)
-        Me.GroupBox2.Controls.Add(Me.Panel1)
         Me.GroupBox2.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.GroupBox2.Location = New System.Drawing.Point(1132, 31)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -138,20 +138,19 @@ Partial Class SelectForm
         Me.GroupBox2.Size = New System.Drawing.Size(218, 695)
         Me.GroupBox2.TabIndex = 6
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "폴더"
+        Me.GroupBox2.Text = "출력 폴더"
         '
         'folderList
         '
         Me.folderList.BackColor = System.Drawing.Color.Black
         Me.folderList.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.folderList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.folderList.Font = New System.Drawing.Font("맑은 고딕", 10.0!, System.Drawing.FontStyle.Bold)
         Me.folderList.ForeColor = System.Drawing.SystemColors.Info
         Me.folderList.HideSelection = False
-        Me.folderList.Location = New System.Drawing.Point(3, 16)
+        Me.folderList.Location = New System.Drawing.Point(4, 101)
         Me.folderList.MultiSelect = False
         Me.folderList.Name = "folderList"
-        Me.folderList.Size = New System.Drawing.Size(212, 657)
+        Me.folderList.Size = New System.Drawing.Size(212, 594)
         Me.folderList.TabIndex = 0
         Me.folderList.UseCompatibleStateImageBehavior = False
         Me.folderList.View = System.Windows.Forms.View.Tile
@@ -159,32 +158,31 @@ Partial Class SelectForm
         'Panel1
         '
         Me.Panel1.Controls.Add(Me.pathBox)
-        Me.Panel1.Controls.Add(Me.Button2)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel1.Location = New System.Drawing.Point(3, 673)
+        Me.Panel1.Location = New System.Drawing.Point(1136, 49)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(212, 20)
+        Me.Panel1.Size = New System.Drawing.Size(214, 53)
         Me.Panel1.TabIndex = 3
         '
         'pathBox
         '
         Me.pathBox.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pathBox.Location = New System.Drawing.Point(0, 0)
+        Me.pathBox.Multiline = True
         Me.pathBox.Name = "pathBox"
-        Me.pathBox.Size = New System.Drawing.Size(154, 21)
+        Me.pathBox.ReadOnly = True
+        Me.pathBox.Size = New System.Drawing.Size(214, 53)
         Me.pathBox.TabIndex = 3
         '
         'Button2
         '
-        Me.Button2.BackColor = System.Drawing.Color.DarkGoldenrod
-        Me.Button2.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Button2.BackColor = System.Drawing.Color.SteelBlue
         Me.Button2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Button2.ForeColor = System.Drawing.Color.Honeydew
-        Me.Button2.Location = New System.Drawing.Point(154, 0)
+        Me.Button2.Location = New System.Drawing.Point(4, 64)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(58, 20)
+        Me.Button2.Size = New System.Drawing.Size(214, 43)
         Me.Button2.TabIndex = 2
-        Me.Button2.Text = "탐색기"
+        Me.Button2.Text = "파일 탐색기 열기"
         Me.Button2.UseVisualStyleBackColor = False
         '
         'ToolStrip1
@@ -238,6 +236,7 @@ Partial Class SelectForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DimGray
         Me.ClientSize = New System.Drawing.Size(1350, 729)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.workDisplay)
         Me.Controls.Add(Me.txtLog)
         Me.Controls.Add(Me.ToolStrip1)

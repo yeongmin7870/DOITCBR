@@ -38,16 +38,14 @@ Partial Class HardPDF
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button11 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.chkLst_worklst = New System.Windows.Forms.CheckedListBox()
+        Me.ListBox1 = New System.Windows.Forms.CheckedListBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
+        Me.commandBox = New System.Windows.Forms.RichTextBox()
         Me.command = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chkLst_putFilelst = New System.Windows.Forms.ListBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.btn_putFileDelete = New System.Windows.Forms.Button()
-        Me.btn_putFileAlldechk = New System.Windows.Forms.Button()
-        Me.btn_putFileAllchk = New System.Windows.Forms.Button()
-        Me.chkLst_putFilelst = New System.Windows.Forms.CheckedListBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
@@ -68,7 +66,7 @@ Partial Class HardPDF
         Me.txtboxInput.AllowDrop = True
         Me.txtboxInput.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.txtboxInput.Font = New System.Drawing.Font("굴림", 10.0!)
-        Me.txtboxInput.Location = New System.Drawing.Point(0, 0)
+        Me.txtboxInput.Location = New System.Drawing.Point(0, -1)
         Me.txtboxInput.Name = "txtboxInput"
         Me.txtboxInput.Size = New System.Drawing.Size(836, 23)
         Me.txtboxInput.TabIndex = 1
@@ -78,7 +76,7 @@ Partial Class HardPDF
         Me.txtboxOutput.AllowDrop = True
         Me.txtboxOutput.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.txtboxOutput.Font = New System.Drawing.Font("굴림", 10.0!)
-        Me.txtboxOutput.Location = New System.Drawing.Point(0, 21)
+        Me.txtboxOutput.Location = New System.Drawing.Point(0, 19)
         Me.txtboxOutput.Name = "txtboxOutput"
         Me.txtboxOutput.Size = New System.Drawing.Size(836, 23)
         Me.txtboxOutput.TabIndex = 2
@@ -101,15 +99,15 @@ Partial Class HardPDF
         Me.Panel2.Controls.Add(Me.btn_input)
         Me.Panel2.Controls.Add(Me.btn_output)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel2.Location = New System.Drawing.Point(838, 17)
+        Me.Panel2.Location = New System.Drawing.Point(838, 21)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(131, 44)
+        Me.Panel2.Size = New System.Drawing.Size(131, 40)
         Me.Panel2.TabIndex = 8
         '
         'btn_input
         '
         Me.btn_input.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btn_input.Location = New System.Drawing.Point(13, 0)
+        Me.btn_input.Location = New System.Drawing.Point(0, 0)
         Me.btn_input.Name = "btn_input"
         Me.btn_input.Size = New System.Drawing.Size(118, 23)
         Me.btn_input.TabIndex = 5
@@ -119,7 +117,7 @@ Partial Class HardPDF
         'btn_output
         '
         Me.btn_output.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btn_output.Location = New System.Drawing.Point(13, 21)
+        Me.btn_output.Location = New System.Drawing.Point(-1, 19)
         Me.btn_output.Name = "btn_output"
         Me.btn_output.Size = New System.Drawing.Size(119, 23)
         Me.btn_output.TabIndex = 6
@@ -131,9 +129,9 @@ Partial Class HardPDF
         Me.Panel1.Controls.Add(Me.txtboxInput)
         Me.Panel1.Controls.Add(Me.txtboxOutput)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel1.Location = New System.Drawing.Point(3, 17)
+        Me.Panel1.Location = New System.Drawing.Point(3, 21)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(836, 44)
+        Me.Panel1.Size = New System.Drawing.Size(836, 40)
         Me.Panel1.TabIndex = 7
         '
         'OpenFileDialog1
@@ -145,7 +143,7 @@ Partial Class HardPDF
         Me.GroupBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox1.Controls.Add(Me.cbbox_workLst)
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
-        Me.GroupBox1.Controls.Add(Me.chkLst_worklst)
+        Me.GroupBox1.Controls.Add(Me.ListBox1)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(23, 215)
         Me.GroupBox1.Name = "GroupBox1"
@@ -168,9 +166,9 @@ Partial Class HardPDF
         Me.GroupBox4.Controls.Add(Me.Button11)
         Me.GroupBox4.Controls.Add(Me.Button1)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Right
-        Me.GroupBox4.Location = New System.Drawing.Point(851, 17)
+        Me.GroupBox4.Location = New System.Drawing.Point(851, 21)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(124, 177)
+        Me.GroupBox4.Size = New System.Drawing.Size(124, 173)
         Me.GroupBox4.TabIndex = 6
         Me.GroupBox4.TabStop = False
         '
@@ -182,7 +180,7 @@ Partial Class HardPDF
         Me.Button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.Button6.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Button6.ForeColor = System.Drawing.Color.Transparent
-        Me.Button6.Location = New System.Drawing.Point(6, 98)
+        Me.Button6.Location = New System.Drawing.Point(6, 96)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(112, 76)
         Me.Button6.TabIndex = 4
@@ -197,7 +195,7 @@ Partial Class HardPDF
         Me.Button11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.Button11.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Button11.ForeColor = System.Drawing.Color.Transparent
-        Me.Button11.Location = New System.Drawing.Point(64, 14)
+        Me.Button11.Location = New System.Drawing.Point(64, 12)
         Me.Button11.Name = "Button11"
         Me.Button11.Size = New System.Drawing.Size(57, 78)
         Me.Button11.TabIndex = 4
@@ -212,34 +210,34 @@ Partial Class HardPDF
         Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.Button1.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Button1.ForeColor = System.Drawing.Color.Transparent
-        Me.Button1.Location = New System.Drawing.Point(6, 14)
+        Me.Button1.Location = New System.Drawing.Point(6, 12)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(57, 78)
         Me.Button1.TabIndex = 4
         Me.Button1.Text = "모두 선택"
         Me.Button1.UseVisualStyleBackColor = False
         '
-        'chkLst_worklst
+        'ListBox1
         '
-        Me.chkLst_worklst.FormattingEnabled = True
-        Me.chkLst_worklst.Location = New System.Drawing.Point(6, 43)
-        Me.chkLst_worklst.Name = "chkLst_worklst"
-        Me.chkLst_worklst.Size = New System.Drawing.Size(839, 132)
-        Me.chkLst_worklst.TabIndex = 3
+        Me.ListBox1.FormattingEnabled = True
+        Me.ListBox1.Location = New System.Drawing.Point(6, 43)
+        Me.ListBox1.Name = "ListBox1"
+        Me.ListBox1.Size = New System.Drawing.Size(839, 124)
+        Me.ListBox1.TabIndex = 3
         '
-        'RichTextBox1
+        'commandBox
         '
-        Me.RichTextBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.RichTextBox1.Location = New System.Drawing.Point(3, 17)
-        Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(969, 94)
-        Me.RichTextBox1.TabIndex = 10
-        Me.RichTextBox1.Text = ""
+        Me.commandBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.commandBox.Location = New System.Drawing.Point(3, 21)
+        Me.commandBox.Name = "commandBox"
+        Me.commandBox.Size = New System.Drawing.Size(969, 90)
+        Me.commandBox.TabIndex = 10
+        Me.commandBox.Text = ""
         '
         'command
         '
         Me.command.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.command.Controls.Add(Me.RichTextBox1)
+        Me.command.Controls.Add(Me.commandBox)
         Me.command.Location = New System.Drawing.Point(23, 418)
         Me.command.Name = "command"
         Me.command.Size = New System.Drawing.Size(975, 114)
@@ -250,8 +248,8 @@ Partial Class HardPDF
         'GroupBox2
         '
         Me.GroupBox2.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.GroupBox2.Controls.Add(Me.GroupBox3)
         Me.GroupBox2.Controls.Add(Me.chkLst_putFilelst)
+        Me.GroupBox2.Controls.Add(Me.GroupBox3)
         Me.GroupBox2.Location = New System.Drawing.Point(26, 82)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(975, 127)
@@ -259,15 +257,22 @@ Partial Class HardPDF
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "올려 놓은 파일 리스트"
         '
+        'chkLst_putFilelst
+        '
+        Me.chkLst_putFilelst.FormattingEnabled = True
+        Me.chkLst_putFilelst.ItemHeight = 12
+        Me.chkLst_putFilelst.Location = New System.Drawing.Point(6, 24)
+        Me.chkLst_putFilelst.Name = "chkLst_putFilelst"
+        Me.chkLst_putFilelst.Size = New System.Drawing.Size(836, 88)
+        Me.chkLst_putFilelst.TabIndex = 6
+        '
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.btn_putFileDelete)
-        Me.GroupBox3.Controls.Add(Me.btn_putFileAlldechk)
-        Me.GroupBox3.Controls.Add(Me.btn_putFileAllchk)
         Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Right
-        Me.GroupBox3.Location = New System.Drawing.Point(848, 17)
+        Me.GroupBox3.Location = New System.Drawing.Point(848, 21)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(124, 107)
+        Me.GroupBox3.Size = New System.Drawing.Size(124, 103)
         Me.GroupBox3.TabIndex = 5
         Me.GroupBox3.TabStop = False
         '
@@ -279,51 +284,12 @@ Partial Class HardPDF
         Me.btn_putFileDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.btn_putFileDelete.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btn_putFileDelete.ForeColor = System.Drawing.Color.Transparent
-        Me.btn_putFileDelete.Location = New System.Drawing.Point(6, 64)
+        Me.btn_putFileDelete.Location = New System.Drawing.Point(6, 3)
         Me.btn_putFileDelete.Name = "btn_putFileDelete"
-        Me.btn_putFileDelete.Size = New System.Drawing.Size(112, 37)
+        Me.btn_putFileDelete.Size = New System.Drawing.Size(112, 96)
         Me.btn_putFileDelete.TabIndex = 4
         Me.btn_putFileDelete.Text = "삭제"
         Me.btn_putFileDelete.UseVisualStyleBackColor = False
-        '
-        'btn_putFileAlldechk
-        '
-        Me.btn_putFileAlldechk.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btn_putFileAlldechk.BackColor = System.Drawing.Color.Maroon
-        Me.btn_putFileAlldechk.BackgroundImage = CType(resources.GetObject("btn_putFileAlldechk.BackgroundImage"), System.Drawing.Image)
-        Me.btn_putFileAlldechk.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btn_putFileAlldechk.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.btn_putFileAlldechk.ForeColor = System.Drawing.Color.Transparent
-        Me.btn_putFileAlldechk.Location = New System.Drawing.Point(64, 20)
-        Me.btn_putFileAlldechk.Name = "btn_putFileAlldechk"
-        Me.btn_putFileAlldechk.Size = New System.Drawing.Size(57, 38)
-        Me.btn_putFileAlldechk.TabIndex = 4
-        Me.btn_putFileAlldechk.Text = "모두 해제"
-        Me.btn_putFileAlldechk.UseVisualStyleBackColor = False
-        '
-        'btn_putFileAllchk
-        '
-        Me.btn_putFileAllchk.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btn_putFileAllchk.BackColor = System.Drawing.SystemColors.Desktop
-        Me.btn_putFileAllchk.BackgroundImage = CType(resources.GetObject("btn_putFileAllchk.BackgroundImage"), System.Drawing.Image)
-        Me.btn_putFileAllchk.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btn_putFileAllchk.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.btn_putFileAllchk.ForeColor = System.Drawing.Color.Transparent
-        Me.btn_putFileAllchk.Location = New System.Drawing.Point(6, 20)
-        Me.btn_putFileAllchk.Name = "btn_putFileAllchk"
-        Me.btn_putFileAllchk.Size = New System.Drawing.Size(57, 38)
-        Me.btn_putFileAllchk.TabIndex = 4
-        Me.btn_putFileAllchk.Text = "모두 선택"
-        Me.btn_putFileAllchk.UseVisualStyleBackColor = False
-        '
-        'chkLst_putFilelst
-        '
-        Me.chkLst_putFilelst.Dock = System.Windows.Forms.DockStyle.Left
-        Me.chkLst_putFilelst.FormattingEnabled = True
-        Me.chkLst_putFilelst.Location = New System.Drawing.Point(3, 17)
-        Me.chkLst_putFilelst.Name = "chkLst_putFilelst"
-        Me.chkLst_putFilelst.Size = New System.Drawing.Size(839, 107)
-        Me.chkLst_putFilelst.TabIndex = 4
         '
         'Button2
         '
@@ -417,12 +383,10 @@ Partial Class HardPDF
     Friend WithEvents btn_output As Button
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
-    Friend WithEvents RichTextBox1 As RichTextBox
+    Friend WithEvents commandBox As RichTextBox
     Friend WithEvents command As GroupBox
-    Friend WithEvents chkLst_worklst As CheckedListBox
     Friend WithEvents Button1 As Button
     Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents chkLst_putFilelst As CheckedListBox
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents Button2 As Button
     Friend WithEvents Button3 As Button
@@ -434,8 +398,8 @@ Partial Class HardPDF
     Friend WithEvents Button6 As Button
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents btn_putFileDelete As Button
-    Friend WithEvents btn_putFileAllchk As Button
     Friend WithEvents Button11 As Button
-    Friend WithEvents btn_putFileAlldechk As Button
     Friend WithEvents cbbox_workLst As ComboBox
+    Friend WithEvents ListBox1 As CheckedListBox
+    Friend WithEvents chkLst_putFilelst As ListBox
 End Class

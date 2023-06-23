@@ -1,22 +1,28 @@
 ﻿Imports DOITCBR.CheckExistenct
 Imports DOITCBR.logger
 Imports DOITCBR.NTBProcess
+Imports System.IO
 Public Class HardPDF
-    Private background As Integer
     'SelectForm 인스턴스 생성
     Dim selectForm As SelectForm = CType(Application.OpenForms("SelectForm"), SelectForm)
     Dim filePath As String = String.Empty
     Dim folderPath As String = String.Empty
 
     Private Sub btn_input_Click(sender As Object, e As EventArgs) Handles btn_input.Click
-        Using ofd As New OpenFileDialog
-            ofd.Filter = "(*.txt)|*.txt|(*.spl)|*.spl"
-            If ofd.ShowDialog() = DialogResult.OK Then
-                filePath = ofd.FileName
-                txtboxInput.Text = filePath
-                settingPath.WriteIni(filePath, "putFiles")
-            End If
-        End Using
+        Try
+            Using ofd As New OpenFileDialog
+                ofd.Filter = "(*.txt)|*.txt|(*.spl)|*.spl"
+                If ofd.ShowDialog() = DialogResult.OK Then
+                    filePath = ofd.FileName
+                    txtboxInput.Text = filePath
+                    settingPath.WriteIni(filePath, "putFiles")
+                End If
+                Settinginit()
+                Update_chkLst_putLst()
+            End Using
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
     End Sub
 
     Private Sub btn_output_Click(sender As Object, e As EventArgs) Handles btn_output.Click
@@ -75,71 +81,94 @@ Public Class HardPDF
     'End Sub
 
     Private Sub txtboxInput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxInput.DragEnter
-        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-            e.Effect = DragDropEffects.Copy
-        End If
-        If e.Data.GetDataPresent(DataFormats.Text) Then
-            e.Effect = DragDropEffects.Copy
-        End If
+        Try
+            If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+                e.Effect = DragDropEffects.Copy
+            End If
+            If e.Data.GetDataPresent(DataFormats.Text) Then
+                e.Effect = DragDropEffects.Copy
+            End If
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
     End Sub
 
     Private Sub txtboxInput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxInput.DragDrop
-        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-            Dim filePaths As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
-            If filePaths.Length > 0 Then
-                txtboxInput.Text = filePaths(0)
-                filePath = filePaths(0)
-                settingPath.WriteIni(filePaths(0), "putFiles")
+        Try
+            If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+                Dim filePaths As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
+                If filePaths.Length > 0 Then
+                    txtboxInput.Text = filePaths(0)
+                    filePath = filePaths(0)
+                    settingPath.WriteIni(filePaths(0), "putFiles")
+                End If
             End If
-        End If
-        If e.Data.GetDataPresent(DataFormats.Text) Then
-            Dim droppedText As String = CStr(e.Data.GetData(DataFormats.Text))
-            txtboxInput.Text = droppedText
-            filePath = droppedText
-            settingPath.WriteIni(droppedText, "putFiles")
-        End If
+            If e.Data.GetDataPresent(DataFormats.Text) Then
+                Dim droppedText As String = CStr(e.Data.GetData(DataFormats.Text))
+                txtboxInput.Text = droppedText
+                filePath = droppedText
+                settingPath.WriteIni(droppedText, "putFiles")
+            End If
+            Settinginit()
+            Update_chkLst_putLst()
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
     End Sub
     'Output textbox 안에 파일을 떨어뜨리는 함수
-    'Private Sub txtboxOutput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragEnter
-    '    If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-    '        e.Effect = DragDropEffects.Copy
-    '    End If
+    Private Sub txtboxOutput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragEnter
+        Try
+            If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+                e.Effect = DragDropEffects.Copy
+            End If
 
-    '    If e.Data.GetDataPresent(DataFormats.Text) Then
-    '        e.Effect = DragDropEffects.Copy
-    '    End If
-    'End Sub
-    'Private Sub txtboxOutput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragDrop
-    '    If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            If e.Data.GetDataPresent(DataFormats.Text) Then
+                e.Effect = DragDropEffects.Copy
+            End If
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
+    End Sub
 
-    '        Dim filePaths As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
+    Private Sub txtboxOutput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragDrop
+        Try
+            If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+                Dim filePaths As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
+                If filePaths.Length > 0 Then
+                    Dim drpath As String = chkFileAnsdFolder(filePaths(0))
 
-    '        If filePaths.Length > 0 Then
-    '            txtboxOutput.Text = filePaths(0)
-    '            folderPath = filePaths(0)
-    '            selectForm.ListFilesAndFolders(filePaths(0))
-    '        End If
-
-    '    End If
-
-    '    If e.Data.GetDataPresent(DataFormats.Text) Then
-    '        Dim droppedText As String = CStr(e.Data.GetData(DataFormats.Text))
-    '        txtboxOutput.Text = droppedText
-    '        folderPath = droppedText
-    '        selectForm.ListFilesAndFolders(droppedText)
-    '    End If
-    'End Sub
+                    txtboxOutput.Text = drpath
+                    folderPath = drpath
+                    selectForm.ListFilesAndFolders(drpath)
+                    UpdateIni(drpath, "txtOutput")
+                End If
+            End If
+            If e.Data.GetDataPresent(DataFormats.Text) Then
+                Dim droppedText As String = CStr(e.Data.GetData(DataFormats.Text))
+                Dim drpath As String = chkFileAnsdFolder(droppedText)
+                txtboxOutput.Text = drpath
+                folderPath = drpath
+                selectForm.ListFilesAndFolders(drpath)
+                UpdateIni(drpath, "txtOutput")
+            End If
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
+    End Sub
 
     Private Sub txtboxOutput_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtboxOutput.KeyPress
-        If e.KeyChar = ChrW(Keys.Enter) Then
-            If txtboxOutput.Text Is Nothing Or txtboxOutput.Text = "" Then
-                txtboxOutput.Text = settingPath.data("txtOutput")
+        Try
+            If e.KeyChar = ChrW(Keys.Enter) Then
+                If txtboxOutput.Text Is Nothing Or txtboxOutput.Text = "" Then
+                    txtboxOutput.Text = settingPath.data("txtOutput")
+                End If
+                folderPath = txtboxOutput.Text
+                selectForm.ListFilesAndFolders(folderPath)
+                UpdateIni(folderPath, "txtOutput")
             End If
-            Dim path As String = txtboxOutput.Text
-            folderPath = path
-            selectForm.ListFilesAndFolders(folderPath)
-            UpdateIni(folderPath, "txtOutput")
-        End If
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
     End Sub
 
     'Private Sub txtboxInput_TextChanged(sender As Object, e As EventArgs) Handles txtboxInput.TextChanged
@@ -167,26 +196,18 @@ Public Class HardPDF
         Update_cbbox_workLst()
     End Sub
 
-    Private Sub btn_putFileAllchk_Click(sender As Object, e As EventArgs) Handles btn_putFileAllchk.Click
-        For i = 0 To chkLst_putFilelst.Items.Count - 1
-            chkLst_putFilelst.SetItemChecked(i, True)
-        Next
-    End Sub
-    Private Sub btn_putFileAlldechk_Click(sender As Object, e As EventArgs) Handles btn_putFileAlldechk.Click
-        For i = 0 To chkLst_putFilelst.Items.Count - 1
-            chkLst_putFilelst.SetItemChecked(i, False)
-        Next
-    End Sub
+
 
     Private Sub btn_putFileDelete_Click(sender As Object, e As EventArgs) Handles btn_putFileDelete.Click
-        If chkLst_putFilelst.CheckedItems.Count <> 0 Then
-            For Each item In chkLst_putFilelst.CheckedItems
-                settingPath.RemoveFileini(item, "putFiles")
-            Next
-        Else
-            MessageBox.Show("아무것도 선택하지 않았습니다.")
+        Try
+            settingPath.RemoveFileini(chkLst_putFilelst.SelectedItem, "putFiles")
+            Settinginit()
+            Update_chkLst_putLst()
             Exit Sub
-        End If
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
+
     End Sub
     '작업 리스트 갱신
     Sub Update_cbbox_workLst()
@@ -210,16 +231,25 @@ Public Class HardPDF
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        For i = 0 To chkLst_worklst.Items.Count - 1
-            chkLst_worklst.SetItemChecked(i, True)
+        For i = 0 To ListBox1.Items.Count - 1
+            ListBox1.SetItemChecked(i, True)
         Next
     End Sub
 
     Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
-        For i = 0 To chkLst_worklst.Items.Count - 1
-            chkLst_worklst.SetItemChecked(i, False)
+        For i = 0 To ListBox1.Items.Count - 1
+            ListBox1.SetItemChecked(i, False)
         Next
     End Sub
 
+    Private Sub cbbox_workLst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbox_workLst.SelectedIndexChanged
+        ListBox1.Items.Clear()
+        For Each d In data(cbbox_workLst.SelectedItem).Split(",")
+            ListBox1.Items.Add(d)
+        Next
+    End Sub
 
+    Private Sub chkLst_putFilelst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles chkLst_putFilelst.SelectedIndexChanged
+        commandBox.Text = chkLst_putFilelst.SelectedItem
+    End Sub
 End Class

@@ -4,24 +4,31 @@ Imports System.IO
 Public Class SelectForm
     Private preForm As Form
     Public staticPath As String = String.Empty
-    Private lastClickTime As DateTime = DateTime.Now
-
-
     Private Sub SelectForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'ini 파일 초기화
-        Settinginit()
         Try
+            'ini 파일 초기화
+            Settinginit()
             logger.loggerInit()
-            logger.log("프로그램을 실행 시켰습니다.", "i")
+            OpenOutputFolder()
             HardForm()
             '파일 및 폴더 나열
             ListFilesAndFolders(settingPath.data("txtOutput"))
         Catch ex As Exception
-            MessageBox.Show(ex.ToString)
             logger.log($"{ex}", "w")
         End Try
     End Sub
-
+    Sub OpenOutputFolder()
+        Try
+            Dim path As String = data("txtOutput")
+            If Not String.IsNullOrEmpty(path) AndAlso Directory.Exists(path) Then
+                Process.Start(path)
+            Else
+                MessageBox.Show("유효한 폴더 경로를 입력하세요.")
+            End If
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
+    End Sub
     Sub HardForm()
         If preForm IsNot Nothing AndAlso Not preForm.IsDisposed Then
             preForm.Close()
@@ -83,9 +90,8 @@ Public Class SelectForm
             Next
             folderList.Items.AddRange(items.ToArray())
         Catch ex As Exception
-            logger.log("txtOutpt 경로가 잘못됐습니다.", "w")
-            pathBox.Text = Interaction.InputBox("경로를 입력하세요", "입력창")
-            ListFilesAndFolders(pathBox.Text)
+            logger.log(ex.ToString, "w")
+            ListFilesAndFolders(data("txtOutput"))
         End Try
     End Sub
 
@@ -117,8 +123,6 @@ Public Class SelectForm
                 staticPath = path
                 If selectedItem.SubItems(1).Text = "파일" Then
                     Process.Start(staticPath)
-                Else
-                    ListFilesAndFolders(staticPath)
                 End If
             End If
         Catch ex As Exception
@@ -128,12 +132,8 @@ Public Class SelectForm
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Dim path As String = pathBox.Text
-        If Not String.IsNullOrEmpty(path) AndAlso Directory.Exists(path) Then
-            Process.Start(path)
-        Else
-            MessageBox.Show("유효한 폴더 경로를 입력하세요.")
-        End If
+        Settinginit()
+        OpenOutputFolder()
     End Sub
 
     Private Sub pathBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles pathBox.KeyPress
@@ -149,4 +149,5 @@ Public Class SelectForm
     Private Sub 환경설정ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 환경설정ToolStripMenuItem.Click
         NTBProcess.settingFile()
     End Sub
+
 End Class
