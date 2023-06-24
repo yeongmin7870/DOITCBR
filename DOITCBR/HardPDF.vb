@@ -231,25 +231,35 @@ Public Class HardPDF
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        For i = 0 To ListBox1.Items.Count - 1
-            ListBox1.SetItemChecked(i, True)
+        For i = 0 To lst_commandBox.Items.Count - 1
+            lst_commandBox.SetItemChecked(i, True)
         Next
     End Sub
 
     Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
-        For i = 0 To ListBox1.Items.Count - 1
-            ListBox1.SetItemChecked(i, False)
+        For i = 0 To lst_commandBox.Items.Count - 1
+            lst_commandBox.SetItemChecked(i, False)
         Next
     End Sub
 
     Private Sub cbbox_workLst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbox_workLst.SelectedIndexChanged
-        ListBox1.Items.Clear()
+        lst_commandBox.Items.Clear()
         For Each d In data(cbbox_workLst.SelectedItem).Split(",")
-            ListBox1.Items.Add(d)
+            lst_commandBox.Items.Add(d)
         Next
     End Sub
 
-    Private Sub chkLst_putFilelst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles chkLst_putFilelst.SelectedIndexChanged
-        commandBox.Text = chkLst_putFilelst.SelectedItem
+    Private Sub lst_commandBox_ItemChecked(sender As Object, e As EventArgs) Handles lst_commandBox.ItemCheck
+        Try
+            Dim checkedCommand As String = String.Empty
+            For Each c In lst_commandBox.CheckedItems
+                checkedCommand += " " & c
+            Next
+            commandBox.Text = ""
+            commandBox.Text = cbbox_workLst.Text & " " & chkLst_putFilelst.SelectedItem & checkedCommand
+
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
     End Sub
 End Class
