@@ -67,8 +67,9 @@ Partial Class HardPDF
         Me.txtboxInput.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.txtboxInput.Font = New System.Drawing.Font("굴림", 10.0!)
         Me.txtboxInput.Location = New System.Drawing.Point(0, 1)
+        Me.txtboxInput.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtboxInput.Name = "txtboxInput"
-        Me.txtboxInput.Size = New System.Drawing.Size(836, 23)
+        Me.txtboxInput.Size = New System.Drawing.Size(955, 27)
         Me.txtboxInput.TabIndex = 1
         '
         'txtboxOutput
@@ -76,9 +77,10 @@ Partial Class HardPDF
         Me.txtboxOutput.AllowDrop = True
         Me.txtboxOutput.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.txtboxOutput.Font = New System.Drawing.Font("굴림", 10.0!)
-        Me.txtboxOutput.Location = New System.Drawing.Point(0, 21)
+        Me.txtboxOutput.Location = New System.Drawing.Point(0, 26)
+        Me.txtboxOutput.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtboxOutput.Name = "txtboxOutput"
-        Me.txtboxOutput.Size = New System.Drawing.Size(836, 23)
+        Me.txtboxOutput.Size = New System.Drawing.Size(955, 27)
         Me.txtboxOutput.TabIndex = 2
         '
         'gb_path
@@ -87,9 +89,11 @@ Partial Class HardPDF
         Me.gb_path.Controls.Add(Me.Panel2)
         Me.gb_path.Controls.Add(Me.Panel1)
         Me.gb_path.ForeColor = System.Drawing.Color.Black
-        Me.gb_path.Location = New System.Drawing.Point(29, 12)
+        Me.gb_path.Location = New System.Drawing.Point(33, 15)
+        Me.gb_path.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.gb_path.Name = "gb_path"
-        Me.gb_path.Size = New System.Drawing.Size(972, 64)
+        Me.gb_path.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.gb_path.Size = New System.Drawing.Size(1111, 80)
         Me.gb_path.TabIndex = 3
         Me.gb_path.TabStop = False
         Me.gb_path.Text = "경로설정"
@@ -99,17 +103,19 @@ Partial Class HardPDF
         Me.Panel2.Controls.Add(Me.btn_input)
         Me.Panel2.Controls.Add(Me.btn_output)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel2.Location = New System.Drawing.Point(838, 17)
+        Me.Panel2.Location = New System.Drawing.Point(958, 22)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(131, 44)
+        Me.Panel2.Size = New System.Drawing.Size(150, 54)
         Me.Panel2.TabIndex = 8
         '
         'btn_input
         '
         Me.btn_input.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btn_input.Location = New System.Drawing.Point(0, 2)
+        Me.btn_input.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btn_input.Name = "btn_input"
-        Me.btn_input.Size = New System.Drawing.Size(118, 23)
+        Me.btn_input.Size = New System.Drawing.Size(135, 29)
         Me.btn_input.TabIndex = 5
         Me.btn_input.Text = "입력파일찾기"
         Me.btn_input.UseVisualStyleBackColor = True
@@ -117,9 +123,10 @@ Partial Class HardPDF
         'btn_output
         '
         Me.btn_output.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btn_output.Location = New System.Drawing.Point(-1, 21)
+        Me.btn_output.Location = New System.Drawing.Point(-1, 26)
+        Me.btn_output.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btn_output.Name = "btn_output"
-        Me.btn_output.Size = New System.Drawing.Size(119, 23)
+        Me.btn_output.Size = New System.Drawing.Size(136, 29)
         Me.btn_output.TabIndex = 6
         Me.btn_output.Text = "출력경로설정"
         Me.btn_output.UseVisualStyleBackColor = True
@@ -129,9 +136,10 @@ Partial Class HardPDF
         Me.Panel1.Controls.Add(Me.txtboxInput)
         Me.Panel1.Controls.Add(Me.txtboxOutput)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel1.Location = New System.Drawing.Point(3, 17)
+        Me.Panel1.Location = New System.Drawing.Point(3, 22)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(836, 44)
+        Me.Panel1.Size = New System.Drawing.Size(955, 54)
         Me.Panel1.TabIndex = 7
         '
         'OpenFileDialog1
@@ -145,9 +153,11 @@ Partial Class HardPDF
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
         Me.GroupBox1.Controls.Add(Me.lst_commandBox)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
-        Me.GroupBox1.Location = New System.Drawing.Point(23, 215)
+        Me.GroupBox1.Location = New System.Drawing.Point(26, 269)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(978, 197)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.GroupBox1.Size = New System.Drawing.Size(1118, 246)
         Me.GroupBox1.TabIndex = 7
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "작업"
@@ -155,9 +165,10 @@ Partial Class HardPDF
         'cbbox_workLst
         '
         Me.cbbox_workLst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbbox_workLst.Location = New System.Drawing.Point(6, 17)
+        Me.cbbox_workLst.Location = New System.Drawing.Point(7, 21)
+        Me.cbbox_workLst.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cbbox_workLst.Name = "cbbox_workLst"
-        Me.cbbox_workLst.Size = New System.Drawing.Size(243, 20)
+        Me.cbbox_workLst.Size = New System.Drawing.Size(277, 23)
         Me.cbbox_workLst.TabIndex = 7
         '
         'GroupBox4
@@ -166,9 +177,11 @@ Partial Class HardPDF
         Me.GroupBox4.Controls.Add(Me.Button11)
         Me.GroupBox4.Controls.Add(Me.Button1)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Right
-        Me.GroupBox4.Location = New System.Drawing.Point(851, 17)
+        Me.GroupBox4.Location = New System.Drawing.Point(973, 22)
+        Me.GroupBox4.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(124, 177)
+        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.GroupBox4.Size = New System.Drawing.Size(142, 220)
         Me.GroupBox4.TabIndex = 6
         Me.GroupBox4.TabStop = False
         '
@@ -180,9 +193,10 @@ Partial Class HardPDF
         Me.Button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.Button6.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Button6.ForeColor = System.Drawing.Color.Transparent
-        Me.Button6.Location = New System.Drawing.Point(6, 98)
+        Me.Button6.Location = New System.Drawing.Point(7, 122)
+        Me.Button6.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(112, 76)
+        Me.Button6.Size = New System.Drawing.Size(128, 95)
         Me.Button6.TabIndex = 4
         Me.Button6.Text = "작업실행"
         Me.Button6.UseVisualStyleBackColor = False
@@ -195,9 +209,10 @@ Partial Class HardPDF
         Me.Button11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.Button11.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Button11.ForeColor = System.Drawing.Color.Transparent
-        Me.Button11.Location = New System.Drawing.Point(64, 14)
+        Me.Button11.Location = New System.Drawing.Point(73, 17)
+        Me.Button11.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button11.Name = "Button11"
-        Me.Button11.Size = New System.Drawing.Size(57, 78)
+        Me.Button11.Size = New System.Drawing.Size(65, 98)
         Me.Button11.TabIndex = 4
         Me.Button11.Text = "모두 해제"
         Me.Button11.UseVisualStyleBackColor = False
@@ -210,9 +225,10 @@ Partial Class HardPDF
         Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.Button1.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Button1.ForeColor = System.Drawing.Color.Transparent
-        Me.Button1.Location = New System.Drawing.Point(6, 14)
+        Me.Button1.Location = New System.Drawing.Point(7, 17)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(57, 78)
+        Me.Button1.Size = New System.Drawing.Size(65, 98)
         Me.Button1.TabIndex = 4
         Me.Button1.Text = "모두 선택"
         Me.Button1.UseVisualStyleBackColor = False
@@ -220,17 +236,19 @@ Partial Class HardPDF
         'lst_commandBox
         '
         Me.lst_commandBox.FormattingEnabled = True
-        Me.lst_commandBox.Location = New System.Drawing.Point(6, 43)
+        Me.lst_commandBox.Location = New System.Drawing.Point(7, 54)
+        Me.lst_commandBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.lst_commandBox.Name = "lst_commandBox"
-        Me.lst_commandBox.Size = New System.Drawing.Size(839, 116)
+        Me.lst_commandBox.Size = New System.Drawing.Size(958, 144)
         Me.lst_commandBox.TabIndex = 3
         '
         'commandBox
         '
         Me.commandBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.commandBox.Location = New System.Drawing.Point(3, 17)
+        Me.commandBox.Location = New System.Drawing.Point(3, 22)
+        Me.commandBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.commandBox.Name = "commandBox"
-        Me.commandBox.Size = New System.Drawing.Size(969, 94)
+        Me.commandBox.Size = New System.Drawing.Size(1108, 116)
         Me.commandBox.TabIndex = 10
         Me.commandBox.Text = ""
         '
@@ -238,9 +256,11 @@ Partial Class HardPDF
         '
         Me.command.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.command.Controls.Add(Me.commandBox)
-        Me.command.Location = New System.Drawing.Point(23, 418)
+        Me.command.Location = New System.Drawing.Point(26, 522)
+        Me.command.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.command.Name = "command"
-        Me.command.Size = New System.Drawing.Size(975, 114)
+        Me.command.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.command.Size = New System.Drawing.Size(1114, 142)
         Me.command.TabIndex = 11
         Me.command.TabStop = False
         Me.command.Text = "명령어"
@@ -250,9 +270,11 @@ Partial Class HardPDF
         Me.GroupBox2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox2.Controls.Add(Me.chkLst_putFilelst)
         Me.GroupBox2.Controls.Add(Me.GroupBox3)
-        Me.GroupBox2.Location = New System.Drawing.Point(26, 82)
+        Me.GroupBox2.Location = New System.Drawing.Point(30, 102)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(975, 127)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.GroupBox2.Size = New System.Drawing.Size(1114, 159)
         Me.GroupBox2.TabIndex = 12
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "올려 놓은 파일 리스트"
@@ -260,19 +282,22 @@ Partial Class HardPDF
         'chkLst_putFilelst
         '
         Me.chkLst_putFilelst.FormattingEnabled = True
-        Me.chkLst_putFilelst.ItemHeight = 12
-        Me.chkLst_putFilelst.Location = New System.Drawing.Point(6, 24)
+        Me.chkLst_putFilelst.ItemHeight = 15
+        Me.chkLst_putFilelst.Location = New System.Drawing.Point(7, 30)
+        Me.chkLst_putFilelst.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chkLst_putFilelst.Name = "chkLst_putFilelst"
-        Me.chkLst_putFilelst.Size = New System.Drawing.Size(836, 88)
+        Me.chkLst_putFilelst.Size = New System.Drawing.Size(955, 109)
         Me.chkLst_putFilelst.TabIndex = 6
         '
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.btn_putFileDelete)
         Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Right
-        Me.GroupBox3.Location = New System.Drawing.Point(848, 17)
+        Me.GroupBox3.Location = New System.Drawing.Point(969, 22)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(124, 107)
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.GroupBox3.Size = New System.Drawing.Size(142, 133)
         Me.GroupBox3.TabIndex = 5
         Me.GroupBox3.TabStop = False
         '
@@ -284,9 +309,10 @@ Partial Class HardPDF
         Me.btn_putFileDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.btn_putFileDelete.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btn_putFileDelete.ForeColor = System.Drawing.Color.Transparent
-        Me.btn_putFileDelete.Location = New System.Drawing.Point(6, 5)
+        Me.btn_putFileDelete.Location = New System.Drawing.Point(7, 6)
+        Me.btn_putFileDelete.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btn_putFileDelete.Name = "btn_putFileDelete"
-        Me.btn_putFileDelete.Size = New System.Drawing.Size(112, 96)
+        Me.btn_putFileDelete.Size = New System.Drawing.Size(128, 120)
         Me.btn_putFileDelete.TabIndex = 4
         Me.btn_putFileDelete.Text = "삭제"
         Me.btn_putFileDelete.UseVisualStyleBackColor = False
@@ -297,9 +323,10 @@ Partial Class HardPDF
         Me.Button2.BackColor = System.Drawing.SystemColors.Control
         Me.Button2.Cursor = System.Windows.Forms.Cursors.Help
         Me.Button2.ForeColor = System.Drawing.Color.Crimson
-        Me.Button2.Location = New System.Drawing.Point(2, 415)
+        Me.Button2.Location = New System.Drawing.Point(2, 519)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(25, 25)
+        Me.Button2.Size = New System.Drawing.Size(29, 31)
         Me.Button2.TabIndex = 11
         Me.Button2.Text = "?"
         Me.Button2.UseVisualStyleBackColor = False
@@ -310,9 +337,10 @@ Partial Class HardPDF
         Me.Button3.BackColor = System.Drawing.SystemColors.Control
         Me.Button3.Cursor = System.Windows.Forms.Cursors.Help
         Me.Button3.ForeColor = System.Drawing.Color.Crimson
-        Me.Button3.Location = New System.Drawing.Point(2, 215)
+        Me.Button3.Location = New System.Drawing.Point(2, 269)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(25, 25)
+        Me.Button3.Size = New System.Drawing.Size(29, 31)
         Me.Button3.TabIndex = 11
         Me.Button3.Text = "?"
         Me.Button3.UseVisualStyleBackColor = False
@@ -323,9 +351,10 @@ Partial Class HardPDF
         Me.Button4.BackColor = System.Drawing.SystemColors.Control
         Me.Button4.Cursor = System.Windows.Forms.Cursors.Help
         Me.Button4.ForeColor = System.Drawing.Color.Crimson
-        Me.Button4.Location = New System.Drawing.Point(5, 12)
+        Me.Button4.Location = New System.Drawing.Point(6, 15)
+        Me.Button4.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(25, 25)
+        Me.Button4.Size = New System.Drawing.Size(29, 31)
         Me.Button4.TabIndex = 11
         Me.Button4.Text = "?"
         Me.Button4.UseVisualStyleBackColor = False
@@ -336,21 +365,22 @@ Partial Class HardPDF
         Me.Button5.BackColor = System.Drawing.SystemColors.Control
         Me.Button5.Cursor = System.Windows.Forms.Cursors.Help
         Me.Button5.ForeColor = System.Drawing.Color.Crimson
-        Me.Button5.Location = New System.Drawing.Point(5, 82)
+        Me.Button5.Location = New System.Drawing.Point(6, 102)
+        Me.Button5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(25, 25)
+        Me.Button5.Size = New System.Drawing.Size(29, 31)
         Me.Button5.TabIndex = 11
         Me.Button5.Text = "?"
         Me.Button5.UseVisualStyleBackColor = False
         '
         'HardPDF
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.ClientSize = New System.Drawing.Size(1010, 544)
+        Me.ClientSize = New System.Drawing.Size(1154, 680)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button3)
@@ -361,6 +391,7 @@ Partial Class HardPDF
         Me.Controls.Add(Me.gb_path)
         Me.DoubleBuffered = True
         Me.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "HardPDF"
         Me.Text = "대용량 PDF 변환"
         Me.gb_path.ResumeLayout(False)
