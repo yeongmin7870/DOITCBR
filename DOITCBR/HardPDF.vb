@@ -2,11 +2,24 @@
 Imports DOITCBR.logger
 Imports DOITCBR.NTBProcess
 Imports System.IO
+Imports System.Text
+
 Public Class HardPDF
     'SelectForm 인스턴스 생성
     Dim selectForm As SelectForm = CType(Application.OpenForms("SelectForm"), SelectForm)
     Dim filePath As String = String.Empty
     Dim folderPath As String = String.Empty
+
+    'command format 결과'
+    Dim rs As String = String.Empty
+    '명령어
+    Public cmd As String = String.Empty
+    '실행파일의 명령어
+    Public exe_cmd As New List(Of String)
+    '작업 실행 exe
+    Public exename As String = String.Empty
+    'Output
+    Public opt As String = String.Empty
 
     Private Sub btn_input_Click(sender As Object, e As EventArgs) Handles btn_input.Click
         Try
@@ -229,36 +242,65 @@ Public Class HardPDF
             End If
         Next
     End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        For i = 0 To lst_commandBox.Items.Count - 1
-            lst_commandBox.SetItemChecked(i, True)
-        Next
-    End Sub
-
-    Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
-        For i = 0 To lst_commandBox.Items.Count - 1
-            lst_commandBox.SetItemChecked(i, False)
-        Next
-    End Sub
-
-    Private Sub cbbox_workLst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbox_workLst.SelectedIndexChanged
+    Sub SetExeSelectBox()
         lst_commandBox.Items.Clear()
         For Each d In data(cbbox_workLst.SelectedItem).Split(",")
             lst_commandBox.Items.Add(d)
         Next
     End Sub
-
-    Private Sub lst_commandBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lst_commandBox.SelectedIndexChanged
-        Try
-            Dim checkedCommand As String = String.Empty
-
-            For Each item In lst_commandBox.CheckedItems
-                checkedCommand += " " + item
-            Next
-            commandBox.Text = cbbox_workLst.Text & " " & chkLst_putFilelst.SelectedItem & checkedCommand
-        Catch ex As Exception
-            logger.log(ex.ToString, "w")
-        End Try
+    Private Sub cbbox_workLst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbox_workLst.SelectedIndexChanged
+        SetExeSelectBox()
+        exe_cmd = New List(Of String)
+        FormatCommand(cbbox_workLst.SelectedItem, "e")
     End Sub
+    Private Sub lst_commandBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lst_commandBox.SelectedIndexChanged
+        FormatCommand(lst_commandBox.SelectedItem, "ec")
+    End Sub
+    'str : 문자열
+    'state 어디 문자열인지
+    ' str, state 를 받아서 command를 만들어주는 함수
+    Sub FormatCommand(str, state)
+        'Output 일때
+        If state = "o" Then
+            opt = $"{str}"
+        ElseIf state = "e" Then '실행파일 이름
+            exename = $"{str}"
+        ElseIf state = "ec" Then ' 실행파일의 명령어
+            If exe_cmd.IndexOf(str) < 0 Then ' 배열에 없음 -1 있음 -1 보다 큰 수
+                exe_cmd.Add($"{str}")
+            End If
+        End If
+        cmd = $"{exename} {String.Join(" ", exe_cmd)}"
+        commandBox.Text = FormatCommand2(cmd)
+    End Sub
+    'exe 파일 명령어 뒤에 경로를 붙이기 위함 함수
+    Function FormatCommand2(str As String)
+        '입력받은 경로를 붙여줘야하는 명령어들
+        Dim tt As New List(Of String) From {"-o", "-D", "i"}
+        rs = str
+        For Each t In tt
+            If t = "-o" Then
+                If rs.IndexOf("-o") <> -1 Then
+                    rs = rs.Substring(0, rs.IndexOf("-o") + 2) & $" {opt} " & rs.Substring(rs.IndexOf("-o") + 2)
+                End If
+            End If
+
+            If t = "-D" Then
+                If rs.IndexOf("-D") <> -1 Then
+                    rs = rs.Substring(0, rs.IndexOf("-D") + 2) & $" {txtboxOutput.Text} " & rs.Substring(rs.IndexOf("-D") + 2)
+                End If
+            End If
+
+            If t = "i" Then
+                If rs.IndexOf("-i") <> -1 Then
+                    rs = rs.Substring(0, rs.IndexOf("-i") + 2) & $" {opt} " & rs.Substring(rs.IndexOf("-i") + 2)
+                End If
+            End If
+        Next
+        Return rs
+    End Function
+    Private Sub chkLst_putFilelst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles chkLst_putFilelst.SelectedIndexChanged
+        FormatCommand(chkLst_putFilelst.SelectedItem, "o")
+    End Sub
+
 End Class

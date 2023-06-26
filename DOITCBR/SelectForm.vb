@@ -40,7 +40,7 @@ Public Class SelectForm
         HardForm()
     End Sub
     '일반용량 PDF 변환 버튼
-    Private Sub btn_normal_Click(sender As Object, e As EventArgs) Handles btn_normal.Click
+    Private Sub btn_normal_Click(sender As Object, e As EventArgs)
         If preForm IsNot Nothing AndAlso Not preForm.IsDisposed Then
             preForm.Close()
         End If

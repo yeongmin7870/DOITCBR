@@ -24,16 +24,15 @@ Partial Class SelectForm
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SelectForm))
         Me.btn_hard = New System.Windows.Forms.Button()
-        Me.btn_normal = New System.Windows.Forms.Button()
         Me.gp_select = New System.Windows.Forms.GroupBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.txtLog = New System.Windows.Forms.GroupBox()
         Me.logMSG = New System.Windows.Forms.RichTextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.folderList = New System.Windows.Forms.ListView()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.pathBox = New System.Windows.Forms.TextBox()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripDropDownButton1 = New System.Windows.Forms.ToolStripDropDownButton()
@@ -60,25 +59,10 @@ Partial Class SelectForm
         Me.btn_hard.Text = "COBRADOC -> CRTPDFC"
         Me.btn_hard.UseVisualStyleBackColor = False
         '
-        'btn_normal
-        '
-        Me.btn_normal.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn_normal.BackColor = System.Drawing.Color.DarkGray
-        Me.btn_normal.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btn_normal.Font = New System.Drawing.Font("맑은 고딕", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btn_normal.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btn_normal.Location = New System.Drawing.Point(0, 113)
-        Me.btn_normal.Name = "btn_normal"
-        Me.btn_normal.Size = New System.Drawing.Size(101, 42)
-        Me.btn_normal.TabIndex = 1
-        Me.btn_normal.Text = "COBRADOC -> CRTAVRES"
-        Me.btn_normal.UseVisualStyleBackColor = False
-        '
         'gp_select
         '
         Me.gp_select.Controls.Add(Me.Button1)
         Me.gp_select.Controls.Add(Me.btn_hard)
-        Me.gp_select.Controls.Add(Me.btn_normal)
         Me.gp_select.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.gp_select.Location = New System.Drawing.Point(0, 31)
         Me.gp_select.Name = "gp_select"
@@ -140,6 +124,18 @@ Partial Class SelectForm
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "출력 폴더"
         '
+        'Button2
+        '
+        Me.Button2.BackColor = System.Drawing.Color.SteelBlue
+        Me.Button2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Button2.ForeColor = System.Drawing.Color.Honeydew
+        Me.Button2.Location = New System.Drawing.Point(4, 64)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(214, 43)
+        Me.Button2.TabIndex = 2
+        Me.Button2.Text = "파일 탐색기 열기"
+        Me.Button2.UseVisualStyleBackColor = False
+        '
         'folderList
         '
         Me.folderList.BackColor = System.Drawing.Color.Black
@@ -172,18 +168,6 @@ Partial Class SelectForm
         Me.pathBox.ReadOnly = True
         Me.pathBox.Size = New System.Drawing.Size(214, 53)
         Me.pathBox.TabIndex = 3
-        '
-        'Button2
-        '
-        Me.Button2.BackColor = System.Drawing.Color.SteelBlue
-        Me.Button2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Button2.ForeColor = System.Drawing.Color.Honeydew
-        Me.Button2.Location = New System.Drawing.Point(4, 64)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(214, 43)
-        Me.Button2.TabIndex = 2
-        Me.Button2.Text = "파일 탐색기 열기"
-        Me.Button2.UseVisualStyleBackColor = False
         '
         'ToolStrip1
         '
@@ -260,7 +244,6 @@ Partial Class SelectForm
     End Sub
 
     Friend WithEvents btn_hard As Button
-    Friend WithEvents btn_normal As Button
     Friend WithEvents gp_select As GroupBox
     Friend WithEvents txtLog As GroupBox
     Friend WithEvents logMSG As RichTextBox
