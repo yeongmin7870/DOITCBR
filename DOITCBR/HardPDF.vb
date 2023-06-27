@@ -6,7 +6,6 @@ Imports System.Text
 
 Public Class HardPDF
     'SelectForm 인스턴스 생성
-    Dim selectForm As SelectForm = CType(Application.OpenForms("SelectForm"), SelectForm)
     Dim filePath As String = String.Empty
     Dim folderPath As String = String.Empty
 
@@ -264,6 +263,11 @@ Public Class HardPDF
         If state = "o" Then
             opt = $"{str}"
         ElseIf state = "e" Then '실행파일 이름
+            For Each d In data("cbbox_workLst").Split(",")
+                If d.IndexOf(str) > -1 Then
+                    str = d
+                End If
+            Next
             exename = $"{str}"
         ElseIf state = "ec" Then ' 실행파일의 명령어
             If exe_cmd.IndexOf(str) < 0 Then ' 배열에 없음 -1 있음 -1 보다 큰 수
@@ -271,8 +275,56 @@ Public Class HardPDF
             End If
         End If
         cmd = $"{exename} {String.Join(" ", exe_cmd)}"
-        commandBox.Text = FormatCommand2(cmd)
+        'cmd에 아무값이 없으면 " " 값이 나옴
+        If cmd <> " " Then
+            commandBox.Text = FormatCommand2(cmd)
+        Else
+            commandBox.Text = FormatCommand3(commandBox.Text)
+        End If
+
+
+
     End Sub
+    'history에서 올린 파일을 선택할 때 기존 값에서 변경해주는 함수
+    Function FormatCommand3(str As String)
+        '입력받은 경로를 붙여줘야하는 명령어들
+        Dim tt As New List(Of String) From {"-o", "-D", "i"}
+        rs = str
+        For Each t In tt
+            If t = "-o" Then
+                If rs.IndexOf("-o") <> -1 Then
+                    '이전에 Command Box에 있던 경로 값
+                    Dim preopt2 As String = rs.Substring(rs.IndexOf("-o") + 2).Trim.Split(" ")(0)
+
+                    Dim opt2 As String = Path.ChangeExtension(opt, ".pdf")
+                    rs = rs.Replace(preopt2, opt2)
+                End If
+            End If
+
+            If t = "-D" Then
+                If rs.IndexOf("-D") <> -1 Then
+                    Dim prepath As String = rs.Substring(rs.IndexOf("-D") + 2).Trim.Split(" ")(0)
+                    rs = rs.Replace(prepath, txtboxOutput.Text)
+                End If
+            End If
+
+            If t = "i" Then
+                If rs.IndexOf("-i") <> -1 Then
+                    Dim preopt As String = rs.Substring(rs.IndexOf("-i") + 2).Trim.Split(" ")(0)
+                    rs = rs.Replace(preopt, chkLst_putFilelst.SelectedItem)
+                End If
+            End If
+        Next
+        Return rs
+    End Function
+    '문자열을 주면 문자열이 null 이면 0 아니면 문자 길이를 주는 함수
+    Function chr_len(str As String) As Integer
+        If str <> String.Empty Then
+            Return 0
+        Else
+            Return str.Length
+        End If
+    End Function
     'exe 파일 명령어 뒤에 경로를 붙이기 위함 함수
     Function FormatCommand2(str As String)
         '입력받은 경로를 붙여줘야하는 명령어들
@@ -281,13 +333,14 @@ Public Class HardPDF
         For Each t In tt
             If t = "-o" Then
                 If rs.IndexOf("-o") <> -1 Then
-                    rs = rs.Substring(0, rs.IndexOf("-o") + 2) & $" {opt} " & rs.Substring(rs.IndexOf("-o") + 2)
+                    Dim opt2 As String = Path.ChangeExtension(opt, ".pdf")
+                    rs = rs.Substring(0, rs.IndexOf("-o") + 2) & $" {opt2} " & rs.Substring(rs.IndexOf("-o") + 2)
                 End If
             End If
 
             If t = "-D" Then
                 If rs.IndexOf("-D") <> -1 Then
-                    rs = rs.Substring(0, rs.IndexOf("-D") + 2) & $" {txtboxOutput.Text} " & rs.Substring(rs.IndexOf("-D") + 2)
+                    rs = rs.Substring(0, rs.IndexOf("-D") + 2) & $" {txtboxOutput.Text} " & rs.Substring(rs.IndexOf("-D") + +2)
                 End If
             End If
 
@@ -302,5 +355,31 @@ Public Class HardPDF
     Private Sub chkLst_putFilelst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles chkLst_putFilelst.SelectedIndexChanged
         FormatCommand(chkLst_putFilelst.SelectedItem, "o")
     End Sub
+    Private Sub btn_cmdClear_Click(sender As Object, e As EventArgs) Handles btn_cmdClear.Click
+        commandBox.Text = ""
+    End Sub
+    Private Sub btn_history_Click(sender As Object, e As EventArgs) Handles btn_history.Click
+        History.Show()
+    End Sub
+    Private Sub btn_start_Click(sender As Object, e As EventArgs) Handles btn_start.Click
+        Try
+            If commandBox.Text <> String.Empty Then
+                Dim currentdt As DateTime = DateTime.Now
 
+                Dim exePath As String = commandBox.Text.Substring(0, commandBox.Text.IndexOf(" ")).Trim
+
+                Dim argument As String = commandBox.Text.Substring(cmd.IndexOf(" ") + 1).Trim
+                Dim text As String = $"[{currentdt.Year}.{chkz(currentdt.Month)}.{chkz(currentdt.Day)} {chkz(currentdt.Hour)}:{chkz(currentdt.Minute)}:{chkz(currentdt.Second)}][{exePath} {argument}]"
+
+                NTBProcess.ProcessFn(exePath, argument)
+                WriteLog(text, data("cmdPath"))
+                logger.log(text, "i")
+                sForm.ListFilesAndFolders(data("txtOutput"))
+            Else
+                MessageBox.Show("명령어가 공백입니다.")
+            End If
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
+    End Sub
 End Class

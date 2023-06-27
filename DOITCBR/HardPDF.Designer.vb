@@ -36,9 +36,9 @@ Partial Class HardPDF
         Me.lst_commandBox = New System.Windows.Forms.ListBox()
         Me.ListBox1 = New System.Windows.Forms.ListBox()
         Me.cbbox_workLst = New System.Windows.Forms.ComboBox()
-        Me.Button6 = New System.Windows.Forms.Button()
-        Me.Button11 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btn_start = New System.Windows.Forms.Button()
+        Me.btn_cmdClear = New System.Windows.Forms.Button()
+        Me.btn_history = New System.Windows.Forms.Button()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.commandBox = New System.Windows.Forms.RichTextBox()
         Me.command = New System.Windows.Forms.GroupBox()
@@ -178,50 +178,50 @@ Partial Class HardPDF
         Me.cbbox_workLst.Size = New System.Drawing.Size(243, 20)
         Me.cbbox_workLst.TabIndex = 7
         '
-        'Button6
+        'btn_start
         '
-        Me.Button6.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Button6.BackColor = System.Drawing.Color.RoyalBlue
-        Me.Button6.BackgroundImage = CType(resources.GetObject("Button6.BackgroundImage"), System.Drawing.Image)
-        Me.Button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.Button6.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Button6.ForeColor = System.Drawing.Color.Transparent
-        Me.Button6.Location = New System.Drawing.Point(822, 53)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(147, 39)
-        Me.Button6.TabIndex = 4
-        Me.Button6.Text = "작업실행"
-        Me.Button6.UseVisualStyleBackColor = False
+        Me.btn_start.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btn_start.BackColor = System.Drawing.Color.RoyalBlue
+        Me.btn_start.BackgroundImage = CType(resources.GetObject("btn_start.BackgroundImage"), System.Drawing.Image)
+        Me.btn_start.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.btn_start.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btn_start.ForeColor = System.Drawing.Color.Transparent
+        Me.btn_start.Location = New System.Drawing.Point(822, 53)
+        Me.btn_start.Name = "btn_start"
+        Me.btn_start.Size = New System.Drawing.Size(147, 39)
+        Me.btn_start.TabIndex = 4
+        Me.btn_start.Text = "작업실행"
+        Me.btn_start.UseVisualStyleBackColor = False
         '
-        'Button11
+        'btn_cmdClear
         '
-        Me.Button11.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Button11.BackColor = System.Drawing.Color.Maroon
-        Me.Button11.BackgroundImage = CType(resources.GetObject("Button11.BackgroundImage"), System.Drawing.Image)
-        Me.Button11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.Button11.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Button11.ForeColor = System.Drawing.Color.Transparent
-        Me.Button11.Location = New System.Drawing.Point(904, 19)
-        Me.Button11.Name = "Button11"
-        Me.Button11.Size = New System.Drawing.Size(65, 31)
-        Me.Button11.TabIndex = 4
-        Me.Button11.Text = "모두 해제"
-        Me.Button11.UseVisualStyleBackColor = False
+        Me.btn_cmdClear.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btn_cmdClear.BackColor = System.Drawing.Color.Maroon
+        Me.btn_cmdClear.BackgroundImage = CType(resources.GetObject("btn_cmdClear.BackgroundImage"), System.Drawing.Image)
+        Me.btn_cmdClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.btn_cmdClear.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.btn_cmdClear.ForeColor = System.Drawing.Color.Transparent
+        Me.btn_cmdClear.Location = New System.Drawing.Point(822, 20)
+        Me.btn_cmdClear.Name = "btn_cmdClear"
+        Me.btn_cmdClear.Size = New System.Drawing.Size(74, 28)
+        Me.btn_cmdClear.TabIndex = 4
+        Me.btn_cmdClear.Text = "비우기"
+        Me.btn_cmdClear.UseVisualStyleBackColor = False
         '
-        'Button1
+        'btn_history
         '
-        Me.Button1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Button1.BackColor = System.Drawing.SystemColors.Desktop
-        Me.Button1.BackgroundImage = CType(resources.GetObject("Button1.BackgroundImage"), System.Drawing.Image)
-        Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.Button1.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Button1.ForeColor = System.Drawing.Color.Transparent
-        Me.Button1.Location = New System.Drawing.Point(822, 20)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(76, 28)
-        Me.Button1.TabIndex = 4
-        Me.Button1.Text = "모두 선택"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.btn_history.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btn_history.BackColor = System.Drawing.SystemColors.Desktop
+        Me.btn_history.BackgroundImage = CType(resources.GetObject("btn_history.BackgroundImage"), System.Drawing.Image)
+        Me.btn_history.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.btn_history.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.btn_history.ForeColor = System.Drawing.Color.Transparent
+        Me.btn_history.Location = New System.Drawing.Point(902, 19)
+        Me.btn_history.Name = "btn_history"
+        Me.btn_history.Size = New System.Drawing.Size(67, 28)
+        Me.btn_history.TabIndex = 4
+        Me.btn_history.Text = "History"
+        Me.btn_history.UseVisualStyleBackColor = False
         '
         'commandBox
         '
@@ -234,10 +234,10 @@ Partial Class HardPDF
         'command
         '
         Me.command.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.command.Controls.Add(Me.Button6)
-        Me.command.Controls.Add(Me.Button11)
+        Me.command.Controls.Add(Me.btn_start)
+        Me.command.Controls.Add(Me.btn_cmdClear)
         Me.command.Controls.Add(Me.commandBox)
-        Me.command.Controls.Add(Me.Button1)
+        Me.command.Controls.Add(Me.btn_history)
         Me.command.Location = New System.Drawing.Point(23, 418)
         Me.command.Name = "command"
         Me.command.Size = New System.Drawing.Size(975, 114)
@@ -361,6 +361,7 @@ Partial Class HardPDF
         Me.Controls.Add(Me.gb_path)
         Me.DoubleBuffered = True
         Me.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "HardPDF"
         Me.Text = "대용량 PDF 변환"
         Me.gb_path.ResumeLayout(False)
@@ -384,7 +385,7 @@ Partial Class HardPDF
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents commandBox As RichTextBox
     Friend WithEvents command As GroupBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btn_history As Button
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents Button2 As Button
@@ -393,10 +394,10 @@ Partial Class HardPDF
     Friend WithEvents Button5 As Button
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents Button6 As Button
+    Friend WithEvents btn_start As Button
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents btn_putFileDelete As Button
-    Friend WithEvents Button11 As Button
+    Friend WithEvents btn_cmdClear As Button
     Friend WithEvents cbbox_workLst As ComboBox
     Friend WithEvents chkLst_putFilelst As ListBox
     Friend WithEvents lst_commandBox As ListBox

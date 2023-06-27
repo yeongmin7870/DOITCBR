@@ -2,13 +2,13 @@
 Imports DOITCBR.logger
 Imports System.IO
 Public Class SelectForm
-    Private preForm As Form
+    Public preForm As Form
     Public staticPath As String = String.Empty
     Private Sub SelectForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             'ini 파일 초기화
             Settinginit()
-            logger.loggerInit()
+            logger.loggerInit(settingPath.data("logPath"))
             OpenOutputFolder()
             HardForm()
             '파일 및 폴더 나열
@@ -66,6 +66,7 @@ Public Class SelectForm
         workDisplay.Controls.Add(preForm)
         preForm.Show()
     End Sub
+    '폴더 경로를 주면 결과창이 업데이트 됨
     Sub ListFilesAndFolders(staticPath)
         Try
             folderList.Items.Clear()

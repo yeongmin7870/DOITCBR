@@ -78,6 +78,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckExistenct.vb" />
+    <Compile Include="History.Designer.vb">
+      <DependentUpon>History.vb</DependentUpon>
+    </Compile>
+    <Compile Include="History.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="InfoForm.Designer.vb">
       <DependentUpon>InfoForm.vb</DependentUpon>
     </Compile>
@@ -123,6 +129,9 @@
     <Compile Include="settingPath.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="History.resx">
+      <DependentUpon>History.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InfoForm.resx">
       <DependentUpon>InfoForm.vb</DependentUpon>
     </EmbeddedResource>

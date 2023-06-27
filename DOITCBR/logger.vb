@@ -7,9 +7,8 @@ Imports System.Windows.Forms.AxHost
 
 Module logger
     Public sForm As SelectForm = DirectCast(Application.OpenForms("SelectForm"), SelectForm)
-    Public filePath As String = settingPath.data("logPath")
 
-    Sub loggerInit()
+    Sub loggerInit(filePath As String)
         Using reader As New StreamReader(filePath)
             Dim line As String = reader.ReadLine()
             While line IsNot Nothing
@@ -24,9 +23,17 @@ Module logger
                 line = reader.ReadLine()
             End While
         End Using
-
     End Sub
-
+    Sub HistoryInit(hForm As History, filePath As String)
+        Using reader As New StreamReader(filePath)
+            Dim line As String = String.Empty
+            While Not reader.EndOfStream
+                Dim nextLine As String = reader.ReadLine()
+                line = Environment.NewLine & nextLine
+                hForm.cmdHistory.Items.Add(line)
+            End While
+        End Using
+    End Sub
     Sub AddColoredText(text As String, state As String, color As Color)
         sForm.logMSG.SelectionColor = color
         sForm.logMSG.AppendText(text & vbCrLf)
@@ -43,7 +50,7 @@ Module logger
     Sub log(log As String, state As String)
         Dim currentdt As DateTime = DateTime.Now
         Dim text As String = $"[{currentdt.Year}.{chkz(currentdt.Month)}.{chkz(currentdt.Day)} {chkz(currentdt.Hour)}:{chkz(currentdt.Minute)}:{chkz(currentdt.Second)}][{CheckedState(state)}][{log}]"
-        WriteLog(text)
+        WriteLog(text, settingPath.data("logPath"))
         AddColoredText(text, CheckedState(state), CheckedColor(CheckedState(state)))
     End Sub
     Function CheckedState(s As String) As String
@@ -61,7 +68,7 @@ Module logger
             End If
         End If
     End Function
-    Sub WriteLog(text)
+    Sub WriteLog(text, filePath)
         Using writer As StreamWriter = File.AppendText(filePath)
             writer.WriteLine(text)
         End Using

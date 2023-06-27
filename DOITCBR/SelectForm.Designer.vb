@@ -56,7 +56,7 @@ Partial Class SelectForm
         Me.btn_hard.Name = "btn_hard"
         Me.btn_hard.Size = New System.Drawing.Size(101, 43)
         Me.btn_hard.TabIndex = 0
-        Me.btn_hard.Text = "COBRADOC -> CRTPDFC"
+        Me.btn_hard.Text = "코브라유틸리티"
         Me.btn_hard.UseVisualStyleBackColor = False
         '
         'gp_select
@@ -227,10 +227,11 @@ Partial Class SelectForm
         Me.Controls.Add(Me.gp_select)
         Me.Controls.Add(Me.GroupBox2)
         Me.ForeColor = System.Drawing.SystemColors.Desktop
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "SelectForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "DOITCBR"
+        Me.Text = " "
         Me.gp_select.ResumeLayout(False)
         Me.txtLog.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
