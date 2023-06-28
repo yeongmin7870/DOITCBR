@@ -44,7 +44,7 @@ Public Class HardPDF
                 txtboxOutput.Text = folderPath
                 selectForm.ListFilesAndFolders(settingPath.data("txtOutput"))
                 UpdateIni(folderPath, "txtOutput")
-                selectForm.ListFilesAndFolders(folderPath)
+                SelectForm.ListFilesAndFolders(folderPath)
             End If
         End Using
     End Sub
@@ -288,7 +288,7 @@ Public Class HardPDF
     'history에서 올린 파일을 선택할 때 기존 값에서 변경해주는 함수
     Function FormatCommand3(str As String)
         '입력받은 경로를 붙여줘야하는 명령어들
-        Dim tt As New List(Of String) From {"-o", "-D", "i"}
+        Dim tt As New List(Of String) From {"-o", "-D", "-i"}
         rs = str
         For Each t In tt
             If t = "-o" Then
@@ -308,7 +308,7 @@ Public Class HardPDF
                 End If
             End If
 
-            If t = "i" Then
+            If t = "-i" Then
                 If rs.IndexOf("-i") <> -1 Then
                     Dim preopt As String = rs.Substring(rs.IndexOf("-i") + 2).Trim.Split(" ")(0)
                     rs = rs.Replace(preopt, chkLst_putFilelst.SelectedItem)
@@ -328,7 +328,7 @@ Public Class HardPDF
     'exe 파일 명령어 뒤에 경로를 붙이기 위함 함수
     Function FormatCommand2(str As String)
         '입력받은 경로를 붙여줘야하는 명령어들
-        Dim tt As New List(Of String) From {"-o", "-D", "i"}
+        Dim tt As New List(Of String) From {"-o", "-D", "-i"}
         rs = str
         For Each t In tt
             If t = "-o" Then
@@ -344,7 +344,7 @@ Public Class HardPDF
                 End If
             End If
 
-            If t = "i" Then
+            If t = "-i" Then
                 If rs.IndexOf("-i") <> -1 Then
                     rs = rs.Substring(0, rs.IndexOf("-i") + 2) & $" {opt} " & rs.Substring(rs.IndexOf("-i") + 2)
                 End If
