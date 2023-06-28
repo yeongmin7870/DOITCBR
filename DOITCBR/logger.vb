@@ -45,6 +45,8 @@ Module logger
             Return Color.Green
         ElseIf s = "Error" Then
             Return Color.Gray
+        Else
+            Return Color.White
         End If
     End Function
     Sub log(log As String, state As String)

@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Module settingPath
     'ini 파일 주소
-    Public settingFilePath As String = "E:\DOITCBR\DOITCBR\DOITCBR.ini"
+    Public settingFilePath As String = "D:\DOITCBR\DOITCBR\DOITCBR.ini"
     Public data As New Dictionary(Of String, String)()
     'ini 파일 값 불러오기
     Sub Settinginit()

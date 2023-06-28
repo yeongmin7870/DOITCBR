@@ -90,6 +90,7 @@
     <Compile Include="InfoForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ListViewFolderIcon.vb" />
     <Compile Include="logger.vb" />
     <Compile Include="NormalPDF.Designer.vb">
       <DependentUpon>NormalPDF.vb</DependentUpon>
