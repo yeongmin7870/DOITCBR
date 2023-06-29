@@ -23,3 +23,4 @@
 [2023.06.29 08:56:54][C:\cobra\COBRA2000\COBRADOC.exe -i E:\연습프로젝트\결과폴더\output.txt  -D E:\연습프로젝트\결과폴더]
 [2023.06.29 08:57:25][C:\cobra\COBRA2000\COBRADOC.exe -i E:\연습프로젝트\결과폴더\output.txt  -D E:\연습프로젝트\결과폴더  -J -C "PDFMODE YES"]
 [2023.06.29 08:58:27][C:\cobra\COBRA2000\CRTPDFC.exe -i E:\연습프로젝트\결과폴더\output.dat]
+[2023.06.29 16:16:58][C:\cobra\COBRA2000\CRTPDFC.exe C:\cobra\COBRA2000\CRTPDFC.exe -i E:\연습프로젝트\결과폴더\output.dat]

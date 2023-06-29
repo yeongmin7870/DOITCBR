@@ -203,7 +203,7 @@ Public Class HardPDF
 
 
     Private Sub HardPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        PanelRound(40, Panel1)
+        PanelRound(40, txtInput_Pn)
         PanelRound(40, Panel2)
         PanelRound(40, Panel3)
         PanelRound(40, Panel4)
@@ -220,6 +220,15 @@ Public Class HardPDF
         txtboxOutput2.Text = data("txtOutput")
         Update_chkLst_putLst()
         Update_cbbox_workLst()
+
+
+        input_tip.SetToolTip(input_q, "파일 Drag & Drop => 오른쪽 박스에 파일 업로드 됨")
+        output_tip.SetToolTip(output_q, "폴더를 Drag & Drop =>  Output 경로 수정 가능, 해당 경로에 작업물 떨어짐")
+        fileList_tip.SetToolTip(filelist_q, "작업 할 파일 클릭")
+        command_tip.SetToolTip(command_q, "ComboBox 에서 EXE 실행 파일을 선택 => ListBox 에서 명령어 클릭 => 오른쪽 박스 변화")
+        cmd_tip.SetToolTip(cmd_q, "작업실행 버튼을 눌렀을때, CMD에 왼쪽 박스 TEXT가 입력되고 실행되어짐")
+        cmdHistory_tip.SetToolTip(cmdHistory_q, "지금까지 입력했던 명령어, 명령어 클릭 시 재사용 가능")
+
     End Sub
     Sub PanelRound(r, pn)
         Dim radius As Integer = r ' 원하는 모서리 깎기 정도를 조절합니다.
@@ -406,4 +415,5 @@ Public Class HardPDF
             logger.log(ex.ToString, "w")
         End Try
     End Sub
+
 End Class

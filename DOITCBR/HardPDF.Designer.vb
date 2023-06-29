@@ -25,7 +25,7 @@ Partial Class HardPDF
         Me.components = New System.ComponentModel.Container()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.input_tip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.lst_commandBox = New System.Windows.Forms.ListBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -35,23 +35,47 @@ Partial Class HardPDF
         Me.chkLst_putFilelst = New System.Windows.Forms.ListBox()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.commandBox = New System.Windows.Forms.RichTextBox()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txtInput_Pn = New System.Windows.Forms.Panel()
         Me.txtboxInput = New System.Windows.Forms.TextBox()
         Me.btn_start = New System.Windows.Forms.Button()
         Me.btn_cmdClear = New System.Windows.Forms.Button()
         Me.btn_history = New System.Windows.Forms.Button()
         Me.btn_putFileDelete = New System.Windows.Forms.Button()
         Me.cbbox_workLst = New System.Windows.Forms.ComboBox()
+        Me.input_q = New System.Windows.Forms.Label()
+        Me.output_q = New System.Windows.Forms.Label()
+        Me.command_q = New System.Windows.Forms.Label()
+        Me.filelist_q = New System.Windows.Forms.Label()
+        Me.cmd_q = New System.Windows.Forms.Label()
+        Me.output_tip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.command_tip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.fileList_tip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.cmd_tip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.cmdHistory_q = New System.Windows.Forms.Label()
+        Me.cmdHistory_tip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel4.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        Me.Panel1.SuspendLayout()
+        Me.txtInput_Pn.SuspendLayout()
         Me.SuspendLayout()
         '
         'OpenFileDialog1
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+        '
+        'input_tip
+        '
+        Me.input_tip.AutomaticDelay = 90000
+        Me.input_tip.AutoPopDelay = 90000
+        Me.input_tip.BackColor = System.Drawing.Color.Black
+        Me.input_tip.ForeColor = System.Drawing.SystemColors.HighlightText
+        Me.input_tip.InitialDelay = 900000
+        Me.input_tip.ReshowDelay = 9000
+        Me.input_tip.ShowAlways = True
+        Me.input_tip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
+        Me.input_tip.ToolTipTitle = "1) 작업할 파일"
         '
         'Panel4
         '
@@ -154,14 +178,14 @@ Partial Class HardPDF
         Me.commandBox.TabIndex = 10
         Me.commandBox.Text = ""
         '
-        'Panel1
+        'txtInput_Pn
         '
-        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
-        Me.Panel1.Controls.Add(Me.txtboxInput)
-        Me.Panel1.Location = New System.Drawing.Point(65, 66)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(492, 65)
-        Me.Panel1.TabIndex = 21
+        Me.txtInput_Pn.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.txtInput_Pn.Controls.Add(Me.txtboxInput)
+        Me.txtInput_Pn.Location = New System.Drawing.Point(65, 66)
+        Me.txtInput_Pn.Name = "txtInput_Pn"
+        Me.txtInput_Pn.Size = New System.Drawing.Size(492, 65)
+        Me.txtInput_Pn.TabIndex = 21
         '
         'txtboxInput
         '
@@ -183,9 +207,9 @@ Partial Class HardPDF
         Me.btn_start.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_start.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btn_start.ForeColor = System.Drawing.Color.FromArgb(CType(CType(21, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(24, Byte), Integer))
-        Me.btn_start.Location = New System.Drawing.Point(930, 425)
+        Me.btn_start.Location = New System.Drawing.Point(867, 425)
         Me.btn_start.Name = "btn_start"
-        Me.btn_start.Size = New System.Drawing.Size(142, 36)
+        Me.btn_start.Size = New System.Drawing.Size(205, 36)
         Me.btn_start.TabIndex = 12
         Me.btn_start.Text = "작업실행"
         Me.btn_start.UseVisualStyleBackColor = False
@@ -199,7 +223,7 @@ Partial Class HardPDF
         Me.btn_cmdClear.ForeColor = System.Drawing.Color.FromArgb(CType(CType(21, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(24, Byte), Integer))
         Me.btn_cmdClear.Location = New System.Drawing.Point(623, 425)
         Me.btn_cmdClear.Name = "btn_cmdClear"
-        Me.btn_cmdClear.Size = New System.Drawing.Size(142, 36)
+        Me.btn_cmdClear.Size = New System.Drawing.Size(64, 36)
         Me.btn_cmdClear.TabIndex = 13
         Me.btn_cmdClear.Text = "비우기"
         Me.btn_cmdClear.UseVisualStyleBackColor = False
@@ -211,11 +235,11 @@ Partial Class HardPDF
         Me.btn_history.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_history.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btn_history.ForeColor = System.Drawing.Color.FromArgb(CType(CType(21, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(24, Byte), Integer))
-        Me.btn_history.Location = New System.Drawing.Point(777, 425)
+        Me.btn_history.Location = New System.Drawing.Point(693, 425)
         Me.btn_history.Name = "btn_history"
-        Me.btn_history.Size = New System.Drawing.Size(142, 36)
+        Me.btn_history.Size = New System.Drawing.Size(131, 36)
         Me.btn_history.TabIndex = 14
-        Me.btn_history.Text = "History"
+        Me.btn_history.Text = "사용했던 명령어"
         Me.btn_history.UseVisualStyleBackColor = False
         '
         'btn_putFileDelete
@@ -244,6 +268,143 @@ Partial Class HardPDF
         Me.cbbox_workLst.Size = New System.Drawing.Size(492, 25)
         Me.cbbox_workLst.TabIndex = 16
         '
+        'input_q
+        '
+        Me.input_q.AutoSize = True
+        Me.input_q.Font = New System.Drawing.Font("굴림", 20.0!)
+        Me.input_q.ForeColor = System.Drawing.Color.FromArgb(CType(CType(178, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(216, Byte), Integer))
+        Me.input_q.Location = New System.Drawing.Point(563, 48)
+        Me.input_q.Name = "input_q"
+        Me.input_q.Size = New System.Drawing.Size(39, 27)
+        Me.input_q.TabIndex = 22
+        Me.input_q.Text = "💬"
+        '
+        'output_q
+        '
+        Me.output_q.AutoSize = True
+        Me.output_q.Font = New System.Drawing.Font("굴림", 20.0!)
+        Me.output_q.ForeColor = System.Drawing.Color.FromArgb(CType(CType(178, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(216, Byte), Integer))
+        Me.output_q.Location = New System.Drawing.Point(563, 127)
+        Me.output_q.Name = "output_q"
+        Me.output_q.Size = New System.Drawing.Size(39, 27)
+        Me.output_q.TabIndex = 22
+        Me.output_q.Text = "💬"
+        '
+        'command_q
+        '
+        Me.command_q.AutoSize = True
+        Me.command_q.Font = New System.Drawing.Font("굴림", 20.0!)
+        Me.command_q.ForeColor = System.Drawing.Color.FromArgb(CType(CType(178, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(216, Byte), Integer))
+        Me.command_q.Location = New System.Drawing.Point(563, 224)
+        Me.command_q.Name = "command_q"
+        Me.command_q.Size = New System.Drawing.Size(39, 27)
+        Me.command_q.TabIndex = 22
+        Me.command_q.Text = "💬"
+        '
+        'filelist_q
+        '
+        Me.filelist_q.AutoSize = True
+        Me.filelist_q.Font = New System.Drawing.Font("굴림", 20.0!)
+        Me.filelist_q.ForeColor = System.Drawing.Color.FromArgb(CType(CType(178, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(216, Byte), Integer))
+        Me.filelist_q.Location = New System.Drawing.Point(1068, 48)
+        Me.filelist_q.Name = "filelist_q"
+        Me.filelist_q.Size = New System.Drawing.Size(39, 27)
+        Me.filelist_q.TabIndex = 22
+        Me.filelist_q.Text = "💬"
+        '
+        'cmd_q
+        '
+        Me.cmd_q.AutoSize = True
+        Me.cmd_q.Font = New System.Drawing.Font("굴림", 20.0!)
+        Me.cmd_q.ForeColor = System.Drawing.Color.FromArgb(CType(CType(178, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(216, Byte), Integer))
+        Me.cmd_q.Location = New System.Drawing.Point(1068, 283)
+        Me.cmd_q.Name = "cmd_q"
+        Me.cmd_q.Size = New System.Drawing.Size(39, 27)
+        Me.cmd_q.TabIndex = 22
+        Me.cmd_q.Text = "💬"
+        '
+        'output_tip
+        '
+        Me.output_tip.AutomaticDelay = 90000
+        Me.output_tip.AutoPopDelay = 90000
+        Me.output_tip.BackColor = System.Drawing.Color.Black
+        Me.output_tip.ForeColor = System.Drawing.SystemColors.HighlightText
+        Me.output_tip.InitialDelay = 900000
+        Me.output_tip.ReshowDelay = 9000
+        Me.output_tip.ShowAlways = True
+        Me.output_tip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
+        Me.output_tip.ToolTipTitle = "2) 작업 결과 폴더"
+        '
+        'command_tip
+        '
+        Me.command_tip.AutomaticDelay = 90000
+        Me.command_tip.AutoPopDelay = 90000
+        Me.command_tip.BackColor = System.Drawing.Color.Black
+        Me.command_tip.ForeColor = System.Drawing.SystemColors.HighlightText
+        Me.command_tip.InitialDelay = 900000
+        Me.command_tip.ReshowDelay = 9000
+        Me.command_tip.ShowAlways = True
+        Me.command_tip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
+        Me.command_tip.ToolTipTitle = "4) EXE 명령어 생성기"
+        '
+        'fileList_tip
+        '
+        Me.fileList_tip.AutomaticDelay = 90000
+        Me.fileList_tip.AutoPopDelay = 90000
+        Me.fileList_tip.BackColor = System.Drawing.Color.Black
+        Me.fileList_tip.ForeColor = System.Drawing.SystemColors.HighlightText
+        Me.fileList_tip.InitialDelay = 900000
+        Me.fileList_tip.ReshowDelay = 9000
+        Me.fileList_tip.ShowAlways = True
+        Me.fileList_tip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
+        Me.fileList_tip.ToolTipTitle = "3) 업로드 된 파일"
+        '
+        'cmd_tip
+        '
+        Me.cmd_tip.AutomaticDelay = 90000
+        Me.cmd_tip.AutoPopDelay = 90000
+        Me.cmd_tip.BackColor = System.Drawing.Color.Black
+        Me.cmd_tip.ForeColor = System.Drawing.SystemColors.HighlightText
+        Me.cmd_tip.InitialDelay = 900000
+        Me.cmd_tip.ReshowDelay = 9000
+        Me.cmd_tip.ShowAlways = True
+        Me.cmd_tip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
+        Me.cmd_tip.ToolTipTitle = "5) CMD에 입력될 명령어"
+        '
+        'cmdHistory_q
+        '
+        Me.cmdHistory_q.AutoSize = True
+        Me.cmdHistory_q.Font = New System.Drawing.Font("굴림", 20.0!)
+        Me.cmdHistory_q.ForeColor = System.Drawing.Color.FromArgb(CType(CType(178, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(216, Byte), Integer))
+        Me.cmdHistory_q.Location = New System.Drawing.Point(827, 422)
+        Me.cmdHistory_q.Name = "cmdHistory_q"
+        Me.cmdHistory_q.Size = New System.Drawing.Size(39, 27)
+        Me.cmdHistory_q.TabIndex = 22
+        Me.cmdHistory_q.Text = "💬"
+        '
+        'cmdHistory_tip
+        '
+        Me.cmdHistory_tip.AutomaticDelay = 90000
+        Me.cmdHistory_tip.AutoPopDelay = 90000
+        Me.cmdHistory_tip.BackColor = System.Drawing.Color.Black
+        Me.cmdHistory_tip.ForeColor = System.Drawing.SystemColors.HighlightText
+        Me.cmdHistory_tip.InitialDelay = 900000
+        Me.cmdHistory_tip.ReshowDelay = 9000
+        Me.cmdHistory_tip.ShowAlways = True
+        Me.cmdHistory_tip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
+        Me.cmdHistory_tip.ToolTipTitle = "6) 지금까지 입력했던 CMD"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Impact", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(237, Byte), Integer))
+        Me.Label1.Location = New System.Drawing.Point(426, 9)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(348, 26)
+        Me.Label1.TabIndex = 23
+        Me.Label1.Text = "💬 에 마우스를 올리면 사용Tip이 나옵니다"
+        '
         'HardPDF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -252,12 +413,19 @@ Partial Class HardPDF
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ClientSize = New System.Drawing.Size(1137, 528)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.cmdHistory_q)
+        Me.Controls.Add(Me.cmd_q)
+        Me.Controls.Add(Me.filelist_q)
+        Me.Controls.Add(Me.command_q)
+        Me.Controls.Add(Me.output_q)
+        Me.Controls.Add(Me.input_q)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.btn_putFileDelete)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel5)
-        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.txtInput_Pn)
         Me.Controls.Add(Me.btn_start)
         Me.Controls.Add(Me.btn_cmdClear)
         Me.Controls.Add(Me.btn_history)
@@ -272,14 +440,15 @@ Partial Class HardPDF
         Me.Panel2.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.Panel5.ResumeLayout(False)
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
+        Me.txtInput_Pn.ResumeLayout(False)
+        Me.txtInput_Pn.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
-    Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents input_tip As ToolTip
     Friend WithEvents Panel4 As Panel
     Friend WithEvents lst_commandBox As ListBox
     Friend WithEvents Panel2 As Panel
@@ -289,11 +458,23 @@ Partial Class HardPDF
     Friend WithEvents chkLst_putFilelst As ListBox
     Friend WithEvents Panel5 As Panel
     Friend WithEvents commandBox As RichTextBox
-    Friend WithEvents Panel1 As Panel
+    Friend WithEvents txtInput_Pn As Panel
     Friend WithEvents txtboxInput As TextBox
     Friend WithEvents btn_start As Button
     Friend WithEvents btn_cmdClear As Button
     Friend WithEvents btn_history As Button
     Friend WithEvents btn_putFileDelete As Button
     Friend WithEvents cbbox_workLst As ComboBox
+    Friend WithEvents input_q As Label
+    Friend WithEvents output_q As Label
+    Friend WithEvents command_q As Label
+    Friend WithEvents filelist_q As Label
+    Friend WithEvents cmd_q As Label
+    Friend WithEvents output_tip As ToolTip
+    Friend WithEvents command_tip As ToolTip
+    Friend WithEvents fileList_tip As ToolTip
+    Friend WithEvents cmd_tip As ToolTip
+    Friend WithEvents cmdHistory_q As Label
+    Friend WithEvents cmdHistory_tip As ToolTip
+    Friend WithEvents Label1 As Label
 End Class

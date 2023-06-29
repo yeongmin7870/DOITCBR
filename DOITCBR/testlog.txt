@@ -14740,3 +14740,4 @@ Log=C:\COBRA\LOG\cobraspl.log
 [2023.06.29 13:48:34][Info][putFiles 의 값이 Update]
 [2023.06.29 13:48:36][Info][putFiles 의 값이 Update]
 [2023.06.29 13:54:05][Info][putFiles 의 값이 Insert]
+[2023.06.29 16:16:58][Info][[2023.06.29 16:16:58][C:\cobra\COBRA2000\CRTPDFC.exe C:\cobra\COBRA2000\CRTPDFC.exe -i E:\연습프로젝트\결과폴더\output.dat]]
