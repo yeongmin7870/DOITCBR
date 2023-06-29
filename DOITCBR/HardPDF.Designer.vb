@@ -23,383 +23,277 @@ Partial Class HardPDF
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(HardPDF))
-        Me.txtboxInput = New System.Windows.Forms.TextBox()
-        Me.txtboxOutput = New System.Windows.Forms.TextBox()
-        Me.gb_path = New System.Windows.Forms.GroupBox()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.btn_input = New System.Windows.Forms.Button()
-        Me.btn_output = New System.Windows.Forms.Button()
-        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Panel4 = New System.Windows.Forms.Panel()
         Me.lst_commandBox = New System.Windows.Forms.ListBox()
-        Me.ListBox1 = New System.Windows.Forms.ListBox()
-        Me.cbbox_workLst = New System.Windows.Forms.ComboBox()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.txtboxOutput2 = New System.Windows.Forms.TextBox()
+        Me.txtboxOutput = New System.Windows.Forms.TextBox()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.chkLst_putFilelst = New System.Windows.Forms.ListBox()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.commandBox = New System.Windows.Forms.RichTextBox()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txtboxInput = New System.Windows.Forms.TextBox()
         Me.btn_start = New System.Windows.Forms.Button()
         Me.btn_cmdClear = New System.Windows.Forms.Button()
         Me.btn_history = New System.Windows.Forms.Button()
-        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.commandBox = New System.Windows.Forms.RichTextBox()
-        Me.command = New System.Windows.Forms.GroupBox()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.chkLst_putFilelst = New System.Windows.Forms.ListBox()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.btn_putFileDelete = New System.Windows.Forms.Button()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.gb_path.SuspendLayout()
+        Me.cbbox_workLst = New System.Windows.Forms.ComboBox()
+        Me.Panel4.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        Me.Panel3.SuspendLayout()
+        Me.Panel5.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.command.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'txtboxInput
-        '
-        Me.txtboxInput.AllowDrop = True
-        Me.txtboxInput.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.txtboxInput.Font = New System.Drawing.Font("굴림", 10.0!)
-        Me.txtboxInput.Location = New System.Drawing.Point(0, 1)
-        Me.txtboxInput.Name = "txtboxInput"
-        Me.txtboxInput.Size = New System.Drawing.Size(836, 23)
-        Me.txtboxInput.TabIndex = 1
-        '
-        'txtboxOutput
-        '
-        Me.txtboxOutput.AllowDrop = True
-        Me.txtboxOutput.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.txtboxOutput.Font = New System.Drawing.Font("굴림", 10.0!)
-        Me.txtboxOutput.Location = New System.Drawing.Point(0, 21)
-        Me.txtboxOutput.Name = "txtboxOutput"
-        Me.txtboxOutput.Size = New System.Drawing.Size(836, 23)
-        Me.txtboxOutput.TabIndex = 2
-        '
-        'gb_path
-        '
-        Me.gb_path.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.gb_path.Controls.Add(Me.Panel2)
-        Me.gb_path.Controls.Add(Me.Panel1)
-        Me.gb_path.ForeColor = System.Drawing.Color.Black
-        Me.gb_path.Location = New System.Drawing.Point(29, 12)
-        Me.gb_path.Name = "gb_path"
-        Me.gb_path.Size = New System.Drawing.Size(972, 64)
-        Me.gb_path.TabIndex = 3
-        Me.gb_path.TabStop = False
-        Me.gb_path.Text = "경로설정"
-        '
-        'Panel2
-        '
-        Me.Panel2.Controls.Add(Me.btn_input)
-        Me.Panel2.Controls.Add(Me.btn_output)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel2.Location = New System.Drawing.Point(838, 17)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(131, 44)
-        Me.Panel2.TabIndex = 8
-        '
-        'btn_input
-        '
-        Me.btn_input.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btn_input.Location = New System.Drawing.Point(0, 2)
-        Me.btn_input.Name = "btn_input"
-        Me.btn_input.Size = New System.Drawing.Size(118, 23)
-        Me.btn_input.TabIndex = 5
-        Me.btn_input.Text = "입력파일찾기"
-        Me.btn_input.UseVisualStyleBackColor = True
-        '
-        'btn_output
-        '
-        Me.btn_output.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btn_output.Location = New System.Drawing.Point(-1, 21)
-        Me.btn_output.Name = "btn_output"
-        Me.btn_output.Size = New System.Drawing.Size(119, 23)
-        Me.btn_output.TabIndex = 6
-        Me.btn_output.Text = "출력경로설정"
-        Me.btn_output.UseVisualStyleBackColor = True
-        '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.txtboxInput)
-        Me.Panel1.Controls.Add(Me.txtboxOutput)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel1.Location = New System.Drawing.Point(3, 17)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(836, 44)
-        Me.Panel1.TabIndex = 7
         '
         'OpenFileDialog1
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
-        'GroupBox1
+        'Panel4
         '
-        Me.GroupBox1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.GroupBox1.Controls.Add(Me.lst_commandBox)
-        Me.GroupBox1.Controls.Add(Me.ListBox1)
-        Me.GroupBox1.Controls.Add(Me.cbbox_workLst)
-        Me.GroupBox1.ForeColor = System.Drawing.Color.Black
-        Me.GroupBox1.Location = New System.Drawing.Point(23, 215)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(978, 197)
-        Me.GroupBox1.TabIndex = 7
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "작업"
+        Me.Panel4.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.Panel4.Controls.Add(Me.lst_commandBox)
+        Me.Panel4.Location = New System.Drawing.Point(65, 270)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(492, 192)
+        Me.Panel4.TabIndex = 17
         '
         'lst_commandBox
         '
-        Me.lst_commandBox.Font = New System.Drawing.Font("굴림", 18.0!)
+        Me.lst_commandBox.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.lst_commandBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.lst_commandBox.Font = New System.Drawing.Font("굴림", 13.0!)
+        Me.lst_commandBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.lst_commandBox.FormattingEnabled = True
-        Me.lst_commandBox.ItemHeight = 24
-        Me.lst_commandBox.Location = New System.Drawing.Point(6, 43)
+        Me.lst_commandBox.ItemHeight = 17
+        Me.lst_commandBox.Location = New System.Drawing.Point(20, 13)
         Me.lst_commandBox.Name = "lst_commandBox"
-        Me.lst_commandBox.Size = New System.Drawing.Size(956, 148)
+        Me.lst_commandBox.Size = New System.Drawing.Size(448, 153)
         Me.lst_commandBox.TabIndex = 9
         '
-        'ListBox1
+        'Panel2
         '
-        Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.ItemHeight = 12
-        Me.ListBox1.Location = New System.Drawing.Point(230, 74)
-        Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(8, 4)
-        Me.ListBox1.TabIndex = 8
+        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.Panel2.Controls.Add(Me.txtboxOutput2)
+        Me.Panel2.Controls.Add(Me.txtboxOutput)
+        Me.Panel2.Location = New System.Drawing.Point(65, 153)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(492, 65)
+        Me.Panel2.TabIndex = 18
         '
-        'cbbox_workLst
+        'txtboxOutput2
         '
-        Me.cbbox_workLst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbbox_workLst.Location = New System.Drawing.Point(6, 17)
-        Me.cbbox_workLst.Name = "cbbox_workLst"
-        Me.cbbox_workLst.Size = New System.Drawing.Size(243, 20)
-        Me.cbbox_workLst.TabIndex = 7
+        Me.txtboxOutput2.AllowDrop = True
+        Me.txtboxOutput2.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.txtboxOutput2.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtboxOutput2.Font = New System.Drawing.Font("굴림", 13.0!)
+        Me.txtboxOutput2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.txtboxOutput2.Location = New System.Drawing.Point(21, 11)
+        Me.txtboxOutput2.Multiline = True
+        Me.txtboxOutput2.Name = "txtboxOutput2"
+        Me.txtboxOutput2.Size = New System.Drawing.Size(447, 42)
+        Me.txtboxOutput2.TabIndex = 1
+        '
+        'txtboxOutput
+        '
+        Me.txtboxOutput.AllowDrop = True
+        Me.txtboxOutput.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.txtboxOutput.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtboxOutput.Font = New System.Drawing.Font("굴림", 10.0!)
+        Me.txtboxOutput.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.txtboxOutput.Location = New System.Drawing.Point(21, 11)
+        Me.txtboxOutput.Multiline = True
+        Me.txtboxOutput.Name = "txtboxOutput"
+        Me.txtboxOutput.Size = New System.Drawing.Size(447, 42)
+        Me.txtboxOutput.TabIndex = 2
+        '
+        'Panel3
+        '
+        Me.Panel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.Panel3.Controls.Add(Me.chkLst_putFilelst)
+        Me.Panel3.Location = New System.Drawing.Point(623, 66)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(439, 185)
+        Me.Panel3.TabIndex = 19
+        '
+        'chkLst_putFilelst
+        '
+        Me.chkLst_putFilelst.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.chkLst_putFilelst.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.chkLst_putFilelst.Font = New System.Drawing.Font("굴림", 13.0!)
+        Me.chkLst_putFilelst.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.chkLst_putFilelst.FormattingEnabled = True
+        Me.chkLst_putFilelst.ItemHeight = 17
+        Me.chkLst_putFilelst.Location = New System.Drawing.Point(20, 16)
+        Me.chkLst_putFilelst.Name = "chkLst_putFilelst"
+        Me.chkLst_putFilelst.Size = New System.Drawing.Size(400, 136)
+        Me.chkLst_putFilelst.TabIndex = 6
+        '
+        'Panel5
+        '
+        Me.Panel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.Panel5.Controls.Add(Me.commandBox)
+        Me.Panel5.Location = New System.Drawing.Point(623, 308)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(449, 111)
+        Me.Panel5.TabIndex = 20
+        '
+        'commandBox
+        '
+        Me.commandBox.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.commandBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.commandBox.Font = New System.Drawing.Font("굴림", 13.0!)
+        Me.commandBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.commandBox.Location = New System.Drawing.Point(20, 12)
+        Me.commandBox.Name = "commandBox"
+        Me.commandBox.Size = New System.Drawing.Size(405, 86)
+        Me.commandBox.TabIndex = 10
+        Me.commandBox.Text = ""
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.Panel1.Controls.Add(Me.txtboxInput)
+        Me.Panel1.Location = New System.Drawing.Point(65, 66)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(492, 65)
+        Me.Panel1.TabIndex = 21
+        '
+        'txtboxInput
+        '
+        Me.txtboxInput.AllowDrop = True
+        Me.txtboxInput.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.txtboxInput.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtboxInput.Font = New System.Drawing.Font("굴림", 13.0!)
+        Me.txtboxInput.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.txtboxInput.Location = New System.Drawing.Point(21, 11)
+        Me.txtboxInput.Multiline = True
+        Me.txtboxInput.Name = "txtboxInput"
+        Me.txtboxInput.Size = New System.Drawing.Size(447, 42)
+        Me.txtboxInput.TabIndex = 1
         '
         'btn_start
         '
-        Me.btn_start.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btn_start.BackColor = System.Drawing.Color.RoyalBlue
-        Me.btn_start.BackgroundImage = CType(resources.GetObject("btn_start.BackgroundImage"), System.Drawing.Image)
+        Me.btn_start.BackColor = System.Drawing.Color.FromArgb(CType(CType(132, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.btn_start.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.btn_start.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_start.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btn_start.ForeColor = System.Drawing.Color.Transparent
-        Me.btn_start.Location = New System.Drawing.Point(822, 53)
+        Me.btn_start.ForeColor = System.Drawing.Color.FromArgb(CType(CType(21, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(24, Byte), Integer))
+        Me.btn_start.Location = New System.Drawing.Point(930, 425)
         Me.btn_start.Name = "btn_start"
-        Me.btn_start.Size = New System.Drawing.Size(147, 39)
-        Me.btn_start.TabIndex = 4
+        Me.btn_start.Size = New System.Drawing.Size(142, 36)
+        Me.btn_start.TabIndex = 12
         Me.btn_start.Text = "작업실행"
         Me.btn_start.UseVisualStyleBackColor = False
         '
         'btn_cmdClear
         '
-        Me.btn_cmdClear.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btn_cmdClear.BackColor = System.Drawing.Color.Maroon
-        Me.btn_cmdClear.BackgroundImage = CType(resources.GetObject("btn_cmdClear.BackgroundImage"), System.Drawing.Image)
+        Me.btn_cmdClear.BackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(94, Byte), Integer), CType(CType(94, Byte), Integer))
         Me.btn_cmdClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.btn_cmdClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_cmdClear.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.btn_cmdClear.ForeColor = System.Drawing.Color.Transparent
-        Me.btn_cmdClear.Location = New System.Drawing.Point(822, 20)
+        Me.btn_cmdClear.ForeColor = System.Drawing.Color.FromArgb(CType(CType(21, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(24, Byte), Integer))
+        Me.btn_cmdClear.Location = New System.Drawing.Point(623, 425)
         Me.btn_cmdClear.Name = "btn_cmdClear"
-        Me.btn_cmdClear.Size = New System.Drawing.Size(74, 28)
-        Me.btn_cmdClear.TabIndex = 4
+        Me.btn_cmdClear.Size = New System.Drawing.Size(142, 36)
+        Me.btn_cmdClear.TabIndex = 13
         Me.btn_cmdClear.Text = "비우기"
         Me.btn_cmdClear.UseVisualStyleBackColor = False
         '
         'btn_history
         '
-        Me.btn_history.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btn_history.BackColor = System.Drawing.SystemColors.Desktop
-        Me.btn_history.BackgroundImage = CType(resources.GetObject("btn_history.BackgroundImage"), System.Drawing.Image)
+        Me.btn_history.BackColor = System.Drawing.Color.FromArgb(CType(CType(129, Byte), Integer), CType(CType(124, Byte), Integer), CType(CType(242, Byte), Integer))
         Me.btn_history.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.btn_history.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_history.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.btn_history.ForeColor = System.Drawing.Color.Transparent
-        Me.btn_history.Location = New System.Drawing.Point(902, 19)
+        Me.btn_history.ForeColor = System.Drawing.Color.FromArgb(CType(CType(21, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(24, Byte), Integer))
+        Me.btn_history.Location = New System.Drawing.Point(777, 425)
         Me.btn_history.Name = "btn_history"
-        Me.btn_history.Size = New System.Drawing.Size(67, 28)
-        Me.btn_history.TabIndex = 4
+        Me.btn_history.Size = New System.Drawing.Size(142, 36)
+        Me.btn_history.TabIndex = 14
         Me.btn_history.Text = "History"
         Me.btn_history.UseVisualStyleBackColor = False
         '
-        'commandBox
-        '
-        Me.commandBox.Location = New System.Drawing.Point(3, 17)
-        Me.commandBox.Name = "commandBox"
-        Me.commandBox.Size = New System.Drawing.Size(813, 75)
-        Me.commandBox.TabIndex = 10
-        Me.commandBox.Text = ""
-        '
-        'command
-        '
-        Me.command.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.command.Controls.Add(Me.btn_start)
-        Me.command.Controls.Add(Me.btn_cmdClear)
-        Me.command.Controls.Add(Me.commandBox)
-        Me.command.Controls.Add(Me.btn_history)
-        Me.command.Location = New System.Drawing.Point(23, 418)
-        Me.command.Name = "command"
-        Me.command.Size = New System.Drawing.Size(975, 114)
-        Me.command.TabIndex = 11
-        Me.command.TabStop = False
-        Me.command.Text = "명령어"
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.GroupBox2.Controls.Add(Me.chkLst_putFilelst)
-        Me.GroupBox2.Controls.Add(Me.GroupBox3)
-        Me.GroupBox2.Location = New System.Drawing.Point(26, 82)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(975, 127)
-        Me.GroupBox2.TabIndex = 12
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "올려 놓은 파일 리스트"
-        '
-        'chkLst_putFilelst
-        '
-        Me.chkLst_putFilelst.FormattingEnabled = True
-        Me.chkLst_putFilelst.ItemHeight = 12
-        Me.chkLst_putFilelst.Location = New System.Drawing.Point(6, 24)
-        Me.chkLst_putFilelst.Name = "chkLst_putFilelst"
-        Me.chkLst_putFilelst.Size = New System.Drawing.Size(836, 88)
-        Me.chkLst_putFilelst.TabIndex = 6
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.btn_putFileDelete)
-        Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Right
-        Me.GroupBox3.Location = New System.Drawing.Point(848, 17)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(124, 107)
-        Me.GroupBox3.TabIndex = 5
-        Me.GroupBox3.TabStop = False
-        '
         'btn_putFileDelete
         '
-        Me.btn_putFileDelete.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btn_putFileDelete.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.btn_putFileDelete.BackgroundImage = CType(resources.GetObject("btn_putFileDelete.BackgroundImage"), System.Drawing.Image)
+        Me.btn_putFileDelete.BackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(94, Byte), Integer), CType(CType(94, Byte), Integer))
         Me.btn_putFileDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.btn_putFileDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn_putFileDelete.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btn_putFileDelete.ForeColor = System.Drawing.Color.Transparent
-        Me.btn_putFileDelete.Location = New System.Drawing.Point(6, 4)
+        Me.btn_putFileDelete.ForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(18, Byte), Integer), CType(CType(19, Byte), Integer))
+        Me.btn_putFileDelete.Location = New System.Drawing.Point(777, 257)
         Me.btn_putFileDelete.Name = "btn_putFileDelete"
-        Me.btn_putFileDelete.Size = New System.Drawing.Size(112, 96)
-        Me.btn_putFileDelete.TabIndex = 4
+        Me.btn_putFileDelete.Size = New System.Drawing.Size(142, 38)
+        Me.btn_putFileDelete.TabIndex = 15
         Me.btn_putFileDelete.Text = "삭제"
         Me.btn_putFileDelete.UseVisualStyleBackColor = False
         '
-        'Button2
+        'cbbox_workLst
         '
-        Me.Button2.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Button2.BackColor = System.Drawing.SystemColors.Control
-        Me.Button2.Cursor = System.Windows.Forms.Cursors.Help
-        Me.Button2.ForeColor = System.Drawing.Color.Crimson
-        Me.Button2.Location = New System.Drawing.Point(2, 415)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(25, 25)
-        Me.Button2.TabIndex = 11
-        Me.Button2.Text = "?"
-        Me.Button2.UseVisualStyleBackColor = False
-        '
-        'Button3
-        '
-        Me.Button3.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Button3.BackColor = System.Drawing.SystemColors.Control
-        Me.Button3.Cursor = System.Windows.Forms.Cursors.Help
-        Me.Button3.ForeColor = System.Drawing.Color.Crimson
-        Me.Button3.Location = New System.Drawing.Point(2, 215)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(25, 25)
-        Me.Button3.TabIndex = 11
-        Me.Button3.Text = "?"
-        Me.Button3.UseVisualStyleBackColor = False
-        '
-        'Button4
-        '
-        Me.Button4.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Button4.BackColor = System.Drawing.SystemColors.Control
-        Me.Button4.Cursor = System.Windows.Forms.Cursors.Help
-        Me.Button4.ForeColor = System.Drawing.Color.Crimson
-        Me.Button4.Location = New System.Drawing.Point(5, 12)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(25, 25)
-        Me.Button4.TabIndex = 11
-        Me.Button4.Text = "?"
-        Me.Button4.UseVisualStyleBackColor = False
-        '
-        'Button5
-        '
-        Me.Button5.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Button5.BackColor = System.Drawing.SystemColors.Control
-        Me.Button5.Cursor = System.Windows.Forms.Cursors.Help
-        Me.Button5.ForeColor = System.Drawing.Color.Crimson
-        Me.Button5.Location = New System.Drawing.Point(5, 82)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(25, 25)
-        Me.Button5.TabIndex = 11
-        Me.Button5.Text = "?"
-        Me.Button5.UseVisualStyleBackColor = False
+        Me.cbbox_workLst.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(18, Byte), Integer), CType(CType(19, Byte), Integer))
+        Me.cbbox_workLst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbbox_workLst.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.cbbox_workLst.Font = New System.Drawing.Font("굴림", 13.0!)
+        Me.cbbox_workLst.ForeColor = System.Drawing.Color.FromArgb(CType(CType(63, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(65, Byte), Integer))
+        Me.cbbox_workLst.Location = New System.Drawing.Point(65, 242)
+        Me.cbbox_workLst.Name = "cbbox_workLst"
+        Me.cbbox_workLst.Size = New System.Drawing.Size(492, 25)
+        Me.cbbox_workLst.TabIndex = 16
         '
         'HardPDF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.BackColor = System.Drawing.SystemColors.Control
+        Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.ClientSize = New System.Drawing.Size(1010, 544)
-        Me.Controls.Add(Me.Button4)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button5)
-        Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.command)
-        Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.gb_path)
+        Me.ClientSize = New System.Drawing.Size(1137, 528)
+        Me.Controls.Add(Me.Panel4)
+        Me.Controls.Add(Me.btn_putFileDelete)
+        Me.Controls.Add(Me.Panel2)
+        Me.Controls.Add(Me.Panel3)
+        Me.Controls.Add(Me.Panel5)
+        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.btn_start)
+        Me.Controls.Add(Me.btn_cmdClear)
+        Me.Controls.Add(Me.btn_history)
+        Me.Controls.Add(Me.cbbox_workLst)
         Me.DoubleBuffered = True
         Me.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "HardPDF"
         Me.Text = "대용량 PDF 변환"
-        Me.gb_path.ResumeLayout(False)
+        Me.Panel4.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel5.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.command.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox3.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents txtboxInput As TextBox
-    Friend WithEvents txtboxOutput As TextBox
-    Friend WithEvents gb_path As GroupBox
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
-    Friend WithEvents btn_input As Button
-    Friend WithEvents btn_output As Button
-    Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
-    Friend WithEvents commandBox As RichTextBox
-    Friend WithEvents command As GroupBox
-    Friend WithEvents btn_history As Button
-    Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Button5 As Button
-    Friend WithEvents Panel2 As Panel
-    Friend WithEvents Panel1 As Panel
-    Friend WithEvents btn_start As Button
-    Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents btn_putFileDelete As Button
-    Friend WithEvents btn_cmdClear As Button
-    Friend WithEvents cbbox_workLst As ComboBox
-    Friend WithEvents chkLst_putFilelst As ListBox
+    Friend WithEvents Panel4 As Panel
     Friend WithEvents lst_commandBox As ListBox
-    Friend WithEvents ListBox1 As ListBox
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents txtboxOutput2 As TextBox
+    Friend WithEvents txtboxOutput As TextBox
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents chkLst_putFilelst As ListBox
+    Friend WithEvents Panel5 As Panel
+    Friend WithEvents commandBox As RichTextBox
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents txtboxInput As TextBox
+    Friend WithEvents btn_start As Button
+    Friend WithEvents btn_cmdClear As Button
+    Friend WithEvents btn_history As Button
+    Friend WithEvents btn_putFileDelete As Button
+    Friend WithEvents cbbox_workLst As ComboBox
 End Class

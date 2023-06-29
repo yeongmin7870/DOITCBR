@@ -20,34 +20,34 @@ Public Class HardPDF
     'Output
     Public opt As String = String.Empty
 
-    Private Sub btn_input_Click(sender As Object, e As EventArgs) Handles btn_input.Click
-        Try
-            Using ofd As New OpenFileDialog
-                ofd.Filter = "(*.txt)|*.txt|(*.spl)|*.spl"
-                If ofd.ShowDialog() = DialogResult.OK Then
-                    filePath = ofd.FileName
-                    txtboxInput.Text = filePath
-                    settingPath.WriteIni(filePath, "putFiles")
-                End If
-                Settinginit()
-                Update_chkLst_putLst()
-            End Using
-        Catch ex As Exception
-            logger.log(ex.ToString, "w")
-        End Try
-    End Sub
+    'Private Sub btn_input_Click(sender As Object, e As EventArgs)
+    '    Try
+    '        Using ofd As New OpenFileDialog
+    '            ofd.Filter = "(*.txt)|*.txt|(*.spl)|*.spl"
+    '            If ofd.ShowDialog() = DialogResult.OK Then
+    '                filePath = ofd.FileName
+    '                txtboxInput.Text = filePath
+    '                settingPath.WriteIni(filePath, "putFiles")
+    '            End If
+    '            Settinginit()
+    '            Update_chkLst_putLst()
+    '        End Using
+    '    Catch ex As Exception
+    '        logger.log(ex.ToString, "w")
+    '    End Try
+    'End Sub
 
-    Private Sub btn_output_Click(sender As Object, e As EventArgs) Handles btn_output.Click
-        Using ofd2 As New FolderBrowserDialog
-            If ofd2.ShowDialog() = DialogResult.OK Then
-                folderPath = ofd2.SelectedPath
-                txtboxOutput.Text = folderPath
-                selectForm.ListFilesAndFolders(settingPath.data("txtOutput"))
-                UpdateIni(folderPath, "txtOutput")
-                SelectForm.ListFilesAndFolders(folderPath)
-            End If
-        End Using
-    End Sub
+    'Private Sub btn_output_Click(sender As Object, e As EventArgs)
+    '    Using ofd2 As New FolderBrowserDialog
+    '        If ofd2.ShowDialog() = DialogResult.OK Then
+    '            folderPath = ofd2.SelectedPath
+    '            txtboxOutput.Text = folderPath
+    '            SelectForm.ListFilesAndFolders(settingPath.data("txtOutput"))
+    '            UpdateIni(folderPath, "txtOutput")
+    '            SelectForm.ListFilesAndFolders(folderPath)
+    '        End If
+    '    End Using
+    'End Sub
 
 
     'Private Sub HardPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -128,7 +128,7 @@ Public Class HardPDF
         End Try
     End Sub
     'Output textbox 안에 파일을 떨어뜨리는 함수
-    Private Sub txtboxOutput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragEnter
+    Private Sub txtboxOutput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxOutput2.DragEnter
         Try
             If e.Data.GetDataPresent(DataFormats.FileDrop) Then
                 e.Effect = DragDropEffects.Copy
@@ -142,25 +142,25 @@ Public Class HardPDF
         End Try
     End Sub
 
-    Private Sub txtboxOutput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxOutput.DragDrop
+    Private Sub txtboxOutput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxOutput2.DragDrop
         Try
             If e.Data.GetDataPresent(DataFormats.FileDrop) Then
                 Dim filePaths As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
                 If filePaths.Length > 0 Then
                     Dim drpath As String = chkFileAnsdFolder(filePaths(0))
 
-                    txtboxOutput.Text = drpath
+                    txtboxOutput2.Text = drpath
                     folderPath = drpath
-                    selectForm.ListFilesAndFolders(drpath)
+                    SelectForm.ListFilesAndFolders(drpath)
                     UpdateIni(drpath, "txtOutput")
                 End If
             End If
             If e.Data.GetDataPresent(DataFormats.Text) Then
                 Dim droppedText As String = CStr(e.Data.GetData(DataFormats.Text))
                 Dim drpath As String = chkFileAnsdFolder(droppedText)
-                txtboxOutput.Text = drpath
+                txtboxOutput2.Text = drpath
                 folderPath = drpath
-                selectForm.ListFilesAndFolders(drpath)
+                SelectForm.ListFilesAndFolders(drpath)
                 UpdateIni(drpath, "txtOutput")
             End If
         Catch ex As Exception
@@ -168,14 +168,14 @@ Public Class HardPDF
         End Try
     End Sub
 
-    Private Sub txtboxOutput_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtboxOutput.KeyPress
+    Private Sub txtboxOutput_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtboxOutput2.KeyPress
         Try
             If e.KeyChar = ChrW(Keys.Enter) Then
-                If txtboxOutput.Text Is Nothing Or txtboxOutput.Text = "" Then
-                    txtboxOutput.Text = settingPath.data("txtOutput")
+                If txtboxOutput2.Text Is Nothing Or txtboxOutput2.Text = "" Then
+                    txtboxOutput2.Text = settingPath.data("txtOutput")
                 End If
-                folderPath = txtboxOutput.Text
-                selectForm.ListFilesAndFolders(folderPath)
+                folderPath = txtboxOutput2.Text
+                SelectForm.ListFilesAndFolders(folderPath)
                 UpdateIni(folderPath, "txtOutput")
             End If
         Catch ex As Exception
@@ -203,11 +203,35 @@ Public Class HardPDF
 
 
     Private Sub HardPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        txtboxOutput.Text = data("txtOutput")
+        PanelRound(40, Panel1)
+        PanelRound(40, Panel2)
+        PanelRound(40, Panel3)
+        PanelRound(40, Panel4)
+        PanelRound(40, Panel5)
+
+        PanelRound(5, cbbox_workLst)
+        PanelRound(40, btn_cmdClear)
+        PanelRound(40, btn_history)
+        PanelRound(40, btn_start)
+        PanelRound(40, btn_putFileDelete)
+
+        txtboxInput.Padding = New Padding(100)
+
+        txtboxOutput2.Text = data("txtOutput")
         Update_chkLst_putLst()
         Update_cbbox_workLst()
     End Sub
+    Sub PanelRound(r, pn)
+        Dim radius As Integer = r ' 원하는 모서리 깎기 정도를 조절합니다.
+        Dim path As New Drawing2D.GraphicsPath()
+        path.AddArc(0, 0, radius, radius, 180, 90) ' 좌상단 모서리
+        path.AddArc(pn.Width - radius, 0, radius, radius, 270, 90) ' 우상단 모서리
+        path.AddArc(pn.Width - radius, pn.Height - radius, radius, radius, 0, 90) ' 우하단 모서리
+        path.AddArc(0, pn.Height - radius, radius, radius, 90, 90) ' 좌하단 모서리
+        path.CloseFigure()
 
+        pn.Region = New Region(path)
+    End Sub
 
 
     Private Sub btn_putFileDelete_Click(sender As Object, e As EventArgs) Handles btn_putFileDelete.Click
@@ -304,7 +328,7 @@ Public Class HardPDF
             If t = "-D" Then
                 If rs.IndexOf("-D") <> -1 Then
                     Dim prepath As String = rs.Substring(rs.IndexOf("-D") + 2).Trim.Split(" ")(0)
-                    rs = rs.Replace(prepath, txtboxOutput.Text)
+                    rs = rs.Replace(prepath, txtboxOutput2.Text)
                 End If
             End If
 
@@ -340,7 +364,7 @@ Public Class HardPDF
 
             If t = "-D" Then
                 If rs.IndexOf("-D") <> -1 Then
-                    rs = rs.Substring(0, rs.IndexOf("-D") + 2) & $" {txtboxOutput.Text} " & rs.Substring(rs.IndexOf("-D") + +2)
+                    rs = rs.Substring(0, rs.IndexOf("-D") + 2) & $" {txtboxOutput2.Text} " & rs.Substring(rs.IndexOf("-D") + +2)
                 End If
             End If
 

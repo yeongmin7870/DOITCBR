@@ -133,6 +133,7 @@ Partial Class SelectForm
         Me.Panel9.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
         Me.Panel9.Controls.Add(Me.Label3)
         Me.Panel9.Controls.Add(Me.pathBox)
+        Me.Panel9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.Panel9.Location = New System.Drawing.Point(3, 15)
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(148, 43)
@@ -155,7 +156,7 @@ Partial Class SelectForm
         Me.pathBox.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.pathBox.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.pathBox.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.pathBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(84, Byte), Integer), CType(CType(86, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.pathBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.pathBox.Location = New System.Drawing.Point(0, 30)
         Me.pathBox.Name = "pathBox"
         Me.pathBox.ReadOnly = True
@@ -202,11 +203,11 @@ Partial Class SelectForm
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft New Tai Lue", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(211, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(214, Byte), Integer))
-        Me.Label5.Location = New System.Drawing.Point(14, 15)
+        Me.Label5.Location = New System.Drawing.Point(-4, 15)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(53, 17)
+        Me.Label5.Size = New System.Drawing.Size(90, 17)
         Me.Label5.TabIndex = 2
-        Me.Label5.Text = "History"
+        Me.Label5.Text = "💻명령어파일"
         '
         'Panel7
         '
@@ -222,11 +223,11 @@ Partial Class SelectForm
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft New Tai Lue", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(211, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(214, Byte), Integer))
-        Me.Label4.Location = New System.Drawing.Point(22, 15)
+        Me.Label4.Location = New System.Drawing.Point(1, 15)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(34, 17)
+        Me.Label4.Size = New System.Drawing.Size(77, 17)
         Me.Label4.TabIndex = 2
-        Me.Label4.Text = "로그"
+        Me.Label4.Text = "📜로그파일"
         '
         'btn_hard
         '
@@ -242,11 +243,11 @@ Partial Class SelectForm
         Me.btn_hard_lb.AutoSize = True
         Me.btn_hard_lb.Font = New System.Drawing.Font("Microsoft New Tai Lue", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_hard_lb.ForeColor = System.Drawing.Color.FromArgb(CType(CType(211, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(214, Byte), Integer))
-        Me.btn_hard_lb.Location = New System.Drawing.Point(18, 15)
+        Me.btn_hard_lb.Location = New System.Drawing.Point(1, 15)
         Me.btn_hard_lb.Name = "btn_hard_lb"
-        Me.btn_hard_lb.Size = New System.Drawing.Size(45, 17)
+        Me.btn_hard_lb.Size = New System.Drawing.Size(77, 17)
         Me.btn_hard_lb.TabIndex = 2
-        Me.btn_hard_lb.Text = "Home"
+        Me.btn_hard_lb.Text = "🕒새로고침"
         '
         'Panel5
         '
@@ -266,7 +267,7 @@ Partial Class SelectForm
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(167, Byte), Integer), CType(CType(2, Byte), Integer), CType(CType(73, Byte), Integer))
         Me.Label2.Location = New System.Drawing.Point(3, 22)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(104, 8)
+        Me.Label2.Size = New System.Drawing.Size(105, 8)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "New Technology Business"
         '
