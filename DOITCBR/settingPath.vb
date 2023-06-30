@@ -8,15 +8,15 @@ Module settingPath
         Try
             Dim lines As String() = File.ReadAllLines(settingFilePath)
             For Each line As String In lines
-                If line.IndexOf("#") <> 0 Then '주석이 아닐때
-                    If line.Split("=")(0) <> "cbox_workLst_command" Then '명령어 박스 Key 가 아닐때
-                        data(line.Split("=")(0)) = line.Split("=")(1)
-                    Else
-                        Dim values As String() = line.Split("=")(1).Split("&")
-                        For Each value In values
-                            data(value.Split(":")(0).Split("[")(1)) = value.Split(":")(1).Split("]")(0)
-                        Next
-                    End If
+                If line.IndexOf("#") <> 0 Then '주석이 아닐때 
+                    'If line.Split("=")(0) <> "cbox_workLst_command" Then '명령어 박스 Key 가 아닐때
+                    data(line.Split("=")(0)) = line.Split("=")(1)
+                    'Else
+                    '    Dim values As String() = line.Split("=")(1).Split("&")
+                    '    For Each value In values
+                    '        data(value.Split(":")(0).Split("[")(1)) = value.Split(":")(1).Split("]")(0)
+                    '    Next
+                    'End If
                 End If
             Next
         Catch ex As Exception

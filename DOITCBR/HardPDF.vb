@@ -2,8 +2,7 @@
 Imports DOITCBR.logger
 Imports DOITCBR.NTBProcess
 Imports System.IO
-Imports System.Text
-
+Imports Newtonsoft.Json.Linq
 Public Class HardPDF
     'SelectForm 인스턴스 생성
     Dim filePath As String = String.Empty
@@ -279,10 +278,26 @@ Public Class HardPDF
     End Sub
     'lst_commandBox 리스트에 데이터 추가
     Sub SetExeSelectBox()
+        Try
+            'JSON 파일 내용 읽기
+            Dim jsonString As String = File.ReadAllText(data("cbox_workLst_command"))
+            'JSON 데이터 역직렬화
+            Dim jsonData As Object = JObject.Parse(jsonString)
+            '찾고자 하는 키
+            Dim targetKey As String = "cbrUtilCmd"
+            '키가 존재하는지 확인하고 값 찾기
+            If jsonData.ContainsKey(targetKey) Then
+                For Each d In jsonData(targetKey)(cbbox_workLst.SelectedItem).Properties()
+                    MessageBox.Show(d.Name.ToString)
+                Next
+            End If
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
         lst_commandBox.Items.Clear()
-        For Each d In data(cbbox_workLst.SelectedItem).Split(",")
-            lst_commandBox.Items.Add(d)
-        Next
+        'For Each d In data(cbbox_workLst.SelectedItem).Split(",")
+        '    lst_commandBox.Items.Add(d)
+        'Next
     End Sub
     Private Sub cbbox_workLst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbox_workLst.SelectedIndexChanged
         SetExeSelectBox()
