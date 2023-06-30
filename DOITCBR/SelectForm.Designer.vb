@@ -46,7 +46,6 @@ Partial Class SelectForm
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lb_exit = New System.Windows.Forms.Label()
         Me.ToolStripDropDownButton1 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Label()
         Me.Panel3.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.Panel9.SuspendLayout()
@@ -182,7 +181,6 @@ Partial Class SelectForm
         Me.Panel1.Controls.Add(Me.Panel5)
         Me.Panel1.Controls.Add(Me.lb_exit)
         Me.Panel1.Controls.Add(Me.ToolStripDropDownButton1)
-        Me.Panel1.Controls.Add(Me.Button2)
         Me.Panel1.Location = New System.Drawing.Point(20, 20)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(10)
         Me.Panel1.Name = "Panel1"
@@ -306,18 +304,6 @@ Partial Class SelectForm
         Me.ToolStripDropDownButton1.TabIndex = 2
         Me.ToolStripDropDownButton1.Text = "⚙"
         '
-        'Button2
-        '
-        Me.Button2.AutoSize = True
-        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button2.Font = New System.Drawing.Font("굴림", 20.0!)
-        Me.Button2.ForeColor = System.Drawing.Color.Transparent
-        Me.Button2.Location = New System.Drawing.Point(1174, 10)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(39, 27)
-        Me.Button2.TabIndex = 2
-        Me.Button2.Text = "📁"
-        '
         'SelectForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -374,6 +360,5 @@ Partial Class SelectForm
     Friend WithEvents Label1 As Label
     Friend WithEvents lb_exit As Label
     Friend WithEvents ToolStripDropDownButton1 As Label
-    Friend WithEvents Button2 As Label
     Friend WithEvents iconImgList As ImageList
 End Class

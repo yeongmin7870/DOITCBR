@@ -14741,3 +14741,128 @@ Log=C:\COBRA\LOG\cobraspl.log
 [2023.06.29 13:48:36][Info][putFiles 의 값이 Update]
 [2023.06.29 13:54:05][Info][putFiles 의 값이 Insert]
 [2023.06.29 16:16:58][Info][[2023.06.29 16:16:58][C:\cobra\COBRA2000\CRTPDFC.exe C:\cobra\COBRA2000\CRTPDFC.exe -i E:\연습프로젝트\결과폴더\output.dat]]
+[2023.06.29 16:44:25][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:27][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:27][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:27][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:29][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:30][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:30][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:32][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:32][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:32][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:33][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:37][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:44][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:44][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:48][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:48][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:49][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:49][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:49][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:49][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:49][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:49][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:49][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:49][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:49][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:49][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:52][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:52][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:53][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:53][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:53][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:53][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:53][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:53][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:55][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:55][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:55][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:55][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:56][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:56][Info][putFiles 의 값이 Update]
+[2023.06.29 16:44:58][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:44:58][Info][putFiles 의 값이 Update]
+[2023.06.29 16:45:00][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:45:00][Info][putFiles 의 값이 Update]
+[2023.06.29 16:46:14][Info][환경설정 파일을 열었습니다.]
+[2023.06.29 16:46:19][Info][환경설정 파일을 열었습니다.]
+[2023.06.29 16:48:17][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:48:17][Info][putFiles 의 값이 Update]
+[2023.06.29 16:48:19][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 16:48:19][Info][putFiles 의 값이 Update]
+[2023.06.29 16:49:18][Info][putFiles 의 값이 Insert]
+[2023.06.29 16:49:21][Info][txtOutput 의 값이 Update]
+[2023.06.29 16:50:08][Info][[2023.06.29 16:50:06][C:\cobra\COBRA2000\COBRADOC.exe -i E:\연습프로젝트\결과폴더\output.txt  -D E:\연습프로젝트\결과폴더]]
+[2023.06.29 16:50:34][Info][[2023.06.29 16:50:32][C:\cobra\COBRA2000\COBRADOC.exe -i E:\연습프로젝트\결과폴더\output.txt  -D E:\연습프로젝트\결과폴더  -J -C "PDFMODE YES"]]
+[2023.06.29 16:50:53][Info][putFiles 의 값이 Insert]
+[2023.06.29 16:51:16][Info][------------------------------------------------------------
+Program: Insert Image to PDF 1.2.0.0
+Copyright: NTBKorea Co., Ltd. 2015
+
+INFO  - 시작: E:\연습프로젝트\결과폴더\\output.pdftmp
+ERROR - PDF header signature not found.
+INFO  - 완료: E:\연습프로젝트\결과폴더\output-cnv.pdf, [0 페이지]
+INFO  - 처리 시간: 00:00:00.0788384
+CRTPDFC[413][1216] 2023-06-29-16:51:06
+SRC=E:\연습프로젝트\결과폴더\output.txt
+
+Error 4 src=E:\연습프로젝트\결과폴더\\output-cnv.pdf
+]
+[2023.06.29 16:51:16][Info][[2023.06.29 16:51:06][C:\cobra\COBRA2000\CRTPDFC.exe -i E:\연습프로젝트\결과폴더\output.txt]]
+[2023.06.29 16:51:49][Info][Page [      0] is doing..Page [     50] is doing..Page [    100] is doing..Page [    150] is doing..Page [    200] is doing..Page [    250] is doing..Page [    287] is done...
+------------------------------------------------------------
+Program: Insert Image to PDF 1.2.0.0
+Copyright: NTBKorea Co., Ltd. 2015
+
+INFO  - 시작: E:\연습프로젝트\결과폴더\\output.pdftmp
+INFO  - 완료: E:\연습프로젝트\결과폴더\output-cnv.pdf, [287 페이지]
+INFO  - 처리 시간: 00:00:13.0390566
+CRTPDFC[413][13920] 2023-06-29-16:51:33
+SRC=E:\연습프로젝트\결과폴더\output.dat
+
+CRTPDFC[413][13920] 2023-06-29-16:51:49
+OUTPUT=E:\연습프로젝트\결과폴더\\output-cnv.pdf
+FONTS=C:\COBRA\FONTPDF , PLUGIN=COBRA\PLUGIN
+Log=C:\COBRA\LOG\cobraspl.log
+]
+[2023.06.29 16:51:49][Info][[2023.06.29 16:51:33][C:\cobra\COBRA2000\CRTPDFC.exe -i E:\연습프로젝트\결과폴더\output.dat]]
+[2023.06.29 16:52:46][Info][환경설정 파일을 열었습니다.]
+[2023.06.29 16:53:50][Info][[2023.06.29 16:53:48][C:\cobra\COBRA2000\COBRADOC.exe C:\cobra\COBRA2000\COBRADOC.exe -i E:\연습프로젝트\결과폴더\output.txt  -D E:\연습프로젝트\결과폴더  -J -C "PDFMODE YES"]]
+[2023.06.29 16:57:51][Info][putFiles 의 값이 Update]
+[2023.06.29 16:57:53][Info][putFiles 의 값이 Update]
+[2023.06.29 17:02:20][Info][putFiles 의 값이 Insert]
+[2023.06.29 17:02:29][Info][putFiles 의 값이 Insert]
+[2023.06.29 17:02:48][Info][putFiles 의 값이 Update]
+[2023.06.29 17:02:56][Info][txtOutput 의 값이 Update]
+[2023.06.29 17:03:01][Info][txtOutput 의 값이 Update]
+[2023.06.29 17:03:41][Info][putFiles 의 값이 Update]
+[2023.06.29 17:03:44][Warn][putFiles 의 값이 null이기 때문에 삭제되지 않았습니다.]
+[2023.06.29 17:03:44][Info][putFiles 의 값이 Update]
+[2023.06.29 17:03:53][Info][putFiles 의 값이 Insert]
+[2023.06.29 17:04:41][Info][putFiles 의 값이 Insert]
+[2023.06.29 17:04:51][Info][txtOutput 의 값이 Update]
+[2023.06.29 17:04:58][Info][txtOutput 의 값이 Update]
+[2023.06.29 17:05:35][Info][[2023.06.29 17:05:32][C:\cobra\COBRA2000\COBRADOC.exe -i E:\연습프로젝트\결과폴더\output.txt  -J -C "PDFMODE YES"]]
+[2023.06.29 17:09:40][Info][putFiles 의 값이 Insert]
+[2023.06.29 17:09:50][Info][putFiles 의 값이 Update]
+[2023.06.29 17:09:51][Info][putFiles 의 값이 Update]
+[2023.06.29 17:09:53][Info][putFiles 의 값이 Update]
+[2023.06.29 17:09:54][Info][putFiles 의 값이 Update]
+[2023.06.29 17:10:15][Info][putFiles 의 값이 Insert]
+[2023.06.30 10:46:53][Info][putFiles 의 값이 Update]
+[2023.06.30 10:46:54][Info][putFiles 의 값이 Update]
+[2023.06.30 10:46:54][Info][putFiles 의 값이 Update]
+[2023.06.30 10:46:55][Info][putFiles 의 값이 Update]
+[2023.06.30 10:46:55][Info][putFiles 의 값이 Update]
+[2023.06.30 10:46:55][Info][putFiles 의 값이 Update]
+[2023.06.30 10:46:55][Info][putFiles 의 값이 Update]
+[2023.06.30 10:46:55][Info][putFiles 의 값이 Update]
+[2023.06.30 10:46:55][Info][putFiles 의 값이 Update]
+[2023.06.30 10:49:19][Info][환경설정 파일을 열었습니다.]
+[2023.06.30 10:49:31][Warn][System.ArgumentOutOfRangeException: 길이는 0보다 작을 수 없습니다.
+매개 변수 이름: length
+   위치: System.String.Substring(Int32 startIndex, Int32 length)
+   위치: DOITCBR.HardPDF.btn_start_Click(Object sender, EventArgs e) 파일 E:\DOITCBR\DOITCBR\HardPDF.vb:줄 405]
+[2023.06.30 10:53:07][Info][putFiles 의 값이 Update]
+[2023.06.30 10:53:07][Info][putFiles 의 값이 Update]

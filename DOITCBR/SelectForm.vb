@@ -164,10 +164,6 @@ Public Class SelectForm
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Settinginit()
-        OpenOutputFolder()
-    End Sub
 
     Private Sub pathBox_KeyPress(sender As Object, e As KeyPressEventArgs)
         If e.KeyChar = ChrW(Keys.Enter) Then

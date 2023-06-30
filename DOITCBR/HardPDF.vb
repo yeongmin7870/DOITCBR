@@ -199,7 +199,18 @@ Public Class HardPDF
     '    folderPath = outputPath
     'End Sub
     '올려놓은 파일 체크리스트 박스 업데이트 함수
-
+    Sub OpenOutputFolder()
+        Try
+            Dim path As String = data("txtOutput")
+            If Not String.IsNullOrEmpty(path) AndAlso Directory.Exists(path) Then
+                Process.Start(path)
+            Else
+                MessageBox.Show("유효한 폴더 경로를 입력하세요.")
+            End If
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
+    End Sub
 
 
     Private Sub HardPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -220,15 +231,7 @@ Public Class HardPDF
         txtboxOutput2.Text = data("txtOutput")
         Update_chkLst_putLst()
         Update_cbbox_workLst()
-
-
-        input_tip.SetToolTip(input_q, "파일 Drag & Drop => 오른쪽 박스에 파일 업로드 됨")
-        output_tip.SetToolTip(output_q, "폴더를 Drag & Drop =>  Output 경로 수정 가능, 해당 경로에 작업물 떨어짐")
-        fileList_tip.SetToolTip(filelist_q, "작업 할 파일 클릭")
-        command_tip.SetToolTip(command_q, "ComboBox 에서 EXE 실행 파일을 선택 => ListBox 에서 명령어 클릭 => 오른쪽 박스 변화")
-        cmd_tip.SetToolTip(cmd_q, "작업실행 버튼을 눌렀을때, CMD에 왼쪽 박스 TEXT가 입력되고 실행되어짐")
-        cmdHistory_tip.SetToolTip(cmdHistory_q, "지금까지 입력했던 명령어, 명령어 클릭 시 재사용 가능")
-
+        Update_cbbox_workLst()
     End Sub
     Sub PanelRound(r, pn)
         Dim radius As Integer = r ' 원하는 모서리 깎기 정도를 조절합니다.
@@ -274,6 +277,7 @@ Public Class HardPDF
             End If
         Next
     End Sub
+    'lst_commandBox 리스트에 데이터 추가
     Sub SetExeSelectBox()
         lst_commandBox.Items.Clear()
         For Each d In data(cbbox_workLst.SelectedItem).Split(",")
@@ -314,9 +318,6 @@ Public Class HardPDF
         Else
             commandBox.Text = FormatCommand3(commandBox.Text)
         End If
-
-
-
     End Sub
     'history에서 올린 파일을 선택할 때 기존 값에서 변경해주는 함수
     Function FormatCommand3(str As String)
@@ -416,4 +417,8 @@ Public Class HardPDF
         End Try
     End Sub
 
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Settinginit()
+        OpenOutputFolder()
+    End Sub
 End Class
