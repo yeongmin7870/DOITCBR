@@ -2,7 +2,7 @@
     Private isDragging As Boolean = False
     Private mouseOffset As Point
     Private Sub History_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        HistoryInit(Me, data("cmdPath"))
+        HistoryInit(Me, GETValue("cmd"))
         PanelRound(60, Me)
         PanelRound(10, historyNavbar)
         PanelRound(10, cmdHistory)

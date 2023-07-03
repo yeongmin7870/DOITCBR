@@ -75,7 +75,7 @@ Partial Class HardPDF
         Me.lst_commandBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.lst_commandBox.FormattingEnabled = True
         Me.lst_commandBox.ItemHeight = 17
-        Me.lst_commandBox.Location = New System.Drawing.Point(20, 20)
+        Me.lst_commandBox.Location = New System.Drawing.Point(20, 18)
         Me.lst_commandBox.Name = "lst_commandBox"
         Me.lst_commandBox.Size = New System.Drawing.Size(448, 153)
         Me.lst_commandBox.TabIndex = 9
@@ -97,7 +97,7 @@ Partial Class HardPDF
         Me.txtboxOutput2.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtboxOutput2.Font = New System.Drawing.Font("굴림", 13.0!)
         Me.txtboxOutput2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.txtboxOutput2.Location = New System.Drawing.Point(20, 7)
+        Me.txtboxOutput2.Location = New System.Drawing.Point(20, 11)
         Me.txtboxOutput2.Multiline = True
         Me.txtboxOutput2.Name = "txtboxOutput2"
         Me.txtboxOutput2.Size = New System.Drawing.Size(447, 42)
@@ -133,7 +133,7 @@ Partial Class HardPDF
         Me.chkLst_putFilelst.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.chkLst_putFilelst.FormattingEnabled = True
         Me.chkLst_putFilelst.ItemHeight = 17
-        Me.chkLst_putFilelst.Location = New System.Drawing.Point(20, 16)
+        Me.chkLst_putFilelst.Location = New System.Drawing.Point(20, 22)
         Me.chkLst_putFilelst.Name = "chkLst_putFilelst"
         Me.chkLst_putFilelst.Size = New System.Drawing.Size(400, 136)
         Me.chkLst_putFilelst.TabIndex = 6
@@ -153,7 +153,7 @@ Partial Class HardPDF
         Me.commandBox.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.commandBox.Font = New System.Drawing.Font("굴림", 13.0!)
         Me.commandBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.commandBox.Location = New System.Drawing.Point(20, 24)
+        Me.commandBox.Location = New System.Drawing.Point(20, 13)
         Me.commandBox.Name = "commandBox"
         Me.commandBox.Size = New System.Drawing.Size(405, 86)
         Me.commandBox.TabIndex = 10

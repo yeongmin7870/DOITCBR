@@ -52,7 +52,7 @@ Module logger
     Sub log(log As String, state As String)
         Dim currentdt As DateTime = DateTime.Now
         Dim text As String = $"[{currentdt.Year}.{chkz(currentdt.Month)}.{chkz(currentdt.Day)} {chkz(currentdt.Hour)}:{chkz(currentdt.Minute)}:{chkz(currentdt.Second)}][{CheckedState(state)}][{log}]"
-        WriteLog(text, settingPath.data("logPath"))
+        WriteLog(text, GETValue("log"))
         AddColoredText(text, CheckedState(state), CheckedColor(CheckedState(state)))
     End Sub
     Function CheckedState(s As String) As String

@@ -111,23 +111,22 @@ Public Class HardPDF
                 If filePaths.Length > 0 Then
                     txtboxInput.Text = filePaths(0)
                     filePath = filePaths(0)
-                    settingPath.WriteIni(filePaths(0), "putFiles")
+                    settingPath.UPDATEDATA(filePaths(0), "putFiles")
                 End If
             End If
             If e.Data.GetDataPresent(DataFormats.Text) Then
                 Dim droppedText As String = CStr(e.Data.GetData(DataFormats.Text))
                 txtboxInput.Text = droppedText
                 filePath = droppedText
-                settingPath.WriteIni(droppedText, "putFiles")
+                settingPath.UPDATEDATA(droppedText, "putFiles")
             End If
-            Settinginit()
             Update_chkLst_putLst()
         Catch ex As Exception
             logger.log(ex.ToString, "w")
         End Try
     End Sub
     'Output textbox 안에 파일을 떨어뜨리는 함수
-    Private Sub txtboxOutput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxOutput2.DragEnter
+    Private Sub txtboxOutput2_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxOutput2.DragEnter
         Try
             If e.Data.GetDataPresent(DataFormats.FileDrop) Then
                 e.Effect = DragDropEffects.Copy
@@ -141,7 +140,7 @@ Public Class HardPDF
         End Try
     End Sub
 
-    Private Sub txtboxOutput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxOutput2.DragDrop
+    Private Sub txtboxOutput2_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxOutput2.DragDrop
         Try
             If e.Data.GetDataPresent(DataFormats.FileDrop) Then
                 Dim filePaths As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
@@ -151,7 +150,7 @@ Public Class HardPDF
                     txtboxOutput2.Text = drpath
                     folderPath = drpath
                     SelectForm.ListFilesAndFolders(drpath)
-                    UpdateIni(drpath, "txtOutput")
+                    UPDATEDATA(drpath, "txtOutput")
                 End If
             End If
             If e.Data.GetDataPresent(DataFormats.Text) Then
@@ -160,7 +159,7 @@ Public Class HardPDF
                 txtboxOutput2.Text = drpath
                 folderPath = drpath
                 SelectForm.ListFilesAndFolders(drpath)
-                UpdateIni(drpath, "txtOutput")
+                UPDATEDATA(drpath, "txtOutput")
             End If
         Catch ex As Exception
             logger.log(ex.ToString, "w")
@@ -171,36 +170,37 @@ Public Class HardPDF
         Try
             If e.KeyChar = ChrW(Keys.Enter) Then
                 If txtboxOutput2.Text Is Nothing Or txtboxOutput2.Text = "" Then
-                    txtboxOutput2.Text = settingPath.data("txtOutput")
+                    txtboxOutput2.Text = GETValue("txtOutput")
                 End If
                 folderPath = txtboxOutput2.Text
                 SelectForm.ListFilesAndFolders(folderPath)
-                UpdateIni(folderPath, "txtOutput")
+                UPDATEDATA(folderPath, "txtOutput")
             End If
         Catch ex As Exception
             logger.log(ex.ToString, "w")
         End Try
     End Sub
 
-    'Private Sub txtboxInput_TextChanged(sender As Object, e As EventArgs) Handles txtboxInput.TextChanged
-    '    Dim outputPathlst As String() = txtboxInput.Text.Split("\")
-    '    Dim outputPath As String = String.Empty
-    '    For i = 0 To outputPathlst.Length - 2
-    '        If i = outputPathlst.Length - 2 Then
-    '            outputPath += outputPathlst(i)
-    '        Else
-    '            outputPath += outputPathlst(i) + "\"
-    '        End If
+    'input 에 파일을 넣었을때 output 경로가 자동으로 바뀌게 하는 함수
+    Private Sub txtboxInput_TextChanged(sender As Object, e As EventArgs) Handles txtboxInput.TextChanged
+        Dim outputPathlst As String() = txtboxInput.Text.Split("\")
+        Dim outputPath As String = String.Empty
+        For i = 0 To outputPathlst.Length - 2
+            If i = outputPathlst.Length - 2 Then
+                outputPath += outputPathlst(i)
+            Else
+                outputPath += outputPathlst(i) + "\"
+            End If
 
-    '    Next
-    '    selectForm.ListFilesAndFolders(outputPath)
-    '    txtboxOutput.Text = outputPath
-    '    folderPath = outputPath
-    'End Sub
+        Next
+        SelectForm.ListFilesAndFolders(outputPath)
+        txtboxOutput2.Text = outputPath
+        folderPath = outputPath
+    End Sub
     '올려놓은 파일 체크리스트 박스 업데이트 함수
     Sub OpenOutputFolder()
         Try
-            Dim path As String = data("txtOutput")
+            Dim path As String = GETValue("txtOutput")
             If Not String.IsNullOrEmpty(path) AndAlso Directory.Exists(path) Then
                 Process.Start(path)
             Else
@@ -227,7 +227,7 @@ Public Class HardPDF
 
         txtboxInput.Padding = New Padding(100)
 
-        txtboxOutput2.Text = data("txtOutput")
+        txtboxOutput2.Text = GETValue("txtOutput")
         Update_chkLst_putLst()
         Update_cbbox_workLst()
         Update_cbbox_workLst()
@@ -247,8 +247,7 @@ Public Class HardPDF
 
     Private Sub btn_putFileDelete_Click(sender As Object, e As EventArgs) Handles btn_putFileDelete.Click
         Try
-            settingPath.RemoveFileini(chkLst_putFilelst.SelectedItem, "putFiles")
-            Settinginit()
+            settingPath.REMOVEDATA(chkLst_putFilelst.SelectedItem, "putFiles")
             Update_chkLst_putLst()
             Exit Sub
         Catch ex As Exception
@@ -259,10 +258,10 @@ Public Class HardPDF
     '작업 리스트 갱신
     Sub Update_cbbox_workLst()
         cbbox_workLst.Items.Clear()
-        For Each item In settingPath.data("cbbox_workLst").Split(",")
+        For Each item In GETValue("cbrUtil")
             If item <> String.Empty Then
-                Dim name As String() = item.Split("\")
-                cbbox_workLst.Items.Add(name(name.Count - 1))
+                Dim key As String() = item.ToString.Split("\\")
+                cbbox_workLst.Items.Add(key(key.Count - 1))
             End If
         Next
     End Sub
@@ -270,7 +269,8 @@ Public Class HardPDF
     '올려놓은 파일 체크리스트
     Sub Update_chkLst_putLst()
         chkLst_putFilelst.Items.Clear()
-        For Each d In data("putFiles").Split(",")
+        Dim jsonArray As JArray = GETValue("putFiles")
+        For Each d In jsonArray
             If d <> String.Empty Then
                 chkLst_putFilelst.Items.Add(d)
             End If
@@ -279,25 +279,18 @@ Public Class HardPDF
     'lst_commandBox 리스트에 데이터 추가
     Sub SetExeSelectBox()
         Try
-            'JSON 파일 내용 읽기
-            Dim jsonString As String = File.ReadAllText(data("cbox_workLst_command"))
-            'JSON 데이터 역직렬화
-            Dim jsonData As Object = JObject.Parse(jsonString)
+            lst_commandBox.Items.Clear()
             '찾고자 하는 키
             Dim targetKey As String = "cbrUtilCmd"
-            '키가 존재하는지 확인하고 값 찾기
-            If jsonData.ContainsKey(targetKey) Then
-                For Each d In jsonData(targetKey)(cbbox_workLst.SelectedItem).Properties()
-                    MessageBox.Show(d.Name.ToString)
-                Next
-            End If
+            Dim jsonDT As Object = GETCMDVALUE(targetKey, cbbox_workLst.SelectedItem)
+
+
+            For Each d In jsonDT.Properties()
+                lst_commandBox.Items.Add($"{d.Name.Trim}        {d.Value}")
+            Next
         Catch ex As Exception
             logger.log(ex.ToString, "w")
         End Try
-        lst_commandBox.Items.Clear()
-        'For Each d In data(cbbox_workLst.SelectedItem).Split(",")
-        '    lst_commandBox.Items.Add(d)
-        'Next
     End Sub
     Private Sub cbbox_workLst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbox_workLst.SelectedIndexChanged
         SetExeSelectBox()
@@ -305,7 +298,7 @@ Public Class HardPDF
         FormatCommand(cbbox_workLst.SelectedItem, "e")
     End Sub
     Private Sub lst_commandBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lst_commandBox.SelectedIndexChanged
-        FormatCommand(lst_commandBox.SelectedItem, "ec")
+        FormatCommand(lst_commandBox.SelectedItem.split(" ")(0), "ec")
     End Sub
     'str : 문자열
     'state 어디 문자열인지
@@ -315,9 +308,10 @@ Public Class HardPDF
         If state = "o" Then
             opt = $"{str}"
         ElseIf state = "e" Then '실행파일 이름
-            For Each d In data("cbbox_workLst").Split(",")
-                If d.IndexOf(str) > -1 Then
-                    str = d
+            Dim pathArray As JArray = GETValue("cbrUtil")
+            For Each value In pathArray
+                If value = str Then
+                    str = value
                 End If
             Next
             exename = $"{str}"
@@ -421,9 +415,9 @@ Public Class HardPDF
                 Dim text As String = $"[{currentdt.Year}.{chkz(currentdt.Month)}.{chkz(currentdt.Day)} {chkz(currentdt.Hour)}:{chkz(currentdt.Minute)}:{chkz(currentdt.Second)}][{exePath} {argument}]"
 
                 NTBProcess.ProcessFn(exePath, argument)
-                WriteLog(text, data("cmdPath"))
+                WriteLog(text, GETValue("cmd"))
                 logger.log(text, "i")
-                sForm.ListFilesAndFolders(data("txtOutput"))
+                sForm.ListFilesAndFolders(GETValue("txtOutput"))
             Else
                 MessageBox.Show("명령어가 공백입니다.")
             End If
@@ -433,7 +427,6 @@ Public Class HardPDF
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Settinginit()
         OpenOutputFolder()
     End Sub
 End Class

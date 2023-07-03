@@ -14949,3 +14949,32 @@ Log=C:\COBRA\LOG\cobraspl.log
 [2023.06.30 17:42:54][Warn][System.InvalidCastException: 'JProperty' 형식에서 'String' 형식으로 변환할 수 없습니다.
    위치: Microsoft.VisualBasic.CompilerServices.Conversions.ToString(Object Value)
    위치: DOITCBR.HardPDF.SetExeSelectBox() 파일 E:\DOITCBR\DOITCBR\HardPDF.vb:줄 291]
+[2023.07.03 09:38:12][Warn][System.MissingMemberException: 'JValue' 형식에 Public 멤버 'Trim'이(가) 없습니다.
+   위치: Microsoft.VisualBasic.CompilerServices.Symbols.Container.GetMembers(String& MemberName, Boolean ReportErrors)
+   위치: Microsoft.VisualBasic.CompilerServices.NewLateBinding.ObjectLateGet(Object Instance, Type Type, String MemberName, Object[] Arguments, String[] ArgumentNames, Type[] TypeArguments, Boolean[] CopyBack)
+   위치: CallSite.Target(Closure , CallSite , Object )
+   위치: System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+   위치: Invoker(CallSiteBinder , Object , Object[] )
+   위치: Microsoft.VisualBasic.CompilerServices.IDOUtils.CreateRefCallSiteAndInvoke(CallSiteBinder Action, Object Instance, Object[] Arguments)
+   위치: Microsoft.VisualBasic.CompilerServices.IDOBinder.IDOGet(IDynamicMetaObjectProvider Instance, String MemberName, Object[] Arguments, String[] ArgumentNames, Boolean[] CopyBack)
+   위치: Microsoft.VisualBasic.CompilerServices.NewLateBinding.LateGet(Object Instance, Type Type, String MemberName, Object[] Arguments, String[] ArgumentNames, Type[] TypeArguments, Boolean[] CopyBack)
+   위치: DOITCBR.HardPDF.SetExeSelectBox() 파일 E:\DOITCBR\DOITCBR\HardPDF.vb:줄 292]
+[2023.07.03 10:09:46][Info][환경설정 파일을 열었습니다.]
+[2023.07.03 14:35:30][Info][환경설정 파일을 열었습니다.]
+[2023.07.03 14:35:33][Info][환경설정 파일을 열었습니다.]
+[2023.07.03 14:35:36][Info][환경설정 파일을 열었습니다.]
+[2023.07.03 17:05:11][Warn][System.InvalidOperationException: 컬렉션이 수정되었습니다. 열거 작업이 실행되지 않을 수도 있습니다.
+   위치: System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   위치: System.Collections.Generic.List`1.Enumerator.MoveNextRare()
+   위치: System.Collections.Generic.List`1.Enumerator.MoveNext()
+   위치: DOITCBR.settingPath.UPDATEDATA(String content, String keyName) 파일 E:\DOITCBR\DOITCBR\settingPath.vb:줄 99]
+[2023.07.03 17:05:21][Warn][System.InvalidOperationException: 컬렉션이 수정되었습니다. 열거 작업이 실행되지 않을 수도 있습니다.
+   위치: System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   위치: System.Collections.Generic.List`1.Enumerator.MoveNextRare()
+   위치: System.Collections.Generic.List`1.Enumerator.MoveNext()
+   위치: DOITCBR.settingPath.UPDATEDATA(String content, String keyName) 파일 E:\DOITCBR\DOITCBR\settingPath.vb:줄 99]
+[2023.07.03 17:05:26][Warn][System.InvalidOperationException: 컬렉션이 수정되었습니다. 열거 작업이 실행되지 않을 수도 있습니다.
+   위치: System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   위치: System.Collections.Generic.List`1.Enumerator.MoveNextRare()
+   위치: System.Collections.Generic.List`1.Enumerator.MoveNext()
+   위치: DOITCBR.settingPath.UPDATEDATA(String content, String keyName) 파일 E:\DOITCBR\DOITCBR\settingPath.vb:줄 99]

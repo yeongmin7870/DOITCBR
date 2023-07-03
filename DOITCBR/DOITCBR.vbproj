@@ -159,7 +159,7 @@
   <ItemGroup>
     <None Include=".editorconfig" />
     <None Include="DOITCBR.ini" />
-    <None Include="ExeCMD.json" />
+    <None Include="DOITCBR.json" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

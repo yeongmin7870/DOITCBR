@@ -18,20 +18,18 @@ Public Class SelectForm
 
             PanelRound(25, Panel5)
 
-            'ini 파일 초기화
-            Settinginit()
-            logger.loggerInit(settingPath.data("logPath"))
+            logger.loggerInit(GETValue("log"))
             OpenOutputFolder()
             HardForm()
             '파일 및 폴더 나열
-            ListFilesAndFolders(settingPath.data("txtOutput"))
+            ListFilesAndFolders(GETValue("txtOutput"))
         Catch ex As Exception
             logger.log($"{ex}", "w")
         End Try
     End Sub
     Sub OpenOutputFolder()
         Try
-            Dim path As String = data("txtOutput")
+            Dim path As String = GETValue("txtOutput")
             If Not String.IsNullOrEmpty(path) AndAlso Directory.Exists(path) Then
                 Process.Start(path)
             Else
@@ -75,17 +73,21 @@ Public Class SelectForm
     Dim imgCnt As Integer = -1
     '파일과 폴더를 나눠서 아이콘 이미지를 가져옴
     Sub UpdateImageList(pth, state)
-        Dim fileInfo As New SHFILEINFO()
-        Dim flags As Integer = SHGFI_ICON Or SHGFI_SMALLICON
-        Dim icon As Icon
-        If state = "folder" Then
-            SHGetFileInfo(staticPath, 0, fileInfo, Marshal.SizeOf(fileInfo), flags Or SHGFI_LARGEICON)
-            icon = Icon.FromHandle(fileInfo.hIcon)
-        ElseIf state = "file" Then
-            icon = Icon.ExtractAssociatedIcon(pth)
-        End If
-        iconImgList.Images.Add(state, icon)
-        imgCnt += 1
+        Try
+            Dim fileInfo As New SHFILEINFO()
+            Dim flags As Integer = SHGFI_ICON Or SHGFI_SMALLICON
+            Dim icon As Icon
+            If state = "folder" Then
+                SHGetFileInfo(staticPath, 0, fileInfo, Marshal.SizeOf(fileInfo), flags Or SHGFI_LARGEICON)
+                icon = Icon.FromHandle(fileInfo.hIcon)
+            ElseIf state = "file" Then
+                icon = Icon.ExtractAssociatedIcon(pth)
+            End If
+            iconImgList.Images.Add(state, icon)
+            imgCnt += 1
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
     End Sub
     '폴더 경로를 주면 결과창이 업데이트 됨
     Sub ListFilesAndFolders(staticPath)
@@ -124,7 +126,7 @@ Public Class SelectForm
 
         Catch ex As Exception
             logger.log(ex.ToString, "w")
-            ListFilesAndFolders(data("txtOutput"))
+            ListFilesAndFolders(GETValue("txtOutput"))
         End Try
     End Sub
 
@@ -168,7 +170,7 @@ Public Class SelectForm
     Private Sub pathBox_KeyPress(sender As Object, e As KeyPressEventArgs)
         If e.KeyChar = ChrW(Keys.Enter) Then
             If pathBox.Text Is Nothing Or pathBox.Text = "" Then
-                pathBox.Text = settingPath.data("txtOutput")
+                pathBox.Text = GETValue("txtOutput")
             End If
             Dim path As String = pathBox.Text
             ListFilesAndFolders(path)
@@ -276,11 +278,11 @@ Public Class SelectForm
     End Sub
 
     Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click, Panel7.Click
-        Process.Start(data("logPath"))
+        Process.Start(GETValue("log"))
     End Sub
 
     Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click, Panel8.Click
-        Process.Start(data("cmdPath"))
+        Process.Start(GETValue("cmd"))
     End Sub
 
 End Class
