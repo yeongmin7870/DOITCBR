@@ -116,6 +116,22 @@ Module settingPath
             logger.log(ex.ToString, "w")
         End Try
     End Sub
+    'array 가 아닌 값 추가 
+    Sub UPONEDATEDATA(content As String, keyName As String)
+        Try
+            ' Json 파일 읽기
+            Dim jsonString As String = File.ReadAllText(settingFilePath)
+            ' Json 데이터 파싱
+            Dim jsonData As JObject = JObject.Parse(jsonString)
+            jsonData(keyName)("path") = content
+            ' 수정된 JSON 객체를 문자열로 변환
+            Dim modifiedJsonString As String = jsonData.ToString()
+            '수정된 JSON 문자열을 파일에 씀
+            File.WriteAllText(settingFilePath, modifiedJsonString)
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
+    End Sub
     'ini 원하는 라인의 값에서 원하는 값을 삭제하는 함수
     'Sub REMOVEDATA(content, keyName)
     '    Try
@@ -149,15 +165,19 @@ Module settingPath
     '        logger.log(ex.ToString, "w")
     '    End Try
     'End Sub
+    'json 삭제
     Sub REMOVEDATA(content, keyName)
         Try
             Dim jsonString As String = File.ReadAllText(settingFilePath)
             Dim jsonData As JObject = JObject.Parse(jsonString)
             Dim pathArray As JArray = jsonData(keyName)("path")
-            Dim valueToDelete As String = content
-            pathArray.Remove(valueToDelete)
 
-            File.WriteAllText(settingFilePath, jsonData.ToString)
+            For i As Integer = pathArray.Count - 1 To 0 Step -1
+                If pathArray(i).ToString() = content Then
+                    pathArray.RemoveAt(i)
+                End If
+            Next
+            File.WriteAllText(settingFilePath, jsonData.ToString())
         Catch ex As Exception
             logger.log(ex.ToString, "w")
         End Try

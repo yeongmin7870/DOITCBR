@@ -22,11 +22,7 @@
   "putFiles": {
     "path": [
       "E:\\연습프로젝트\\결과폴더\\output.txt",
-      "E:\\연습프로젝트\\결과폴더\\practice.cbr",
-      "E:\\연습프로젝트\\#M08-15355_고객서비스팀_만기환급형보험계약에대한안내문.zip",
-      "E:\\연습프로젝트\\15355.xml",
-      "E:\\resourceImage",
-      "E:\\영민이 ini파싱.txt"
+      "E:\\연습프로젝트\\결과폴더\\output.dat"
     ],
     "description": "업로드된 파일 주소입니다."
   },

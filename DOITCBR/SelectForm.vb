@@ -13,6 +13,26 @@ Public Class SelectForm
 
     Public preForm As Form
     Public staticPath As String = String.Empty
+    Private Const FILE_ATTRIBUTE_DIRECTORY As UInteger = &H10
+
+    <DllImport("shell32.dll", CharSet:=CharSet.Auto)>
+    Private Shared Function SHGetFileInfo(pszPath As String, dwFileAttributes As UInteger, ByRef psfi As SHFILEINFO, cbFileInfo As UInteger, uFlags As UInteger) As IntPtr
+    End Function
+
+    <StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Auto)>
+    Private Structure SHFILEINFO
+        Public hIcon As IntPtr
+        Public iIcon As Integer
+        Public dwAttributes As UInteger
+        <MarshalAs(UnmanagedType.ByValTStr, SizeConst:=260)>
+        Public szDisplayName As String
+        <MarshalAs(UnmanagedType.ByValTStr, SizeConst:=80)>
+        Public szTypeName As String
+    End Structure
+
+    Private Const SHGFI_ICON As UInteger = &H100
+    Private Const SHGFI_SMALLICON As UInteger = &H1
+
     Private Sub SelectForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
 
@@ -69,8 +89,7 @@ Public Class SelectForm
         workDisplay.Controls.Add(preForm)
         preForm.Show()
     End Sub
-    '이미지 index 0 부터 시작하기 때문에 -1
-    Dim imgCnt As Integer = -1
+
     '파일과 폴더를 나눠서 아이콘 이미지를 가져옴
     Sub UpdateImageList(pth, state)
         Try
@@ -78,36 +97,37 @@ Public Class SelectForm
             Dim flags As Integer = SHGFI_ICON Or SHGFI_SMALLICON
             Dim icon As Icon
             If state = "folder" Then
-                SHGetFileInfo(staticPath, 0, fileInfo, Marshal.SizeOf(fileInfo), flags Or SHGFI_LARGEICON)
+                SHGetFileInfo(pth, FILE_ATTRIBUTE_DIRECTORY, fileInfo, Marshal.SizeOf(fileInfo), flags)
                 icon = Icon.FromHandle(fileInfo.hIcon)
             ElseIf state = "file" Then
-                icon = Icon.ExtractAssociatedIcon(pth)
+                SHGetFileInfo(pth, 0, fileInfo, Marshal.SizeOf(fileInfo), flags)
+                icon = Icon.FromHandle(fileInfo.hIcon)
             End If
             iconImgList.Images.Add(state, icon)
-            imgCnt += 1
         Catch ex As Exception
             logger.log(ex.ToString, "w")
         End Try
     End Sub
+    Dim fileIconIndex As Integer = 0
+
     '폴더 경로를 주면 결과창이 업데이트 됨
     Sub ListFilesAndFolders(staticPath)
         Try
             Dim imageList As New ImageList()
-            'icon img 초기화
-            imgCnt = -1
+
             folderList.Items.Clear()
             pathBox.Text = staticPath
             Dim items As New List(Of ListViewItem)
-            Dim Files As String() = Directory.GetFiles(staticPath)
-            For Each file As String In Files
+            Dim files As String() = Directory.GetFiles(staticPath)
+            For Each file As String In files
                 Dim fileInfo As New FileInfo(file)
                 Dim item As New ListViewItem(fileInfo.Name)
                 item.SubItems.Add("파일")
                 item.Tag = file
                 UpdateImageList(file, "file")
-                item.ImageIndex = imgCnt
-                item.ImageIndex = imgCnt
+                item.ImageIndex = fileIconIndex
                 items.Add(item)
+                fileIconIndex += 1
             Next
             Dim folders As String() = Directory.GetDirectories(staticPath)
 
@@ -116,10 +136,10 @@ Public Class SelectForm
                 Dim item As New ListViewItem(folderInfo.Name)
                 item.SubItems.Add("폴더")
                 UpdateImageList(folder, "folder")
-                item.ImageIndex = imgCnt
-
+                item.ImageIndex = fileIconIndex
                 item.Tag = folder
                 items.Add(item)
+                fileIconIndex += 1
             Next
             folderList.SmallImageList = iconImgList
             folderList.Items.AddRange(items.ToArray())
@@ -163,7 +183,6 @@ Public Class SelectForm
         Catch ex As Exception
 
         End Try
-
     End Sub
 
 
@@ -284,5 +303,4 @@ Public Class SelectForm
     Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click, Panel8.Click
         Process.Start(GETValue("cmd"))
     End Sub
-
 End Class

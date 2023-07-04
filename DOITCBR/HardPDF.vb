@@ -150,7 +150,7 @@ Public Class HardPDF
                     txtboxOutput2.Text = drpath
                     folderPath = drpath
                     SelectForm.ListFilesAndFolders(drpath)
-                    UPDATEDATA(drpath, "txtOutput")
+                    UPONEDATEDATA(drpath, "txtOutput")
                 End If
             End If
             If e.Data.GetDataPresent(DataFormats.Text) Then
@@ -159,7 +159,7 @@ Public Class HardPDF
                 txtboxOutput2.Text = drpath
                 folderPath = drpath
                 SelectForm.ListFilesAndFolders(drpath)
-                UPDATEDATA(drpath, "txtOutput")
+                UPONEDATEDATA(drpath, "txtOutput")
             End If
         Catch ex As Exception
             logger.log(ex.ToString, "w")
@@ -174,7 +174,7 @@ Public Class HardPDF
                 End If
                 folderPath = txtboxOutput2.Text
                 SelectForm.ListFilesAndFolders(folderPath)
-                UPDATEDATA(folderPath, "txtOutput")
+                UPONEDATEDATA(folderPath, "txtOutput")
             End If
         Catch ex As Exception
             logger.log(ex.ToString, "w")
@@ -249,11 +249,9 @@ Public Class HardPDF
         Try
             settingPath.REMOVEDATA(chkLst_putFilelst.SelectedItem, "putFiles")
             Update_chkLst_putLst()
-            Exit Sub
         Catch ex As Exception
             logger.log(ex.ToString, "w")
         End Try
-
     End Sub
     '작업 리스트 갱신
     Sub Update_cbbox_workLst()
@@ -309,9 +307,9 @@ Public Class HardPDF
             opt = $"{str}"
         ElseIf state = "e" Then '실행파일 이름
             Dim pathArray As JArray = GETValue("cbrUtil")
-            For Each value In pathArray
-                If value = str Then
-                    str = value
+            For i = 0 To pathArray.Count - 1
+                If pathArray(i).ToString().Split("\")(pathArray.Count) = str Then
+                    str = pathArray(i).ToString()
                 End If
             Next
             exename = $"{str}"
@@ -400,6 +398,10 @@ Public Class HardPDF
     End Sub
     Private Sub btn_cmdClear_Click(sender As Object, e As EventArgs) Handles btn_cmdClear.Click
         commandBox.Text = ""
+        opt = ""
+        exename = cbbox_workLst.SelectedItem
+        cmd = ""
+        rs = ""
     End Sub
     Private Sub btn_history_Click(sender As Object, e As EventArgs) Handles btn_history.Click
         History.Show()
@@ -429,4 +431,5 @@ Public Class HardPDF
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         OpenOutputFolder()
     End Sub
+
 End Class

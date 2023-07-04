@@ -30,3 +30,8 @@
 [2023.06.29 16:51:33][C:\cobra\COBRA2000\CRTPDFC.exe -i E:\연습프로젝트\결과폴더\output.dat]
 [2023.06.29 16:53:48][C:\cobra\COBRA2000\COBRADOC.exe C:\cobra\COBRA2000\COBRADOC.exe -i E:\연습프로젝트\결과폴더\output.txt  -D E:\연습프로젝트\결과폴더  -J -C "PDFMODE YES"]
 [2023.06.29 17:05:32][C:\cobra\COBRA2000\COBRADOC.exe -i E:\연습프로젝트\결과폴더\output.txt  -J -C "PDFMODE YES"]
+[2023.07.04 16:47:52][C:\cobra\COBRA2000\COBRADOC.exe :\cobra\COBRA2000\COBRADOC.exe -i E:\연습프로젝트\결과폴더\output.txt  -D E:\연습프로젝트\결과폴더]
+[2023.07.04 16:48:24][C:\cobra\COBRA2000\CRTPDFC.exe -i E:\연습프로젝트\결과폴더\output.dat]
+[2023.07.04 17:15:24][C:\cobra\COBRA2000\COBRADOC.exe -i E:\연습프로젝트\결과폴더\output.txt  -D E:\연습프로젝트\결과폴더]
+[2023.07.04 17:16:02][C:\cobra\COBRA2000\COBRADOC.exe -i E:\연습프로젝트\결과폴더\output.txt  -D E:\연습프로젝트\결과폴더  -J -C "PDFMODE YES"]
+[2023.07.04 17:16:22][C:\cobra\COBRA2000\CRTPDFC.exe -i E:\연습프로젝트\결과폴더\output.dat]

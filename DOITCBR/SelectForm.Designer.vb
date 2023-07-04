@@ -110,7 +110,7 @@ Partial Class SelectForm
         Me.folderList.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(228, Byte), Integer))
         Me.folderList.HideSelection = False
         Me.folderList.LargeImageList = Me.iconImgList
-        Me.folderList.Location = New System.Drawing.Point(6, 76)
+        Me.folderList.Location = New System.Drawing.Point(5, 74)
         Me.folderList.MultiSelect = False
         Me.folderList.Name = "folderList"
         Me.folderList.ShowItemToolTips = True
