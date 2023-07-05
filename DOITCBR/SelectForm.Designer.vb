@@ -111,7 +111,6 @@ Partial Class SelectForm
         Me.folderList.HideSelection = False
         Me.folderList.LargeImageList = Me.iconImgList
         Me.folderList.Location = New System.Drawing.Point(5, 74)
-        Me.folderList.MultiSelect = False
         Me.folderList.Name = "folderList"
         Me.folderList.ShowItemToolTips = True
         Me.folderList.Size = New System.Drawing.Size(145, 567)

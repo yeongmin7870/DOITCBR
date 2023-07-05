@@ -7,7 +7,6 @@ Imports System.Windows.Forms.AxHost
 
 Module logger
     Public sForm As SelectForm = DirectCast(Application.OpenForms("SelectForm"), SelectForm)
-
     Sub loggerInit(filePath As String)
         Using reader As New StreamReader(filePath)
             Dim line As String = reader.ReadLine()

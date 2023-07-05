@@ -35,11 +35,9 @@ Public Class SelectForm
 
     Private Sub SelectForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-
+            Init()
             PanelRound(25, Panel5)
-
             logger.loggerInit(GETValue("log"))
-            OpenOutputFolder()
             HardForm()
             '파일 및 폴더 나열
             ListFilesAndFolders(GETValue("txtOutput"))
@@ -113,37 +111,38 @@ Public Class SelectForm
     '폴더 경로를 주면 결과창이 업데이트 됨
     Sub ListFilesAndFolders(staticPath)
         Try
-            Dim imageList As New ImageList()
+            If staticPath <> String.Empty Then
+                Dim imageList As New ImageList()
 
-            folderList.Items.Clear()
-            pathBox.Text = staticPath
-            Dim items As New List(Of ListViewItem)
-            Dim files As String() = Directory.GetFiles(staticPath)
-            For Each file As String In files
-                Dim fileInfo As New FileInfo(file)
-                Dim item As New ListViewItem(fileInfo.Name)
-                item.SubItems.Add("파일")
-                item.Tag = file
-                UpdateImageList(file, "file")
-                item.ImageIndex = fileIconIndex
-                items.Add(item)
-                fileIconIndex += 1
-            Next
-            Dim folders As String() = Directory.GetDirectories(staticPath)
+                folderList.Items.Clear()
+                pathBox.Text = staticPath
+                Dim items As New List(Of ListViewItem)
+                Dim files As String() = Directory.GetFiles(staticPath)
+                For Each file As String In files
+                    Dim fileInfo As New FileInfo(file)
+                    Dim item As New ListViewItem(fileInfo.Name)
+                    item.SubItems.Add("파일")
+                    item.Tag = file
+                    UpdateImageList(file, "file")
+                    item.ImageIndex = fileIconIndex
+                    items.Add(item)
+                    fileIconIndex += 1
+                Next
+                Dim folders As String() = Directory.GetDirectories(staticPath)
 
-            For Each folder As String In folders
-                Dim folderInfo As New DirectoryInfo(folder)
-                Dim item As New ListViewItem(folderInfo.Name)
-                item.SubItems.Add("폴더")
-                UpdateImageList(folder, "folder")
-                item.ImageIndex = fileIconIndex
-                item.Tag = folder
-                items.Add(item)
-                fileIconIndex += 1
-            Next
-            folderList.SmallImageList = iconImgList
-            folderList.Items.AddRange(items.ToArray())
-
+                For Each folder As String In folders
+                    Dim folderInfo As New DirectoryInfo(folder)
+                    Dim item As New ListViewItem(folderInfo.Name)
+                    item.SubItems.Add("폴더")
+                    UpdateImageList(folder, "folder")
+                    item.ImageIndex = fileIconIndex
+                    item.Tag = folder
+                    items.Add(item)
+                    fileIconIndex += 1
+                Next
+                folderList.SmallImageList = iconImgList
+                folderList.Items.AddRange(items.ToArray())
+            End If
         Catch ex As Exception
             logger.log(ex.ToString, "w")
             ListFilesAndFolders(GETValue("txtOutput"))

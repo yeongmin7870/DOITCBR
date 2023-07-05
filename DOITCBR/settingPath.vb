@@ -1,9 +1,37 @@
 ﻿Imports System.IO
 Imports Newtonsoft.Json.Linq
-
+Imports System.Reflection
 Module settingPath
     'ini 파일 주소
-    Public settingFilePath As String = "E:\DOITCBR\DOITCBR\DOITCBR.json"
+    Public settingFilePath As String = String.Empty
+    Sub Init()
+        Try
+            'JSON 파일의 이름
+            Dim jsonFileName As String = "DOITCBR.json"
+            'Log 파일의 이름
+            Dim logFileName As String = "log.txt"
+            '내장된 리소스 이름 생성
+            Dim resourceName As String = jsonFileName
+            settingFilePath = resourceName
+
+            If File.Exists(settingFilePath) Then
+            Else
+                MessageBox.Show("EXE 파일 경로에 ""DOITCBR.json"" 파일을 위치시키세요")
+                End
+            End If
+            If File.Exists(logFileName) Then
+                UPONEDATEDATA(logFileName, "log")
+            Else
+                '로그 파일생성
+                File.Create(logFileName).Dispose()
+                MessageBox.Show($"EXE 파일 경로에 ""log.txt"" 파일이 위치되어 있지 않기 때문에 ""{logFileName}""을 자동 생성시켰습니다.")
+            End If
+
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
+    End Sub
+
     'pth 파일 주소 key: 대분류 key
     Function GETValue(key As String) As Object
         Try

@@ -33,15 +33,14 @@ Partial Class History
         Me.cmdHistory.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
         Me.cmdHistory.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.cmdHistory.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.cmdHistory.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.cmdHistory.Font = New System.Drawing.Font("굴림", 10.0!)
         Me.cmdHistory.ForeColor = System.Drawing.Color.FromArgb(CType(CType(199, Byte), Integer), CType(CType(201, Byte), Integer), CType(CType(202, Byte), Integer))
         Me.cmdHistory.FormattingEnabled = True
         Me.cmdHistory.HorizontalScrollbar = True
-        Me.cmdHistory.ItemHeight = 12
         Me.cmdHistory.Location = New System.Drawing.Point(14, 65)
         Me.cmdHistory.Name = "cmdHistory"
         Me.cmdHistory.ScrollAlwaysVisible = True
-        Me.cmdHistory.Size = New System.Drawing.Size(777, 372)
+        Me.cmdHistory.Size = New System.Drawing.Size(1307, 559)
         Me.cmdHistory.TabIndex = 0
         '
         'historyNavbar
@@ -51,7 +50,7 @@ Partial Class History
         Me.historyNavbar.Location = New System.Drawing.Point(14, 19)
         Me.historyNavbar.Margin = New System.Windows.Forms.Padding(10)
         Me.historyNavbar.Name = "historyNavbar"
-        Me.historyNavbar.Size = New System.Drawing.Size(777, 32)
+        Me.historyNavbar.Size = New System.Drawing.Size(1307, 32)
         Me.historyNavbar.TabIndex = 7
         '
         'lb_exit
@@ -60,7 +59,7 @@ Partial Class History
         Me.lb_exit.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lb_exit.Font = New System.Drawing.Font("굴림", 13.0!)
         Me.lb_exit.ForeColor = System.Drawing.Color.Transparent
-        Me.lb_exit.Location = New System.Drawing.Point(746, 6)
+        Me.lb_exit.Location = New System.Drawing.Point(1272, 7)
         Me.lb_exit.Name = "lb_exit"
         Me.lb_exit.Size = New System.Drawing.Size(26, 18)
         Me.lb_exit.TabIndex = 2
@@ -71,7 +70,7 @@ Partial Class History
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(803, 451)
+        Me.ClientSize = New System.Drawing.Size(1333, 636)
         Me.Controls.Add(Me.historyNavbar)
         Me.Controls.Add(Me.cmdHistory)
         Me.Font = New System.Drawing.Font("굴림", 9.0!)

@@ -99,20 +99,31 @@ Module NTBProcess
     End Function
 
     Sub ProcessFn(filepath, arguments)
-        Dim process As New Process()
-        process.StartInfo.FileName = filepath
-        process.StartInfo.Arguments = arguments
-        '결과를 읽기 위해 
-        process.StartInfo.RedirectStandardOutput = True
-        '출력을 읽기 위해
-        process.StartInfo.UseShellExecute = False
-        process.Start()
-        '결과 읽기
-        resultState = process.StandardOutput.ReadToEnd()
-        If resultState <> String.Empty Then
-            logger.log(resultState, "i")
-        End If
-        process.WaitForExit()
+        Try
+            Dim process As New Process()
+            process.StartInfo.FileName = filepath
+            process.StartInfo.Arguments = arguments
+            '오류를 출력
+            process.StartInfo.RedirectStandardError = True
+            '결과를 읽기 위해 
+            process.StartInfo.RedirectStandardOutput = True
+            '출력을 읽기 위해
+            process.StartInfo.UseShellExecute = False
+            process.Start()
+            process.WaitForExit()
+
+            '결과 읽기
+            resultState = process.StandardOutput.ReadToEnd()
+            Dim errorState = process.StandardError.ReadToEnd()
+            If resultState <> String.Empty Then
+                logger.log(resultState, "i")
+            End If
+            If errorState <> String.Empty Then
+                logger.log(errorState, "i")
+            End If
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
     End Sub
     Function ChgEtention(pth, slct)
         Dim newPath As String = String.Empty

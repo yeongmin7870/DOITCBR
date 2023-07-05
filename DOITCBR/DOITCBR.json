@@ -4,11 +4,11 @@
     "description": "이전에 입력했던 명령어 모음 파일 주소입니다."
   },
   "txtOutput": {
-    "path": "E:\\연습프로젝트\\결과폴더",
+    "path": "",
     "description": "결과물이 떨어지는 폴더 주소입니다."
   },
   "log": {
-    "path": "E:\\DOITCBR\\DOITCBR\\testlog.txt",
+    "path": "",
     "description": "로그 파일 주소입니다."
   },
   "cbrUtil": {
@@ -20,15 +20,8 @@
     "description": "코브라 유틸 EXE 파일 주소입니다."
   },
   "putFiles": {
-    "path": [
-      "E:\\연습프로젝트\\결과폴더\\output.txt",
-      "E:\\연습프로젝트\\결과폴더\\output.dat"
-    ],
+    "path": [],
     "description": "업로드된 파일 주소입니다."
-  },
-  "exeCMD": {
-    "path": "E: \\DOITCBR\\DOITCBR\\ExeCMD.json",
-    "description": "EXE Command들이 작성되어 있습니다."
   },
   "cbrUtilCmd": {
     "COBRADOC.exe": {

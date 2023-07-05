@@ -106,19 +106,29 @@ Public Class HardPDF
 
     Private Sub txtboxInput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxInput.DragDrop
         Try
+            'inputbox 에 들어갈 값을 저장해둠
+            Dim txtboxInput2 As String = String.Empty
             If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-                Dim filePaths As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
+                Dim filePaths As String() = e.Data.GetData(DataFormats.FileDrop)
+
                 If filePaths.Length > 0 Then
-                    txtboxInput.Text = filePaths(0)
-                    filePath = filePaths(0)
-                    settingPath.UPDATEDATA(filePaths(0), "putFiles")
+                    For Each t In filePaths
+                        txtboxInput2 += t & ","
+                        filePath = t
+                        settingPath.UPDATEDATA(t, "putFiles")
+                    Next
+                    txtboxInput.Text = txtboxInput2.Substring(0, txtboxInput2.Length - 1)
                 End If
             End If
             If e.Data.GetDataPresent(DataFormats.Text) Then
-                Dim droppedText As String = CStr(e.Data.GetData(DataFormats.Text))
-                txtboxInput.Text = droppedText
-                filePath = droppedText
-                settingPath.UPDATEDATA(droppedText, "putFiles")
+                Dim droppedText As String() =  e.Data.GetData(DataFormats.Text)
+                For Each t In droppedText
+                    txtboxInput2 += t & ","
+                    filePath = t
+                    settingPath.UPDATEDATA(t, "putFiles")
+                Next
+                '마지막 ',' 를 빼주기 위해서 
+                txtboxInput.Text = txtboxInput2.Substring(0, txtboxInput2.Length - 1)
             End If
             Update_chkLst_putLst()
         Catch ex As Exception
@@ -183,19 +193,17 @@ Public Class HardPDF
 
     'input 에 파일을 넣었을때 output 경로가 자동으로 바뀌게 하는 함수
     Private Sub txtboxInput_TextChanged(sender As Object, e As EventArgs) Handles txtboxInput.TextChanged
-        Dim outputPathlst As String() = txtboxInput.Text.Split("\")
-        Dim outputPath As String = String.Empty
-        For i = 0 To outputPathlst.Length - 2
-            If i = outputPathlst.Length - 2 Then
-                outputPath += outputPathlst(i)
-            Else
-                outputPath += outputPathlst(i) + "\"
-            End If
-
-        Next
-        SelectForm.ListFilesAndFolders(outputPath)
-        txtboxOutput2.Text = outputPath
-        folderPath = outputPath
+        Dim outputPathlst As String() = txtboxInput.Text.Split(",")
+        folderPath = chkFileAnsdFolder(outputPathlst(0))
+        'input 값이 비어 있다면 
+        If folderPath <> String.Empty Then
+            UPONEDATEDATA(folderPath, "txtOutput")
+            txtboxOutput2.Text = folderPath
+        Else
+            UPONEDATEDATA(folderPath, "txtOutput")
+            txtboxOutput2.Text = GETValue("txtOutput")
+        End If
+        SelectForm.ListFilesAndFolders(txtboxOutput2.Text)
     End Sub
     '올려놓은 파일 체크리스트 박스 업데이트 함수
     Sub OpenOutputFolder()
@@ -224,6 +232,7 @@ Public Class HardPDF
         PanelRound(40, btn_history)
         PanelRound(40, btn_start)
         PanelRound(40, btn_putFileDelete)
+        PanelRound(40, btn_delAllputFIle)
 
         txtboxInput.Padding = New Padding(100)
 
@@ -253,6 +262,18 @@ Public Class HardPDF
             logger.log(ex.ToString, "w")
         End Try
     End Sub
+    Private Sub btn_delAllputFIle_Click(sender As Object, e As EventArgs) Handles btn_delAllputFIle.Click
+        Try
+            For Each file In chkLst_putFilelst.Items
+                settingPath.REMOVEDATA(file, "putFiles")
+            Next
+            Update_chkLst_putLst()
+            txtboxInput.Text = ""
+        Catch ex As Exception
+            logger.log(ex.ToString, "w")
+        End Try
+    End Sub
+
     '작업 리스트 갱신
     Sub Update_cbbox_workLst()
         cbbox_workLst.Items.Clear()
@@ -318,7 +339,12 @@ Public Class HardPDF
                 exe_cmd.Add($"{str}")
             End If
         End If
+        setCommandBox()
+    End Sub
+
+    Sub setCommandBox()
         cmd = $"{exename} {String.Join(" ", exe_cmd)}"
+
         'cmd에 아무값이 없으면 " " 값이 나옴
         If cmd <> " " Then
             commandBox.Text = FormatCommand2(cmd)
@@ -326,10 +352,27 @@ Public Class HardPDF
             commandBox.Text = FormatCommand3(commandBox.Text)
         End If
     End Sub
+    '현재 command box에 존재 유무 체크
+    Sub GetCheckNowCMDBox()
+        '임시 보관 리스트 변수
+        Dim exe_cmd2 As New List(Of String)
+
+        For Each cmd In exe_cmd 'cmd 명령어
+            For Each cmdSTR In commandBox.Text.Split(" ")
+                If cmdSTR = cmd Then
+                    exe_cmd2.Add(cmd)
+                End If
+            Next
+        Next
+        exe_cmd = exe_cmd2
+    End Sub
+    Private Sub commandBox_TextChanged(sender As Object, e As EventArgs) Handles commandBox.TextChanged
+        GetCheckNowCMDBox()
+    End Sub
     'history에서 올린 파일을 선택할 때 기존 값에서 변경해주는 함수
     Function FormatCommand3(str As String)
         '입력받은 경로를 붙여줘야하는 명령어들
-        Dim tt As New List(Of String) From {"-o", "-D", "-i"}
+        Dim tt As New List(Of String) From {"-o", "-D", "-i", "-C"}
         rs = str
         For Each t In tt
             If t = "-o" Then
@@ -355,6 +398,13 @@ Public Class HardPDF
                     rs = rs.Replace(preopt, chkLst_putFilelst.SelectedItem)
                 End If
             End If
+
+            If t = "-C" Then
+                If rs.IndexOf("-C") <> -1 Then
+                    Dim preopt As String = rs.Substring(rs.IndexOf("-C") + 2).Trim.Split(" ")(0)
+                    rs = rs.Replace(preopt, """PDFMODE Yes""")
+                End If
+            End If
         Next
         Return rs
     End Function
@@ -369,7 +419,7 @@ Public Class HardPDF
     'exe 파일 명령어 뒤에 경로를 붙이기 위함 함수
     Function FormatCommand2(str As String)
         '입력받은 경로를 붙여줘야하는 명령어들
-        Dim tt As New List(Of String) From {"-o", "-D", "-i"}
+        Dim tt As New List(Of String) From {"-o", "-D", "-i", "-C"}
         rs = str
         For Each t In tt
             If t = "-o" Then
@@ -390,11 +440,18 @@ Public Class HardPDF
                     rs = rs.Substring(0, rs.IndexOf("-i") + 2) & $" {opt} " & rs.Substring(rs.IndexOf("-i") + 2)
                 End If
             End If
+
+            If t = "-C" Then
+                If rs.IndexOf("-C") <> -1 Then
+                    rs = rs.Substring(0, rs.IndexOf("-C") + 2) & $" {"""PDFMODE Yes"""} " & rs.Substring(rs.IndexOf("-C") + 2)
+                End If
+            End If
         Next
         Return rs
     End Function
     Private Sub chkLst_putFilelst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles chkLst_putFilelst.SelectedIndexChanged
         FormatCommand(chkLst_putFilelst.SelectedItem, "o")
+        txtboxInput.Text = chkLst_putFilelst.SelectedItem
     End Sub
     Private Sub btn_cmdClear_Click(sender As Object, e As EventArgs) Handles btn_cmdClear.Click
         commandBox.Text = ""
@@ -413,7 +470,7 @@ Public Class HardPDF
 
                 Dim exePath As String = commandBox.Text.Substring(0, commandBox.Text.IndexOf(" ")).Trim
 
-                Dim argument As String = commandBox.Text.Substring(cmd.IndexOf(" ") + 1).Trim
+                Dim argument As String = commandBox.Text.Substring(commandBox.Text.IndexOf(" ")).Trim
                 Dim text As String = $"[{currentdt.Year}.{chkz(currentdt.Month)}.{chkz(currentdt.Day)} {chkz(currentdt.Hour)}:{chkz(currentdt.Minute)}:{chkz(currentdt.Second)}][{exePath} {argument}]"
 
                 NTBProcess.ProcessFn(exePath, argument)
@@ -431,5 +488,6 @@ Public Class HardPDF
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         OpenOutputFolder()
     End Sub
+
 
 End Class
