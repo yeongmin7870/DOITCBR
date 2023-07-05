@@ -10,6 +10,8 @@ Module settingPath
             Dim jsonFileName As String = "DOITCBR.json"
             'Log 파일의 이름
             Dim logFileName As String = "log.txt"
+            'cmd history 파일의 이름
+            Dim cmdHistoryFileName As String = "cmdHistory.txt"
             '내장된 리소스 이름 생성
             Dim resourceName As String = jsonFileName
             settingFilePath = resourceName
@@ -25,6 +27,13 @@ Module settingPath
                 '로그 파일생성
                 File.Create(logFileName).Dispose()
                 MessageBox.Show($"EXE 파일 경로에 ""log.txt"" 파일이 위치되어 있지 않기 때문에 ""{logFileName}""을 자동 생성시켰습니다.")
+            End If
+            If File.Exists(cmdHistoryFileName) Then
+                UPONEDATEDATA(cmdHistoryFileName, "cmd")
+            Else
+                '로그 파일생성
+                File.Create(cmdHistoryFileName).Dispose()
+                MessageBox.Show($"EXE 파일 경로에 ""{cmdHistoryFileName}"" 파일이 위치되어 있지 않기 때문에 ""{cmdHistoryFileName}""을 자동 생성시켰습니다.")
             End If
 
         Catch ex As Exception
