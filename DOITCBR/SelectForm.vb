@@ -35,37 +35,31 @@ Public Class SelectForm
 
     Private Sub SelectForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            Init()
+            errorValue = Init()
             PanelRound(25, Panel5)
-            logger.loggerInit(GETValue("log"))
+            errorValue = logger.loggerInit(GETValue("log"))
             HardForm()
             '파일 및 폴더 나열
             ListFilesAndFolders(GETValue("txtOutput"))
         Catch ex As Exception
-            logger.log($"{ex}", "w")
+            ErrorHandler($"{ex.Message & ex.StackTrace & ex.Source}", errorValue)
         End Try
     End Sub
+    '탐색기 폴더 여는 함수
     Sub OpenOutputFolder()
-        Try
-            Dim path As String = GETValue("txtOutput")
-            If Not String.IsNullOrEmpty(path) AndAlso Directory.Exists(path) Then
-                Process.Start(path)
-            Else
-                MessageBox.Show("유효한 폴더 경로를 입력하세요.")
-            End If
-        Catch ex As Exception
-            logger.log(ex.ToString, "w")
-        End Try
+        Dim path As String = GETValue("txtOutput")
+        If Not String.IsNullOrEmpty(path) AndAlso Directory.Exists(path) Then
+            Process.Start(path)
+        Else
+            PrintLog($"SelectFrom.vb OpenOutputFolder 유효하지 않은 폴더 경로")
+        End If
     End Sub
+
     Sub HardForm()
         If preForm IsNot Nothing AndAlso Not preForm.IsDisposed Then
             preForm.Close()
         End If
         PreFormFn(New HardPDF)
-    End Sub
-    '대용량 PDF 변환 버튼
-    Private Sub btn_hard_Click(sender As Object, e As EventArgs)
-        HardForm()
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs)
@@ -103,7 +97,7 @@ Public Class SelectForm
             End If
             iconImgList.Images.Add(state, icon)
         Catch ex As Exception
-            logger.log(ex.ToString, "w")
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
         End Try
     End Sub
     Dim fileIconIndex As Integer = 0
@@ -144,7 +138,8 @@ Public Class SelectForm
                 folderList.Items.AddRange(items.ToArray())
             End If
         Catch ex As Exception
-            logger.log(ex.ToString, "w")
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
+            '오류가 나면 기본 세팅 Output 경로를 찾음
             ListFilesAndFolders(GETValue("txtOutput"))
         End Try
     End Sub
@@ -159,7 +154,6 @@ Public Class SelectForm
     End Sub
 
     Private Sub folderList_MouseDown(sender As Object, e As MouseEventArgs) Handles folderList.MouseDown
-
         If e.Button = MouseButtons.Right Then
             Dim seletedItem As ListViewItem = folderList.GetItemAt(e.X, e.Y)
             If seletedItem IsNot Nothing Then
@@ -180,7 +174,7 @@ Public Class SelectForm
                 End If
             End If
         Catch ex As Exception
-
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
         End Try
     End Sub
 
@@ -196,7 +190,10 @@ Public Class SelectForm
     End Sub
 
     Private Sub ToolStripDropDownButton1_Click(sender As Object, e As EventArgs) Handles ToolStripDropDownButton1.Click
-        NTBProcess.settingFile()
+        errorValue = NTBProcess.settingFile()
+        If errorValue = -1 Then
+            ErrorHandler("SelectForm.vb ToolStripDropDownButton1_Click DOITCBR.json 없는 경로", errorValue)
+        End If
     End Sub
 
 
@@ -296,10 +293,12 @@ Public Class SelectForm
     End Sub
 
     Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click, Panel7.Click
-        Process.Start(GETValue("log"))
+        Dim textfile As String = "C:\Windows\System32\notepad.exe"
+        ProcessFn(textfile, GETValue("log"))
     End Sub
 
     Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click, Panel8.Click
-        Process.Start(GETValue("cmd"))
+        Dim textfile As String = "C:\Windows\System32\notepad.exe"
+        ProcessFn(textfile, GETValue("cmd"))
     End Sub
 End Class

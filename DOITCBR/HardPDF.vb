@@ -91,19 +91,16 @@ Public Class HardPDF
     '    selectForm.ListFilesAndFolders(folderPath)
     'End Sub
 
+    'Input 박스로 마우스 드래그가 들어갈때
     Private Sub txtboxInput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxInput.DragEnter
-        Try
-            If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-                e.Effect = DragDropEffects.Copy
-            End If
-            If e.Data.GetDataPresent(DataFormats.Text) Then
-                e.Effect = DragDropEffects.Copy
-            End If
-        Catch ex As Exception
-            logger.log(ex.ToString, "w")
-        End Try
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            e.Effect = DragDropEffects.Copy
+        End If
+        If e.Data.GetDataPresent(DataFormats.Text) Then
+            e.Effect = DragDropEffects.Copy
+        End If
     End Sub
-
+    'input 박스에 내용물을 떨어뜨렸을때
     Private Sub txtboxInput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxInput.DragDrop
         Try
             'inputbox 에 들어갈 값을 저장해둠
@@ -115,39 +112,34 @@ Public Class HardPDF
                     For Each t In filePaths
                         txtboxInput2 += t & ","
                         filePath = t
-                        settingPath.UPDATEDATA(t, "putFiles")
+                        errorValue = settingPath.UPDATEDATA(t, "putFiles", settingPath.settingFilePath)
                     Next
                     txtboxInput.Text = txtboxInput2.Substring(0, txtboxInput2.Length - 1)
                 End If
             End If
             If e.Data.GetDataPresent(DataFormats.Text) Then
-                Dim droppedText As String() =  e.Data.GetData(DataFormats.Text)
+                Dim droppedText As String() = e.Data.GetData(DataFormats.Text)
                 For Each t In droppedText
                     txtboxInput2 += t & ","
                     filePath = t
-                    settingPath.UPDATEDATA(t, "putFiles")
+                    errorValue = settingPath.UPDATEDATA(t, "putFiles", settingPath.settingFilePath)
                 Next
                 '마지막 ',' 를 빼주기 위해서 
                 txtboxInput.Text = txtboxInput2.Substring(0, txtboxInput2.Length - 1)
             End If
             Update_chkLst_putLst()
         Catch ex As Exception
-            logger.log(ex.ToString, "w")
+            ErrorHandler($"{ex.Message & ex.StackTrace & ex.Source}", errorValue)
         End Try
     End Sub
     'Output textbox 안에 파일을 떨어뜨리는 함수
     Private Sub txtboxOutput2_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxOutput2.DragEnter
-        Try
-            If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-                e.Effect = DragDropEffects.Copy
-            End If
-
-            If e.Data.GetDataPresent(DataFormats.Text) Then
-                e.Effect = DragDropEffects.Copy
-            End If
-        Catch ex As Exception
-            logger.log(ex.ToString, "w")
-        End Try
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            e.Effect = DragDropEffects.Copy
+        End If
+        If e.Data.GetDataPresent(DataFormats.Text) Then
+            e.Effect = DragDropEffects.Copy
+        End If
     End Sub
 
     Private Sub txtboxOutput2_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxOutput2.DragDrop
@@ -160,7 +152,7 @@ Public Class HardPDF
                     txtboxOutput2.Text = drpath
                     folderPath = drpath
                     SelectForm.ListFilesAndFolders(drpath)
-                    UPONEDATEDATA(drpath, "txtOutput")
+                    errorValue = UPONEDATEDATA(drpath, "txtOutput")
                 End If
             End If
             If e.Data.GetDataPresent(DataFormats.Text) Then
@@ -169,10 +161,10 @@ Public Class HardPDF
                 txtboxOutput2.Text = drpath
                 folderPath = drpath
                 SelectForm.ListFilesAndFolders(drpath)
-                UPONEDATEDATA(drpath, "txtOutput")
+                errorValue = UPONEDATEDATA(drpath, "txtOutput")
             End If
         Catch ex As Exception
-            logger.log(ex.ToString, "w")
+            ErrorHandler($"{ex.Message & ex.StackTrace & ex.Source}", errorValue)
         End Try
     End Sub
 
@@ -184,40 +176,46 @@ Public Class HardPDF
                 End If
                 folderPath = txtboxOutput2.Text
                 SelectForm.ListFilesAndFolders(folderPath)
-                UPONEDATEDATA(folderPath, "txtOutput")
+                errorValue = UPONEDATEDATA(folderPath, "txtOutput")
             End If
         Catch ex As Exception
-            logger.log(ex.ToString, "w")
+            ErrorHandler($"{ex.Message & ex.StackTrace & ex.Source}", errorValue)
         End Try
     End Sub
 
     'input 에 파일을 넣었을때 output 경로가 자동으로 바뀌게 하는 함수
     Private Sub txtboxInput_TextChanged(sender As Object, e As EventArgs) Handles txtboxInput.TextChanged
-        Dim outputPathlst As String() = txtboxInput.Text.Split(",")
-        folderPath = chkFileAnsdFolder(outputPathlst(0))
-        'input 값이 비어 있다면 
-        If folderPath <> String.Empty Then
-            UPONEDATEDATA(folderPath, "txtOutput")
-            txtboxOutput2.Text = folderPath
-        Else
-            UPONEDATEDATA(folderPath, "txtOutput")
-            txtboxOutput2.Text = GETValue("txtOutput")
-        End If
-        SelectForm.ListFilesAndFolders(txtboxOutput2.Text)
+        Try
+            Dim outputPathlst As String() = txtboxInput.Text.Split(",")
+            folderPath = chkFileAnsdFolder(outputPathlst(0))
+            'input 값이 비어 있다면 
+            If folderPath <> String.Empty Then
+                errorValue = UPONEDATEDATA(folderPath, "txtOutput")
+                txtboxOutput2.Text = folderPath
+            Else
+                errorValue = UPONEDATEDATA(folderPath, "txtOutput")
+                txtboxOutput2.Text = GETValue("txtOutput")
+            End If
+            SelectForm.ListFilesAndFolders(txtboxOutput2.Text)
+        Catch ex As Exception
+            ErrorHandler($"{ex.Message & ex.StackTrace & ex.Source}", errorValue)
+        End Try
     End Sub
     '올려놓은 파일 체크리스트 박스 업데이트 함수
-    Sub OpenOutputFolder()
+    Function OpenOutputFolder()
         Try
             Dim path As String = GETValue("txtOutput")
             If Not String.IsNullOrEmpty(path) AndAlso Directory.Exists(path) Then
                 Process.Start(path)
             Else
-                MessageBox.Show("유효한 폴더 경로를 입력하세요.")
+                PrintLog("HardPDF.vb, OpenOutputFolder() path가 null")
             End If
+            Return 1
         Catch ex As Exception
-            logger.log(ex.ToString, "w")
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
+            Return -1
         End Try
-    End Sub
+    End Function
 
 
     Private Sub HardPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -241,6 +239,7 @@ Public Class HardPDF
         Update_cbbox_workLst()
         Update_cbbox_workLst()
     End Sub
+    'Component 4 모서리를 깎는 함수
     Sub PanelRound(r, pn)
         Dim radius As Integer = r ' 원하는 모서리 깎기 정도를 조절합니다.
         Dim path As New Drawing2D.GraphicsPath()
@@ -256,10 +255,10 @@ Public Class HardPDF
 
     Private Sub btn_putFileDelete_Click(sender As Object, e As EventArgs) Handles btn_putFileDelete.Click
         Try
-            settingPath.REMOVEDATA(chkLst_putFilelst.SelectedItem, "putFiles")
+            errorValue = settingPath.REMOVEDATA(chkLst_putFilelst.SelectedItem, "putFiles")
             Update_chkLst_putLst()
         Catch ex As Exception
-            logger.log(ex.ToString, "w")
+            ErrorHandler($"{ex.Message & ex.StackTrace & ex.Source}", errorValue)
         End Try
     End Sub
     Private Sub btn_delAllputFIle_Click(sender As Object, e As EventArgs) Handles btn_delAllputFIle.Click
@@ -270,7 +269,7 @@ Public Class HardPDF
             Update_chkLst_putLst()
             txtboxInput.Text = ""
         Catch ex As Exception
-            logger.log(ex.ToString, "w")
+            ErrorHandler("HardPDF.vb btn_delAllputFIle_Click 삭제 실패", errorValue)
         End Try
     End Sub
 
@@ -297,19 +296,13 @@ Public Class HardPDF
     End Sub
     'lst_commandBox 리스트에 데이터 추가
     Sub SetExeSelectBox()
-        Try
-            lst_commandBox.Items.Clear()
-            '찾고자 하는 키
-            Dim targetKey As String = "cbrUtilCmd"
-            Dim jsonDT As Object = GETCMDVALUE(targetKey, cbbox_workLst.SelectedItem)
-
-
-            For Each d In jsonDT.Properties()
-                lst_commandBox.Items.Add($"{d.Name.Trim}        {d.Value}")
-            Next
-        Catch ex As Exception
-            logger.log(ex.ToString, "w")
-        End Try
+        lst_commandBox.Items.Clear()
+        '찾고자 하는 키
+        Dim targetKey As String = "cbrUtilCmd"
+        Dim jsonDT As Object = GETCMDVALUE(targetKey, cbbox_workLst.SelectedItem)
+        For Each d In jsonDT.Properties()
+            lst_commandBox.Items.Add($"{d.Name.Trim}        {d.Value}")
+        Next
     End Sub
     Private Sub cbbox_workLst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbox_workLst.SelectedIndexChanged
         SetExeSelectBox()
@@ -370,6 +363,7 @@ Public Class HardPDF
         GetCheckNowCMDBox()
     End Sub
     'history에서 올린 파일을 선택할 때 기존 값에서 변경해주는 함수
+    'CMD 에 아무값이 있을때
     Function FormatCommand3(str As String)
         '입력받은 경로를 붙여줘야하는 명령어들
         Dim tt As New List(Of String) From {"-o", "-D", "-i", "-C"}
@@ -416,7 +410,7 @@ Public Class HardPDF
             Return str.Length
         End If
     End Function
-    'exe 파일 명령어 뒤에 경로를 붙이기 위함 함수
+    'CMD 에 아무값이 없을때
     Function FormatCommand2(str As String)
         '입력받은 경로를 붙여줘야하는 명령어들
         Dim tt As New List(Of String) From {"-o", "-D", "-i", "-C"}
@@ -471,22 +465,25 @@ Public Class HardPDF
                 Dim exePath As String = commandBox.Text.Substring(0, commandBox.Text.IndexOf(" ")).Trim
 
                 Dim argument As String = commandBox.Text.Substring(commandBox.Text.IndexOf(" ")).Trim
-                Dim text As String = $"[{currentdt.Year}.{chkz(currentdt.Month)}.{chkz(currentdt.Day)} {chkz(currentdt.Hour)}:{chkz(currentdt.Minute)}:{chkz(currentdt.Second)}][{exePath} {argument}]"
 
-                NTBProcess.ProcessFn(exePath, argument)
-                WriteLog(text, GETValue("cmd"))
-                logger.log(text, "i")
+                Dim dates As String = $"{currentdt.Year}.{chkz(currentdt.Month)}.{chkz(currentdt.Day)} {chkz(currentdt.Hour)}:{chkz(currentdt.Minute)}:{chkz(currentdt.Second)}"
+                Dim text As String = $"{exePath} {argument}"
+
+                errorValue = NTBProcess.ProcessFn(exePath, argument)
+                'Command History에 남김
+                WriteLog(dates, text, GETValue("cmd"))
                 sForm.ListFilesAndFolders(GETValue("txtOutput"))
             Else
-                MessageBox.Show("명령어가 공백입니다.")
+                PrintLog($"명령어가 공백")
             End If
         Catch ex As Exception
-            logger.log(ex.ToString, "w")
+            ErrorHandler($"{ex.Message & ex.StackTrace & ex.Source}", errorValue)
         End Try
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        OpenOutputFolder()
+        errorValue = OpenOutputFolder()
+        ErrorHandler("HardPdf.vb Button2_Click 결과 폴더 비정상", errorValue)
     End Sub
 
 

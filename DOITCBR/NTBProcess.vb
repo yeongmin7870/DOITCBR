@@ -51,18 +51,17 @@ Module NTBProcess
             logger.log(ex.Message, "w")
         End Try
     End Sub
-    Sub settingFile()
+    Function settingFile()
         Try
             Dim filePath2 As String = "C:\Windows\System32\notepad.exe"
             Dim arguments2 As String = $"{settingPath.settingFilePath}"
-
             ProcessFn(filePath2, arguments2)
-            logger.log("환경설정 파일을 열었습니다.", "i")
+            Return 1
         Catch ex As Exception
-            logger.log("환경설정 파일이 열리지 않습니다.", "w")
-            logger.log(ex.Message, "w")
+            PrintLog($"NTBProcess.vb settingFile 경로 이상")
+            Return -1
         End Try
-    End Sub
+    End Function
     'Cobradoc + CRPDFC
     Sub CobraProcess(inputPath, outputPath, background)
         Try
@@ -98,7 +97,7 @@ Module NTBProcess
         End If
     End Function
 
-    Sub ProcessFn(filepath, arguments)
+    Function ProcessFn(filepath, arguments)
         Try
             Dim process As New Process()
             process.StartInfo.FileName = filepath
@@ -119,12 +118,14 @@ Module NTBProcess
                 logger.log(resultState, "i")
             End If
             If errorState <> String.Empty Then
-                logger.log(errorState, "i")
+                logger.log(errorState, "w")
             End If
+            Return 1
         Catch ex As Exception
-            logger.log(ex.ToString, "w")
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
+            Return -1
         End Try
-    End Sub
+    End Function
     Function ChgEtention(pth, slct)
         Dim newPath As String = String.Empty
         If slct = "dat" Then

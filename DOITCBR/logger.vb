@@ -4,35 +4,69 @@ Imports System
 Imports System.IO
 Imports System.Diagnostics
 Imports System.Windows.Forms.AxHost
+Imports Newtonsoft.Json.Linq
 
 Module logger
     Public sForm As SelectForm = DirectCast(Application.OpenForms("SelectForm"), SelectForm)
-    Sub loggerInit(filePath As String)
-        Using reader As New StreamReader(filePath)
-            Dim line As String = reader.ReadLine()
-            While line IsNot Nothing
-                While line.IndexOf("]") < 0 AndAlso Not reader.EndOfStream
-                    Dim nextLine As String = reader.ReadLine()
-                    line &= Environment.NewLine & nextLine
-                End While
+    '에러 핸들러 변수 값
+    ' 1: 정상 -1: 비정상
+    Public errorValue As Integer = 1
+    Function loggerInit(filePath As String)
+        Try
+            Dim jsonString As String = File.ReadAllText(filePath)
+            Dim jsonData As JObject = JObject.Parse(jsonString)
 
-                Dim states As String = line.Split("]")(1)
-                Dim state As String = states.Split("[")(0)
-                AddColoredText(line, CheckedState(state), CheckedColor(CheckedState(state)))
-                line = reader.ReadLine()
-            End While
-        End Using
+            Dim logArray As JArray = jsonData("log")
+            For Each logItem As JObject In logArray
+                Dim time As String = logItem.Value(Of String)("time")
+                Dim state As String = logItem.Value(Of String)("state")
+                Dim content As String = logItem.Value(Of String)("content")
+
+                AddColoredText($"[{time}][{state}][{content}]", CheckedState(state), CheckedColor(state))
+            Next
+            logger.log("로그 출력 정상", "i")
+            Return 1
+        Catch ex As Exception
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
+            Return -1
+        End Try
+    End Function
+    '큰 흐름에서 오류가 났을때
+    Sub ErrorHandler(str, chk)
+        If chk = -1 Then
+            logger.log($"{str}", "w")
+            MessageBox.Show($"{str}")
+            End
+        ElseIf chk = 1 Then
+            logger.log($"{str}", "w")
+        End If
     End Sub
-    Sub HistoryInit(hForm As History, filePath As String)
-        Using reader As New StreamReader(filePath)
-            Dim line As String = String.Empty
-            While Not reader.EndOfStream
-                Dim nextLine As String = reader.ReadLine()
-                line = Environment.NewLine & nextLine
-                hForm.cmdHistory.Items.Add(line)
-            End While
-        End Using
+    ' 로그와 메시지박스
+    Sub PrintLog(str)
+        logger.log($"{str}", "w")
+        MessageBox.Show($"{str}")
     End Sub
+    Function HistoryInit(hForm As History, filePath As String)
+        Try
+            Dim jsonString As String = File.ReadAllText(filePath)
+            Dim jsonData As JObject = JObject.Parse(jsonString)
+
+            Dim logArray As JArray = jsonData("history")
+            If logArray IsNot Nothing Then
+                For Each logItem As JObject In logArray
+                    Dim time As String = logItem.Value(Of String)("time")
+                    Dim content As String = logItem.Value(Of String)("content")
+                    hForm.cmdHistory.Items.Add($"[{time}][{content}]")
+                Next
+                Return 1
+            Else
+                Return -1
+            End If
+        Catch ex As Exception
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
+            Return -1
+        End Try
+    End Function
     Sub AddColoredText(text As String, state As String, color As Color)
         sForm.logMSG.SelectionColor = color
         sForm.logMSG.AppendText(text & vbCrLf)
@@ -50,8 +84,12 @@ Module logger
     End Function
     Sub log(log As String, state As String)
         Dim currentdt As DateTime = DateTime.Now
-        Dim text As String = $"[{currentdt.Year}.{chkz(currentdt.Month)}.{chkz(currentdt.Day)} {chkz(currentdt.Hour)}:{chkz(currentdt.Minute)}:{chkz(currentdt.Second)}][{CheckedState(state)}][{log}]"
-        WriteLog(text, GETValue("log"))
+        Dim time As String = $"{currentdt.Year}.{chkz(currentdt.Month)}.{chkz(currentdt.Day)} {chkz(currentdt.Hour)}:{chkz(currentdt.Minute)}:{chkz(currentdt.Second)}"
+        Dim states As String = $"{CheckedState(state)}"
+        Dim text As String = $"{log}"
+        '로그 쓰기
+        WriteLog2(time, states, text, GETValue("log"))
+        '로그 프론트에 색깔 입혀서 뿌리기
         AddColoredText(text, CheckedState(state), CheckedColor(CheckedState(state)))
     End Sub
     Function CheckedState(s As String) As String
@@ -69,10 +107,42 @@ Module logger
             End If
         End If
     End Function
-    Sub WriteLog(text, filePath)
-        Using writer As StreamWriter = File.AppendText(filePath)
-            writer.WriteLine(text)
-        End Using
+    Sub WriteLog2(time As String, state As String, text As String, filePath As String)
+        Dim existingLog As String = File.ReadAllText(filePath)
+
+        Dim jsonData As JObject = JObject.Parse(existingLog)
+
+        Dim dataArray As JArray = jsonData("log")
+        Dim data As New JObject()
+        data("time") = time
+        data("state") = state
+        data("content") = text
+
+        dataArray.Add(data)
+
+        Dim combinedLog As String = jsonData.ToString()
+        File.WriteAllText(filePath, combinedLog)
+    End Sub
+    Sub WriteLog(time As String, text As String, filePath As String)
+        Dim existingLog As String = File.ReadAllText(filePath)
+
+        Dim jsonData As JObject = JObject.Parse(existingLog)
+
+        Dim data As New JObject()
+        Dim dataArray As JArray = jsonData("history")
+
+        If dataArray Is Nothing Then
+            dataArray = New JArray()
+        End If
+        data("time") = time
+        data("content") = text
+
+        dataArray.Add(data)
+
+        jsonData("history") = dataArray
+
+        Dim combinedLog As String = jsonData.ToString()
+        File.WriteAllText(filePath, combinedLog)
     End Sub
     '일의 자리는 앞에 0을 붙여주는 함수
     Function chkz(text As Integer) As String

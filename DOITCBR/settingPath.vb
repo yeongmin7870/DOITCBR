@@ -2,16 +2,18 @@
 Imports Newtonsoft.Json.Linq
 Imports System.Reflection
 Module settingPath
+
     'ini 파일 주소
     Public settingFilePath As String = String.Empty
-    Sub Init()
+    Function Init()
         Try
+
             'JSON 파일의 이름
             Dim jsonFileName As String = "DOITCBR.json"
             'Log 파일의 이름
-            Dim logFileName As String = "log.txt"
+            Dim logFileName As String = "log.json"
             'cmd history 파일의 이름
-            Dim cmdHistoryFileName As String = "cmdHistory.txt"
+            Dim cmdHistoryFileName As String = "cmdHistory.json"
             '내장된 리소스 이름 생성
             Dim resourceName As String = jsonFileName
             settingFilePath = resourceName
@@ -19,6 +21,7 @@ Module settingPath
             If File.Exists(settingFilePath) Then
             Else
                 MessageBox.Show("EXE 파일 경로에 ""DOITCBR.json"" 파일을 위치시키세요")
+                PrintLog($"{settingFilePath} 없음")
                 End
             End If
             If File.Exists(logFileName) Then
@@ -26,31 +29,55 @@ Module settingPath
             Else
                 '로그 파일생성
                 File.Create(logFileName).Dispose()
-                MessageBox.Show($"EXE 파일 경로에 ""log.txt"" 파일이 위치되어 있지 않기 때문에 ""{logFileName}""을 자동 생성시켰습니다.")
+                CreateLogJsonFile(GETValue("log"), "log")
+                PrintLog($"기존에 {logFileName} 없어서 생성완료")
             End If
             If File.Exists(cmdHistoryFileName) Then
                 UPONEDATEDATA(cmdHistoryFileName, "cmd")
             Else
                 '로그 파일생성
                 File.Create(cmdHistoryFileName).Dispose()
-                MessageBox.Show($"EXE 파일 경로에 ""{cmdHistoryFileName}"" 파일이 위치되어 있지 않기 때문에 ""{cmdHistoryFileName}""을 자동 생성시켰습니다.")
+                CreateLogJsonFile(GETValue("cmd"), "history")
+                PrintLog($"기존에 {cmdHistoryFileName} 없어서 생성완료")
             End If
-
+            logger.log($"{jsonFileName} 정상", "i")
+            Return 1
         Catch ex As Exception
-            logger.log(ex.ToString, "w")
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
+            Return -1
         End Try
-    End Sub
+    End Function
+
+    Function CreateLogJsonFile(filePath As String, keyName As String)
+        Try
+            Dim jsonData As New JObject()
+            Dim logArray As New JArray()
+            jsonData("log") = logArray
+
+            File.WriteAllText(filePath, jsonData.ToString())
+            Return 1
+        Catch ex As Exception
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
+            Return -1
+        End Try
+    End Function
 
     'pth 파일 주소 key: 대분류 key
     Function GETValue(key As String) As Object
         Try
-            Dim jsonString As String = String.Empty
-            jsonString = File.ReadAllText(settingFilePath)
-            'JSON 데이터 역직렬화
-            Dim jsonData As Object = JObject.Parse(jsonString)
-            Return jsonData(key)("path")
+            If File.Exists(settingFilePath) Then
+                Dim jsonString As String = String.Empty
+                jsonString = File.ReadAllText(settingFilePath)
+                'JSON 데이터 역직렬화
+                Dim jsonData As Object = JObject.Parse(jsonString)
+                Return jsonData(key)("path")
+            Else
+                PrintLog($"settingPath.vb GETValue 경로가 없음")
+                Return -1
+            End If
         Catch ex As Exception
-            Return ex.ToString
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
+            Return -1
         End Try
     End Function
     Function GETCMDVALUE(key As String, key2 As String) As Object
@@ -61,7 +88,8 @@ Module settingPath
             Dim jsonData As Object = JObject.Parse(jsonString)
             Return jsonData(key)(key2)
         Catch ex As Exception
-            Return ex.ToString
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
+            Return -1
         End Try
     End Function
 
@@ -115,14 +143,14 @@ Module settingPath
     '        logger.log(ex.ToString, "w")
     '    End Try
     'End Sub
-    '데이터 값을 추가해주는 함수
-    Sub UPDATEDATA(content As String, keyName As String)
+
+    '데이터 값을 Array로 추가해주는 함수
+    Function UPDATEDATA(content As String, keyName As String, pth As String)
         Try
             ' Json 파일 읽기
-            Dim jsonString As String = File.ReadAllText(settingFilePath)
+            Dim jsonString As String = File.ReadAllText(pth)
             ' Json 데이터 파싱
             Dim jsonData As JObject = JObject.Parse(jsonString)
-
             '값을 추가할 배열 선택
             Dim pathArray As JArray = jsonData(keyName)("path")
             Dim check As Boolean = False
@@ -130,7 +158,7 @@ Module settingPath
                 check = True
             Else
                 For Each path In pathArray
-                    If path = content Then
+                    If path = content Then '같은 값이 중복되어져서 추가 되어졌는지 확인
                         check = False
                         Exit For
                     Else
@@ -147,14 +175,15 @@ Module settingPath
                 '수정된 JSON 문자열을 파일에 씀
                 File.WriteAllText(settingFilePath, modifiedJsonString)
             End If
-
-
+            logger.log($"{keyName} {content} 추가완료", "i")
+            Return 1
         Catch ex As Exception
-            logger.log(ex.ToString, "w")
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
+            Return -1
         End Try
-    End Sub
-    'array 가 아닌 값 추가 
-    Sub UPONEDATEDATA(content As String, keyName As String)
+    End Function
+    '단일 json 값 추가
+    Function UPONEDATEDATA(content As String, keyName As String)
         Try
             ' Json 파일 읽기
             Dim jsonString As String = File.ReadAllText(settingFilePath)
@@ -165,10 +194,13 @@ Module settingPath
             Dim modifiedJsonString As String = jsonData.ToString()
             '수정된 JSON 문자열을 파일에 씀
             File.WriteAllText(settingFilePath, modifiedJsonString)
+            logger.log($"{keyName} {content} 추가완료", "i")
+            Return 1
         Catch ex As Exception
-            logger.log(ex.ToString, "w")
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
+            Return -1
         End Try
-    End Sub
+    End Function
     'ini 원하는 라인의 값에서 원하는 값을 삭제하는 함수
     'Sub REMOVEDATA(content, keyName)
     '    Try
@@ -203,7 +235,7 @@ Module settingPath
     '    End Try
     'End Sub
     'json 삭제
-    Sub REMOVEDATA(content, keyName)
+    Function REMOVEDATA(content, keyName)
         Try
             Dim jsonString As String = File.ReadAllText(settingFilePath)
             Dim jsonData As JObject = JObject.Parse(jsonString)
@@ -215,24 +247,21 @@ Module settingPath
                 End If
             Next
             File.WriteAllText(settingFilePath, jsonData.ToString())
+            logger.log($"{keyName} {content} 삭제완료", "i")
+            Return 1
         Catch ex As Exception
-            logger.log(ex.ToString, "w")
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
+            Return -1
         End Try
-    End Sub
-    'file 인지 folder 인지 체크해서 경로 설정
+    End Function
+    'file 현재 디렉토리 반환
+    'folder면 그대로 반환
     Function chkFileAnsdFolder(p As String)
-        Try
-            Dim isFilePath As Boolean = File.Exists(p)
-            Dim result As String = String.Empty
-            If isFilePath Then
-                result = Path.GetDirectoryName(p)
-            Else
-                result = p
-            End If
-            Return result
-        Catch ex As Exception
-            logger.log(ex.ToString, "w")
-        End Try
-        Return p
+        Dim isFilePath As Boolean = File.Exists(p)
+        If isFilePath Then
+            Return Path.GetDirectoryName(p)
+        Else
+            Return p
+        End If
     End Function
 End Module

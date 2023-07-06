@@ -1,6 +1,6 @@
 {
   "cmd": {
-    "path": "E:\\DOITCBR\\DOITCBR\\cmdHistory.txt",
+    "path": "cmdHistory.json",
     "description": "이전에 입력했던 명령어 모음 파일 주소입니다."
   },
   "txtOutput": {
@@ -8,7 +8,7 @@
     "description": "결과물이 떨어지는 폴더 주소입니다."
   },
   "log": {
-    "path": "",
+    "path": "log.json",
     "description": "로그 파일 주소입니다."
   },
   "cbrUtil": {
