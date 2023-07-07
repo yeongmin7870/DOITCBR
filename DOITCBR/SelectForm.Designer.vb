@@ -104,6 +104,7 @@ Partial Class SelectForm
         '
         'folderList
         '
+        Me.folderList.AllowDrop = True
         Me.folderList.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
         Me.folderList.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.folderList.Cursor = System.Windows.Forms.Cursors.Default
@@ -111,6 +112,7 @@ Partial Class SelectForm
         Me.folderList.HideSelection = False
         Me.folderList.LargeImageList = Me.iconImgList
         Me.folderList.Location = New System.Drawing.Point(5, 74)
+        Me.folderList.MultiSelect = False
         Me.folderList.Name = "folderList"
         Me.folderList.ShowItemToolTips = True
         Me.folderList.Size = New System.Drawing.Size(145, 567)

@@ -17,6 +17,7 @@ Module logger
             Dim jsonData As JObject = JObject.Parse(jsonString)
 
             Dim logArray As JArray = jsonData("log")
+
             For Each logItem As JObject In logArray
                 Dim time As String = logItem.Value(Of String)("time")
                 Dim state As String = logItem.Value(Of String)("state")
@@ -24,7 +25,6 @@ Module logger
 
                 AddColoredText($"[{time}][{state}][{content}]", CheckedState(state), CheckedColor(state))
             Next
-            logger.log("로그 출력 정상", "i")
             Return 1
         Catch ex As Exception
             PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
@@ -36,7 +36,6 @@ Module logger
         If chk = -1 Then
             logger.log($"{str}", "w")
             MessageBox.Show($"{str}")
-            End
         ElseIf chk = 1 Then
             logger.log($"{str}", "w")
         End If
@@ -89,8 +88,9 @@ Module logger
         Dim text As String = $"{log}"
         '로그 쓰기
         WriteLog2(time, states, text, GETValue("log"))
+
         '로그 프론트에 색깔 입혀서 뿌리기
-        AddColoredText(text, CheckedState(state), CheckedColor(CheckedState(state)))
+        AddColoredText($"[{time}][{states}][{text}]", CheckedState(state), CheckedColor(CheckedState(state)))
     End Sub
     Function CheckedState(s As String) As String
         If s = String.Empty Then
@@ -114,11 +114,18 @@ Module logger
 
         Dim dataArray As JArray = jsonData("log")
         Dim data As New JObject()
+
+        If dataArray Is Nothing Then
+            dataArray = New JArray()
+        End If
+
         data("time") = time
         data("state") = state
         data("content") = text
 
         dataArray.Add(data)
+
+        jsonData("log") = dataArray
 
         Dim combinedLog As String = jsonData.ToString()
         File.WriteAllText(filePath, combinedLog)
@@ -128,8 +135,8 @@ Module logger
 
         Dim jsonData As JObject = JObject.Parse(existingLog)
 
-        Dim data As New JObject()
         Dim dataArray As JArray = jsonData("history")
+        Dim data As New JObject()
 
         If dataArray Is Nothing Then
             dataArray = New JArray()

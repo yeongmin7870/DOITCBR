@@ -30,7 +30,6 @@ Module settingPath
                 '로그 파일생성
                 File.Create(logFileName).Dispose()
                 CreateLogJsonFile(GETValue("log"), "log")
-                PrintLog($"기존에 {logFileName} 없어서 생성완료")
             End If
             If File.Exists(cmdHistoryFileName) Then
                 UPONEDATEDATA(cmdHistoryFileName, "cmd")
@@ -38,16 +37,13 @@ Module settingPath
                 '로그 파일생성
                 File.Create(cmdHistoryFileName).Dispose()
                 CreateLogJsonFile(GETValue("cmd"), "history")
-                PrintLog($"기존에 {cmdHistoryFileName} 없어서 생성완료")
             End If
-            logger.log($"{jsonFileName} 정상", "i")
             Return 1
         Catch ex As Exception
             PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
             Return -1
         End Try
     End Function
-
     Function CreateLogJsonFile(filePath As String, keyName As String)
         Try
             Dim jsonData As New JObject()
@@ -194,7 +190,7 @@ Module settingPath
             Dim modifiedJsonString As String = jsonData.ToString()
             '수정된 JSON 문자열을 파일에 씀
             File.WriteAllText(settingFilePath, modifiedJsonString)
-            logger.log($"{keyName} {content} 추가완료", "i")
+            'logger.log($"{keyName} {content} 추가완료", "i")
             Return 1
         Catch ex As Exception
             PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")

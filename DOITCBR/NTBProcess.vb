@@ -116,11 +116,13 @@ Module NTBProcess
             Dim errorState = process.StandardError.ReadToEnd()
             If resultState <> String.Empty Then
                 logger.log(resultState, "i")
+                MessageBox.Show("작업완료")
             End If
             If errorState <> String.Empty Then
                 logger.log(errorState, "w")
+                MessageBox.Show("작업실패")
             End If
-            Return 1
+                Return 1
         Catch ex As Exception
             PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
             Return -1

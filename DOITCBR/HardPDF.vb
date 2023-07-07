@@ -118,14 +118,15 @@ Public Class HardPDF
                 End If
             End If
             If e.Data.GetDataPresent(DataFormats.Text) Then
-                Dim droppedText As String() = e.Data.GetData(DataFormats.Text)
-                For Each t In droppedText
-                    txtboxInput2 += t & ","
-                    filePath = t
-                    errorValue = settingPath.UPDATEDATA(t, "putFiles", settingPath.settingFilePath)
-                Next
+                Dim droppedText As String = CType(e.Data.GetData(DataFormats.Text), String)
+                'For Each t In droppedText
+                'txtboxInput2 += t & ","
+                filePath = droppedText
+                errorValue = settingPath.UPDATEDATA(filePath, "putFiles", settingPath.settingFilePath)
+                'Next
                 '마지막 ',' 를 빼주기 위해서 
-                txtboxInput.Text = txtboxInput2.Substring(0, txtboxInput2.Length - 1)
+                'txtboxInput.Text = txtboxInput2.Substring(0, txtboxInput2.Length - 1)
+                txtboxInput.Text = filePath
             End If
             Update_chkLst_putLst()
         Catch ex As Exception
@@ -207,10 +208,11 @@ Public Class HardPDF
             Dim path As String = GETValue("txtOutput")
             If Not String.IsNullOrEmpty(path) AndAlso Directory.Exists(path) Then
                 Process.Start(path)
+                Return 1
             Else
                 PrintLog("HardPDF.vb, OpenOutputFolder() path가 null")
+                Return -1
             End If
-            Return 1
         Catch ex As Exception
             PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
             Return -1
@@ -483,8 +485,9 @@ Public Class HardPDF
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         errorValue = OpenOutputFolder()
-        ErrorHandler("HardPdf.vb Button2_Click 결과 폴더 비정상", errorValue)
+        If errorValue = -1 Then
+            ErrorHandler("HardPdf.vb Button2_Click 결과 폴더 비정상", errorValue)
+        End If
     End Sub
-
 
 End Class
