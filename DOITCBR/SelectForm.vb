@@ -102,6 +102,7 @@ Public Class SelectForm
     End Sub
     Dim fileIconIndex As Integer = 0
 
+
     '폴더 경로를 주면 결과창이 업데이트 됨
     Sub ListFilesAndFolders(staticPath)
         Try
@@ -111,6 +112,10 @@ Public Class SelectForm
                 folderList.Items.Clear()
                 pathBox.Text = staticPath
                 Dim items As New List(Of ListViewItem)
+                If File.Exists(staticPath) <> True Then
+                    '오류가 나면 기본 세팅 Output 경로를 찾음
+                    ListFilesAndFolders("")
+                End If
                 Dim files As String() = Directory.GetFiles(staticPath)
                 For Each file As String In files
                     Dim fileInfo As New FileInfo(file)
@@ -139,8 +144,7 @@ Public Class SelectForm
             End If
         Catch ex As Exception
             PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
-            '오류가 나면 기본 세팅 Output 경로를 찾음
-            ListFilesAndFolders(GETValue("txtOutput"))
+
         End Try
     End Sub
 
@@ -300,5 +304,9 @@ Public Class SelectForm
     Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click, Panel8.Click
         Dim textfile As String = "C:\Windows\System32\notepad.exe"
         ProcessFn(textfile, GETValue("cmd"))
+    End Sub
+
+    Private Sub Panel9_Paint(sender As Object, e As PaintEventArgs) Handles Panel9.Paint
+
     End Sub
 End Class

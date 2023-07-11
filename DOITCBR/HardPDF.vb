@@ -92,7 +92,7 @@ Public Class HardPDF
     'End Sub
 
     'Input 박스로 마우스 드래그가 들어갈때
-    Private Sub txtboxInput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxInput.DragEnter
+    Private Sub txtboxInput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxInput.DragEnter, txtInputLb.DragEnter
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.Copy
         End If
@@ -101,7 +101,7 @@ Public Class HardPDF
         End If
     End Sub
     'input 박스에 내용물을 떨어뜨렸을때
-    Private Sub txtboxInput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxInput.DragDrop
+    Private Sub txtboxInput_DragDrop(sender As Object, e As DragEventArgs) Handles txtboxInput.DragDrop, txtInputLb.DragDrop
         Try
             'inputbox 에 들어갈 값을 저장해둠
             Dim txtboxInput2 As String = String.Empty
@@ -110,9 +110,11 @@ Public Class HardPDF
 
                 If filePaths.Length > 0 Then
                     For Each t In filePaths
-                        txtboxInput2 += t & ","
-                        filePath = t
-                        errorValue = settingPath.UPDATEDATA(t, "putFiles", settingPath.settingFilePath)
+                        If File.Exists(t) Then
+                            txtboxInput2 += t & ","
+                            filePath = t
+                            errorValue = settingPath.UPDATEDATA(t, "putFiles", settingPath.settingFilePath)
+                        End If
                     Next
                     txtboxInput.Text = txtboxInput2.Substring(0, txtboxInput2.Length - 1)
                 End If
@@ -183,21 +185,35 @@ Public Class HardPDF
             ErrorHandler($"{ex.Message & ex.StackTrace & ex.Source}", errorValue)
         End Try
     End Sub
-
+    '파일을 끌어오라는 문구가 나타나는 함수
+    Sub DragAndDropLabel()
+        If txtboxInput.Text <> String.Empty Then
+            txtInputLb.Visible = False
+        Else
+            txtInputLb.Visible = True
+        End If
+    End Sub
     'input 에 파일을 넣었을때 output 경로가 자동으로 바뀌게 하는 함수
     Private Sub txtboxInput_TextChanged(sender As Object, e As EventArgs) Handles txtboxInput.TextChanged
         Try
-            Dim outputPathlst As String() = txtboxInput.Text.Split(",")
-            folderPath = chkFileAnsdFolder(outputPathlst(0))
-            'input 값이 비어 있다면 
-            If folderPath <> String.Empty Then
-                errorValue = UPONEDATEDATA(folderPath, "txtOutput")
-                txtboxOutput2.Text = folderPath
-            Else
-                errorValue = UPONEDATEDATA(folderPath, "txtOutput")
-                txtboxOutput2.Text = GETValue("txtOutput")
+
+            DragAndDropLabel()
+
+            '빈값 이라면 
+            If txtboxInput.Text.Trim IsNot String.Empty Then
+                Dim outputPathlst As String() = txtboxInput.Text.Split(",")
+                folderPath = chkFileAnsdFolder2(outputPathlst(0))
+                'input 값이 비어 있지 않다면
+                If folderPath <> String.Empty Then
+                    errorValue = UPONEDATEDATA(folderPath, "txtOutput")
+                    txtboxOutput2.Text = folderPath
+                Else
+                    errorValue = UPONEDATEDATA(folderPath, "txtOutput")
+                    txtboxOutput2.Text = ""
+                End If
+                SelectForm.ListFilesAndFolders(folderPath)
             End If
-            SelectForm.ListFilesAndFolders(txtboxOutput2.Text)
+
         Catch ex As Exception
             ErrorHandler($"{ex.Message & ex.StackTrace & ex.Source}", errorValue)
         End Try
@@ -448,6 +464,7 @@ Public Class HardPDF
     Private Sub chkLst_putFilelst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles chkLst_putFilelst.SelectedIndexChanged
         FormatCommand(chkLst_putFilelst.SelectedItem, "o")
         txtboxInput.Text = chkLst_putFilelst.SelectedItem
+        txtboxOutput2.Text = chkFileAnsdFolder2(txtboxInput.Text)
     End Sub
     Private Sub btn_cmdClear_Click(sender As Object, e As EventArgs) Handles btn_cmdClear.Click
         commandBox.Text = ""
@@ -490,4 +507,16 @@ Public Class HardPDF
         End If
     End Sub
 
+    Private Sub txtInputLb_GotFocus(sender As Object, e As EventArgs) Handles txtInputLb.Click, txtboxInput.Click
+        txtInputLb.Visible = False
+    End Sub
+    Private Sub txtInputLb_LostFocus(sender As Object, e As EventArgs) Handles txtInputLb.LostFocus
+        txtInputLb.Visible = True
+    End Sub
+
+    Private Sub txtboxOutput2_TextChanged(sender As Object, e As EventArgs) Handles txtboxOutput2.TextChanged
+        If File.Exists(txtboxOutput.Text) <> True Then
+            txtboxOutput2.Text = ""
+        End If
+    End Sub
 End Class

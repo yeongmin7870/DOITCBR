@@ -260,4 +260,17 @@ Module settingPath
             Return p
         End If
     End Function
+
+    Function chkFileAnsdFolder2(p As String)
+        Dim isFilePath As Boolean = File.Exists(p)
+        If isFilePath Then
+            Return Path.GetDirectoryName(p)
+        Else
+            If p.IndexOf(".") > -1 Then '파일 경로가 들어왔지만 현재 파일이 존재하지 않는 경우
+                Return Path.GetDirectoryName(p)
+            Else
+                Return p
+            End If
+        End If
+    End Function
 End Module
