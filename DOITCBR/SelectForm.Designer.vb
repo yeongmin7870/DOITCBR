@@ -120,7 +120,6 @@ Partial Class SelectForm
         Me.folderList.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.folderList.TabIndex = 2
         Me.folderList.UseCompatibleStateImageBehavior = False
-        Me.folderList.View = System.Windows.Forms.View.SmallIcon
         '
         'iconImgList
         '
@@ -266,7 +265,7 @@ Partial Class SelectForm
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(167, Byte), Integer), CType(CType(2, Byte), Integer), CType(CType(73, Byte), Integer))
         Me.Label2.Location = New System.Drawing.Point(3, 22)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(104, 8)
+        Me.Label2.Size = New System.Drawing.Size(105, 8)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "New Technology Business"
         '

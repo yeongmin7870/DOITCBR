@@ -25,12 +25,11 @@ Partial Class HardPDF
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.lst_commandBox = New System.Windows.Forms.ListBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.txtboxOutput2 = New System.Windows.Forms.TextBox()
         Me.txtboxOutput = New System.Windows.Forms.TextBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.chkLst_putFilelst = New System.Windows.Forms.ListBox()
+        Me.chkLst_putFilelst = New System.Windows.Forms.CheckedListBox()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.commandBox = New System.Windows.Forms.RichTextBox()
         Me.txtInput_Pn = New System.Windows.Forms.Panel()
@@ -48,7 +47,8 @@ Partial Class HardPDF
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.btn_delAllputFIle = New System.Windows.Forms.Button()
+        Me.btn_selectAll = New System.Windows.Forms.Button()
+        Me.lst_commandBox = New System.Windows.Forms.CheckedListBox()
         Me.Panel4.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -69,19 +69,6 @@ Partial Class HardPDF
         Me.Panel4.Size = New System.Drawing.Size(545, 192)
         Me.Panel4.TabIndex = 17
         '
-        'lst_commandBox
-        '
-        Me.lst_commandBox.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
-        Me.lst_commandBox.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.lst_commandBox.Font = New System.Drawing.Font("굴림", 10.0!)
-        Me.lst_commandBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.lst_commandBox.FormattingEnabled = True
-        Me.lst_commandBox.HorizontalScrollbar = True
-        Me.lst_commandBox.Location = New System.Drawing.Point(20, 18)
-        Me.lst_commandBox.Name = "lst_commandBox"
-        Me.lst_commandBox.Size = New System.Drawing.Size(507, 156)
-        Me.lst_commandBox.TabIndex = 9
-        '
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
@@ -99,11 +86,12 @@ Partial Class HardPDF
         Me.txtboxOutput2.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtboxOutput2.Font = New System.Drawing.Font("굴림", 10.0!)
         Me.txtboxOutput2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.txtboxOutput2.Location = New System.Drawing.Point(20, 11)
+        Me.txtboxOutput2.Location = New System.Drawing.Point(16, 11)
         Me.txtboxOutput2.Multiline = True
         Me.txtboxOutput2.Name = "txtboxOutput2"
+        Me.txtboxOutput2.ReadOnly = True
         Me.txtboxOutput2.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtboxOutput2.Size = New System.Drawing.Size(507, 42)
+        Me.txtboxOutput2.Size = New System.Drawing.Size(511, 42)
         Me.txtboxOutput2.TabIndex = 1
         '
         'txtboxOutput
@@ -123,32 +111,31 @@ Partial Class HardPDF
         '
         Me.Panel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
         Me.Panel3.Controls.Add(Me.chkLst_putFilelst)
-        Me.Panel3.Location = New System.Drawing.Point(623, 66)
+        Me.Panel3.Location = New System.Drawing.Point(599, 66)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(491, 185)
+        Me.Panel3.Size = New System.Drawing.Size(536, 185)
         Me.Panel3.TabIndex = 19
         '
         'chkLst_putFilelst
         '
         Me.chkLst_putFilelst.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
         Me.chkLst_putFilelst.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.chkLst_putFilelst.Font = New System.Drawing.Font("굴림", 10.0!)
-        Me.chkLst_putFilelst.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.chkLst_putFilelst.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.chkLst_putFilelst.ForeColor = System.Drawing.SystemColors.Window
         Me.chkLst_putFilelst.FormattingEnabled = True
         Me.chkLst_putFilelst.HorizontalScrollbar = True
-        Me.chkLst_putFilelst.Location = New System.Drawing.Point(20, 22)
+        Me.chkLst_putFilelst.Location = New System.Drawing.Point(3, 12)
         Me.chkLst_putFilelst.Name = "chkLst_putFilelst"
-        Me.chkLst_putFilelst.ScrollAlwaysVisible = True
-        Me.chkLst_putFilelst.Size = New System.Drawing.Size(454, 143)
-        Me.chkLst_putFilelst.TabIndex = 6
+        Me.chkLst_putFilelst.Size = New System.Drawing.Size(530, 160)
+        Me.chkLst_putFilelst.TabIndex = 7
         '
         'Panel5
         '
         Me.Panel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
         Me.Panel5.Controls.Add(Me.commandBox)
-        Me.Panel5.Location = New System.Drawing.Point(623, 320)
+        Me.Panel5.Location = New System.Drawing.Point(599, 320)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(491, 111)
+        Me.Panel5.Size = New System.Drawing.Size(536, 111)
         Me.Panel5.TabIndex = 20
         '
         'commandBox
@@ -159,7 +146,7 @@ Partial Class HardPDF
         Me.commandBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.commandBox.Location = New System.Drawing.Point(20, 13)
         Me.commandBox.Name = "commandBox"
-        Me.commandBox.Size = New System.Drawing.Size(454, 86)
+        Me.commandBox.Size = New System.Drawing.Size(506, 86)
         Me.commandBox.TabIndex = 10
         Me.commandBox.Text = ""
         '
@@ -208,9 +195,9 @@ Partial Class HardPDF
         Me.btn_start.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btn_start.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btn_start.ForeColor = System.Drawing.Color.Black
-        Me.btn_start.Location = New System.Drawing.Point(909, 437)
+        Me.btn_start.Location = New System.Drawing.Point(843, 437)
         Me.btn_start.Name = "btn_start"
-        Me.btn_start.Size = New System.Drawing.Size(205, 36)
+        Me.btn_start.Size = New System.Drawing.Size(292, 36)
         Me.btn_start.TabIndex = 12
         Me.btn_start.Text = "작업실행"
         Me.btn_start.UseVisualStyleBackColor = False
@@ -222,7 +209,7 @@ Partial Class HardPDF
         Me.btn_cmdClear.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btn_cmdClear.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btn_cmdClear.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.btn_cmdClear.Location = New System.Drawing.Point(665, 437)
+        Me.btn_cmdClear.Location = New System.Drawing.Point(599, 437)
         Me.btn_cmdClear.Name = "btn_cmdClear"
         Me.btn_cmdClear.Size = New System.Drawing.Size(101, 36)
         Me.btn_cmdClear.TabIndex = 13
@@ -236,7 +223,7 @@ Partial Class HardPDF
         Me.btn_history.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btn_history.Font = New System.Drawing.Font("굴림", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btn_history.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.btn_history.Location = New System.Drawing.Point(772, 437)
+        Me.btn_history.Location = New System.Drawing.Point(706, 436)
         Me.btn_history.Name = "btn_history"
         Me.btn_history.Size = New System.Drawing.Size(131, 36)
         Me.btn_history.TabIndex = 14
@@ -250,7 +237,7 @@ Partial Class HardPDF
         Me.btn_putFileDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btn_putFileDelete.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btn_putFileDelete.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.btn_putFileDelete.Location = New System.Drawing.Point(982, 252)
+        Me.btn_putFileDelete.Location = New System.Drawing.Point(1003, 252)
         Me.btn_putFileDelete.Name = "btn_putFileDelete"
         Me.btn_putFileDelete.Size = New System.Drawing.Size(132, 33)
         Me.btn_putFileDelete.TabIndex = 15
@@ -285,7 +272,7 @@ Partial Class HardPDF
         '
         Me.Label1.AutoSize = True
         Me.Label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label1.Location = New System.Drawing.Point(63, 39)
+        Me.Label1.Location = New System.Drawing.Point(10, 39)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(287, 24)
         Me.Label1.TabIndex = 24
@@ -295,7 +282,7 @@ Partial Class HardPDF
         '
         Me.Label2.AutoSize = True
         Me.Label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label2.Location = New System.Drawing.Point(65, 134)
+        Me.Label2.Location = New System.Drawing.Point(12, 134)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(411, 24)
         Me.Label2.TabIndex = 24
@@ -305,7 +292,7 @@ Partial Class HardPDF
         '
         Me.Label3.AutoSize = True
         Me.Label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label3.Location = New System.Drawing.Point(621, 39)
+        Me.Label3.Location = New System.Drawing.Point(597, 39)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(109, 24)
         Me.Label3.TabIndex = 24
@@ -315,7 +302,7 @@ Partial Class HardPDF
         '
         Me.Label4.AutoSize = True
         Me.Label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label4.Location = New System.Drawing.Point(63, 233)
+        Me.Label4.Location = New System.Drawing.Point(12, 233)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(502, 24)
         Me.Label4.TabIndex = 24
@@ -325,7 +312,7 @@ Partial Class HardPDF
         '
         Me.Label5.AutoSize = True
         Me.Label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label5.Location = New System.Drawing.Point(621, 293)
+        Me.Label5.Location = New System.Drawing.Point(597, 293)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(421, 24)
         Me.Label5.TabIndex = 24
@@ -341,19 +328,31 @@ Partial Class HardPDF
         Me.Label6.TabIndex = 24
         Me.Label6.Text = "6) 지금까지 입력했던 CMD" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & """지금까지 입력했던 명령어, 명령어 클릭 시 재사용 가능"""
         '
-        'btn_delAllputFIle
+        'btn_selectAll
         '
-        Me.btn_delAllputFIle.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btn_delAllputFIle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.btn_delAllputFIle.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btn_delAllputFIle.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btn_delAllputFIle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.btn_delAllputFIle.Location = New System.Drawing.Point(844, 252)
-        Me.btn_delAllputFIle.Name = "btn_delAllputFIle"
-        Me.btn_delAllputFIle.Size = New System.Drawing.Size(132, 33)
-        Me.btn_delAllputFIle.TabIndex = 15
-        Me.btn_delAllputFIle.Text = "모두 삭제"
-        Me.btn_delAllputFIle.UseVisualStyleBackColor = False
+        Me.btn_selectAll.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btn_selectAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.btn_selectAll.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btn_selectAll.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btn_selectAll.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.btn_selectAll.Location = New System.Drawing.Point(865, 252)
+        Me.btn_selectAll.Name = "btn_selectAll"
+        Me.btn_selectAll.Size = New System.Drawing.Size(132, 33)
+        Me.btn_selectAll.TabIndex = 25
+        Me.btn_selectAll.Text = "모두 선택"
+        Me.btn_selectAll.UseVisualStyleBackColor = False
+        '
+        'lst_commandBox
+        '
+        Me.lst_commandBox.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.lst_commandBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.lst_commandBox.Font = New System.Drawing.Font("굴림", 10.0!)
+        Me.lst_commandBox.ForeColor = System.Drawing.SystemColors.Info
+        Me.lst_commandBox.FormattingEnabled = True
+        Me.lst_commandBox.Location = New System.Drawing.Point(16, 15)
+        Me.lst_commandBox.Name = "lst_commandBox"
+        Me.lst_commandBox.Size = New System.Drawing.Size(511, 162)
+        Me.lst_commandBox.TabIndex = 0
         '
         'HardPDF
         '
@@ -363,7 +362,7 @@ Partial Class HardPDF
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ClientSize = New System.Drawing.Size(1137, 528)
-        Me.Controls.Add(Me.btn_delAllputFIle)
+        Me.Controls.Add(Me.btn_selectAll)
         Me.Controls.Add(Me.btn_putFileDelete)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
@@ -400,12 +399,10 @@ Partial Class HardPDF
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents Panel4 As Panel
-    Friend WithEvents lst_commandBox As ListBox
     Friend WithEvents Panel2 As Panel
     Friend WithEvents txtboxOutput2 As TextBox
     Friend WithEvents txtboxOutput As TextBox
     Friend WithEvents Panel3 As Panel
-    Friend WithEvents chkLst_putFilelst As ListBox
     Friend WithEvents Panel5 As Panel
     Friend WithEvents commandBox As RichTextBox
     Friend WithEvents txtInput_Pn As Panel
@@ -422,6 +419,8 @@ Partial Class HardPDF
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents btn_delAllputFIle As Button
     Friend WithEvents txtInputLb As Label
+    Friend WithEvents chkLst_putFilelst As CheckedListBox
+    Friend WithEvents btn_selectAll As Button
+    Friend WithEvents lst_commandBox As CheckedListBox
 End Class

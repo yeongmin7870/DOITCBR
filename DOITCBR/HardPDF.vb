@@ -12,84 +12,12 @@ Public Class HardPDF
     Dim rs As String = String.Empty
     '명령어
     Public cmd As String = String.Empty
-    '실행파일의 명령어
-    Public exe_cmd As New List(Of String)
+    ''실행파일의 명령어
+    'Public exe_cmd As New List(Of String)
     '작업 실행 exe
     Public exename As String = String.Empty
     'Output
     Public opt As String = String.Empty
-
-    'Private Sub btn_input_Click(sender As Object, e As EventArgs)
-    '    Try
-    '        Using ofd As New OpenFileDialog
-    '            ofd.Filter = "(*.txt)|*.txt|(*.spl)|*.spl"
-    '            If ofd.ShowDialog() = DialogResult.OK Then
-    '                filePath = ofd.FileName
-    '                txtboxInput.Text = filePath
-    '                settingPath.WriteIni(filePath, "putFiles")
-    '            End If
-    '            Settinginit()
-    '            Update_chkLst_putLst()
-    '        End Using
-    '    Catch ex As Exception
-    '        logger.log(ex.ToString, "w")
-    '    End Try
-    'End Sub
-
-    'Private Sub btn_output_Click(sender As Object, e As EventArgs)
-    '    Using ofd2 As New FolderBrowserDialog
-    '        If ofd2.ShowDialog() = DialogResult.OK Then
-    '            folderPath = ofd2.SelectedPath
-    '            txtboxOutput.Text = folderPath
-    '            SelectForm.ListFilesAndFolders(settingPath.data("txtOutput"))
-    '            UpdateIni(folderPath, "txtOutput")
-    '            SelectForm.ListFilesAndFolders(folderPath)
-    '        End If
-    '    End Using
-    'End Sub
-
-
-    'Private Sub HardPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-    '    pdfYesBtn.Checked = True
-    'End Sub
-    ''Cobradoc + CRTPDFC
-    'Private Sub Button3_Click(sender As Object, e As EventArgs)
-
-    '    If pdfYesBtn.Checked Then
-    '        background = 1
-    '    ElseIf pdfNoBtn.Checked Then
-    '        background = -1
-    '    End If
-    '    Me.Enabled = False
-    '    NTBProcess.CobraProcess(filePath, folderPath, background)
-    '    Me.Enabled = True
-    '    selectForm.ListFilesAndFolders(folderPath)
-    'End Sub
-    ''CRTPDFC 버튼
-    'Private Sub btnCRTPDFC_Click(sender As Object, e As EventArgs)
-    '    If pdfYesBtn.Checked Then
-    '        background = 1
-    '    ElseIf pdfNoBtn.Checked Then
-    '        background = -1
-    '    End If
-    '    Me.Enabled = False
-    '    NTBProcess.CRPDFC(filePath)
-    '    Me.Enabled = True
-    '    selectForm.ListFilesAndFolders(folderPath)
-    'End Sub
-    'cobradoc 버튼
-
-    'Private Sub btn_doc_Click(sender As Object, e As EventArgs)
-    '    If pdfYesBtn.Checked Then
-    '        background = 1
-    '    ElseIf pdfNoBtn.Checked Then
-    '        background = -1
-    '    End If
-    '    Me.Enabled = False
-    '    NTBProcess.CobraDoc(filePath, folderPath, background)
-    '    Me.Enabled = True
-    '    selectForm.ListFilesAndFolders(folderPath)
-    'End Sub
 
     'Input 박스로 마우스 드래그가 들어갈때
     Private Sub txtboxInput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxInput.DragEnter, txtInputLb.DragEnter
@@ -235,7 +163,6 @@ Public Class HardPDF
         End Try
     End Function
 
-
     Private Sub HardPDF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         PanelRound(40, txtInput_Pn)
         PanelRound(40, Panel2)
@@ -248,7 +175,7 @@ Public Class HardPDF
         PanelRound(40, btn_history)
         PanelRound(40, btn_start)
         PanelRound(40, btn_putFileDelete)
-        PanelRound(40, btn_delAllputFIle)
+        PanelRound(40, btn_selectAll)
 
         txtboxInput.Padding = New Padding(100)
 
@@ -256,7 +183,11 @@ Public Class HardPDF
         Update_chkLst_putLst()
         Update_cbbox_workLst()
         Update_cbbox_workLst()
+
+        'EXE ComboBox를 처음에 선택
+        cbbox_workLst.SelectedIndex = 0
     End Sub
+
     'Component 4 모서리를 깎는 함수
     Sub PanelRound(r, pn)
         Dim radius As Integer = r ' 원하는 모서리 깎기 정도를 조절합니다.
@@ -273,23 +204,25 @@ Public Class HardPDF
 
     Private Sub btn_putFileDelete_Click(sender As Object, e As EventArgs) Handles btn_putFileDelete.Click
         Try
-            errorValue = settingPath.REMOVEDATA(chkLst_putFilelst.SelectedItem, "putFiles")
+            For Each file In chkLst_putFilelst.CheckedItems
+                errorValue = settingPath.REMOVEDATA(file, "putFiles")
+            Next
             Update_chkLst_putLst()
         Catch ex As Exception
             ErrorHandler($"{ex.Message & ex.StackTrace & ex.Source}", errorValue)
         End Try
     End Sub
-    Private Sub btn_delAllputFIle_Click(sender As Object, e As EventArgs) Handles btn_delAllputFIle.Click
-        Try
-            For Each file In chkLst_putFilelst.Items
-                settingPath.REMOVEDATA(file, "putFiles")
-            Next
-            Update_chkLst_putLst()
-            txtboxInput.Text = ""
-        Catch ex As Exception
-            ErrorHandler("HardPDF.vb btn_delAllputFIle_Click 삭제 실패", errorValue)
-        End Try
-    End Sub
+    'Private Sub btn_delAllputFIle_Click(sender As Object, e As EventArgs) Handles btn_delAllputFIle.Click
+    '    Try
+    '        For Each file In chkLst_putFilelst.Items
+    '            settingPath.REMOVEDATA(file, "putFiles")
+    '        Next
+    '        Update_chkLst_putLst()
+    '        txtboxInput.Text = ""
+    '    Catch ex As Exception
+    '        ErrorHandler("HardPDF.vb btn_delAllputFIle_Click 삭제 실패", errorValue)
+    '    End Try
+    'End Sub
 
     '작업 리스트 갱신
     Sub Update_cbbox_workLst()
@@ -322,104 +255,123 @@ Public Class HardPDF
             lst_commandBox.Items.Add($"{d.Name.Trim}        {d.Value}")
         Next
     End Sub
-    Private Sub cbbox_workLst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbox_workLst.SelectedIndexChanged
-        SetExeSelectBox()
-        exe_cmd = New List(Of String)
-        FormatCommand(cbbox_workLst.SelectedItem, "e")
-    End Sub
-    Private Sub lst_commandBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lst_commandBox.SelectedIndexChanged
-        FormatCommand(lst_commandBox.SelectedItem.split(" ")(0), "ec")
-    End Sub
+    'Private Sub cbbox_workLst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbox_workLst.SelectedIndexChanged
+    '    SetExeSelectBox()
+    '    exe_cmd = New List(Of String)
+    '    FormatCommand(cbbox_workLst.SelectedItem, "e")
+    'End Sub
+    'Private Sub lst_commandBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lst_commandBox.SelectedIndexChanged
+    '    FormatCommand(lst_commandBox.SelectedItem.split(" ")(0), "ec")
+    'End Sub
     'str : 문자열
     'state 어디 문자열인지
     ' str, state 를 받아서 command를 만들어주는 함수
-    Sub FormatCommand(str, state)
-        'Output 일때
-        If state = "o" Then
-            opt = $"{str}"
-        ElseIf state = "e" Then '실행파일 이름
-            Dim pathArray As JArray = GETValue("cbrUtil")
-            For i = 0 To pathArray.Count - 1
-                If pathArray(i).ToString().Split("\")(pathArray.Count) = str Then
-                    str = pathArray(i).ToString()
-                End If
-            Next
-            exename = $"{str}"
-        ElseIf state = "ec" Then ' 실행파일의 명령어
-            If exe_cmd.IndexOf(str) < 0 Then ' 배열에 없음 -1 있음 -1 보다 큰 수
-                exe_cmd.Add($"{str}")
-            End If
-        End If
-        setCommandBox()
-    End Sub
+    'Sub FormatCommand(str, state)
+    '    'Output 일때
+    '    If state = "o" Then
+    '        opt = $"{str}"
+    '    ElseIf state = "e" Then '실행파일 이름
+    '        Dim pathArray As JArray = GETValue("cbrUtil")
+    '        For i = 0 To pathArray.Count - 1
+    '            If pathArray(i).ToString().Split("\")(pathArray.Count) = str Then
+    '                str = pathArray(i).ToString()
+    '            End If
+    '        Next
+    '        exename = $"{str}"
+    '    ElseIf state = "ec" Then ' 실행파일의 명령어
+    '        If exe_cmd.IndexOf(str) < 0 Then ' 배열에 없음 -1 있음 -1 보다 큰 수
+    '            exe_cmd.Add($"{str}")
+    '        End If
+    '    End If
+    '    setCommandBox()
+    'End Sub
+    '현재 선택한 파일들
+    Public checkFiles As List(Of String)
+    Public i As Integer = 0
+    'Sub setCommandBox()
+    '    cmd = $"{exename} {String.Join(" ", exe_cmd)}"
+    '    ' 명령어 임시 저장
+    '    Dim cmd_result As String = String.Empty
+    '    '선택한 파일 초기화
+    '    checkFiles = New List(Of String)
+    '    For Each f In chkLst_putFilelst.CheckedItems
+    '        checkFiles.Add(f)
+    '    Next
 
-    Sub setCommandBox()
-        cmd = $"{exename} {String.Join(" ", exe_cmd)}"
-
-        'cmd에 아무값이 없으면 " " 값이 나옴
-        If cmd <> " " Then
-            commandBox.Text = FormatCommand2(cmd)
-        Else
-            commandBox.Text = FormatCommand3(commandBox.Text)
-        End If
-    End Sub
+    '    'cmd에 아무값이 없으면 " " 값이 나옴 
+    '    If cmd <> " " Then
+    '        '체크한 파일이 1개 이상일때
+    '        If checkFiles.Count > 1 Then
+    '            For j = 0 To checkFiles.Count - 1
+    '                cmd_result += " " & FormatCommand2(cmd)
+    '                i += j
+    '            Next
+    '            commandBox.Text = cmd_result
+    '        Else
+    '            commandBox.Text = FormatCommand2(cmd)
+    '        End If
+    '    Else
+    '        commandBox.Text = FormatCommand3(commandBox.Text)
+    '    End If
+    '    i = 0
+    'End Sub
     '현재 command box에 존재 유무 체크
-    Sub GetCheckNowCMDBox()
-        '임시 보관 리스트 변수
-        Dim exe_cmd2 As New List(Of String)
+    'Sub GetCheckNowCMDBox()
+    '    '임시 보관 리스트 변수
+    '    Dim exe_cmd2 As New List(Of String)
 
-        For Each cmd In exe_cmd 'cmd 명령어
-            For Each cmdSTR In commandBox.Text.Split(" ")
-                If cmdSTR = cmd Then
-                    exe_cmd2.Add(cmd)
-                End If
-            Next
-        Next
-        exe_cmd = exe_cmd2
-    End Sub
-    Private Sub commandBox_TextChanged(sender As Object, e As EventArgs) Handles commandBox.TextChanged
-        GetCheckNowCMDBox()
-    End Sub
+    '    For Each cmd In exe_cmd 'cmd 명령어
+    '        For Each cmdSTR In commandBox.Text.Split(" ")
+    '            If cmdSTR = cmd Then
+    '                exe_cmd2.Add(cmd)
+    '            End If
+    '        Next
+    '    Next
+    '    exe_cmd = exe_cmd2
+    'End Sub
+    'Private Sub commandBox_TextChanged(sender As Object, e As EventArgs) Handles commandBox.TextChanged
+    '    GetCheckNowCMDBox()
+    'End Sub
     'history에서 올린 파일을 선택할 때 기존 값에서 변경해주는 함수
     'CMD 에 아무값이 있을때
-    Function FormatCommand3(str As String)
-        '입력받은 경로를 붙여줘야하는 명령어들
-        Dim tt As New List(Of String) From {"-o", "-D", "-i", "-C"}
-        rs = str
-        For Each t In tt
-            If t = "-o" Then
-                If rs.IndexOf("-o") <> -1 Then
-                    '이전에 Command Box에 있던 경로 값
-                    Dim preopt2 As String = rs.Substring(rs.IndexOf("-o") + 2).Trim.Split(" ")(0)
+    'Function FormatCommand3(str As String)
+    '    '입력받은 경로를 붙여줘야하는 명령어들
+    '    Dim tt As New List(Of String) From {"-o", "-D", "-i", "-C"}
+    '    rs = str
+    '    For Each t In tt
+    '        If t = "-o" Then
+    '            If rs.IndexOf("-o") <> -1 Then
+    '                '이전에 Command Box에 있던 경로 값
+    '                Dim preopt2 As String = rs.Substring(rs.IndexOf("-o") + 2).Trim.Split(" ")(0)
 
-                    Dim opt2 As String = Path.ChangeExtension(opt, ".pdf")
-                    rs = rs.Replace(preopt2, opt2)
-                End If
-            End If
+    '                Dim opt2 As String = Path.ChangeExtension(opt, ".pdf")
+    '                rs = rs.Replace(preopt2, opt2)
+    '            End If
+    '        End If
 
-            If t = "-D" Then
-                If rs.IndexOf("-D") <> -1 Then
-                    Dim prepath As String = rs.Substring(rs.IndexOf("-D") + 2).Trim.Split(" ")(0)
-                    rs = rs.Replace(prepath, txtboxOutput2.Text)
-                End If
-            End If
+    '        If t = "-D" Then
+    '            If rs.IndexOf("-D") <> -1 Then
+    '                Dim prepath As String = rs.Substring(rs.IndexOf("-D") + 2).Trim.Split(" ")(0)
+    '                rs = rs.Replace(prepath, txtboxOutput2.Text)
+    '            End If
+    '        End If
 
-            If t = "-i" Then
-                If rs.IndexOf("-i") <> -1 Then
-                    Dim preopt As String = rs.Substring(rs.IndexOf("-i") + 2).Trim.Split(" ")(0)
-                    rs = rs.Replace(preopt, chkLst_putFilelst.SelectedItem)
-                End If
-            End If
+    '        If t = "-i" Then
+    '            If rs.IndexOf("-i") <> -1 Then
+    '                Dim preopt As String = rs.Substring(rs.IndexOf("-i") + 2).Trim.Split(" ")(0)
+    '                rs = rs.Replace(preopt, chkLst_putFilelst.CheckedItems.ToString) 'check
+    '            End If
+    '        End If
 
-            If t = "-C" Then
-                If rs.IndexOf("-C") <> -1 Then
-                    Dim preopt As String = rs.Substring(rs.IndexOf("-C") + 2).Trim.Split(" ")(0)
-                    rs = rs.Replace(preopt, """PDFMODE Yes""")
-                End If
-            End If
-        Next
-        Return rs
-    End Function
+    '        If t = "-C" Then
+    '            If rs.IndexOf("-C") <> -1 Then
+    '                Dim preopt As String = rs.Substring(rs.IndexOf("-C") + 2).Trim.Split(" ")(0)
+    '                rs = rs.Replace(preopt, """PDFMODE Yes""")
+    '            End If
+    '        End If
+    '    Next
+    '    Return rs
+    'End Function
     '문자열을 주면 문자열이 null 이면 0 아니면 문자 길이를 주는 함수
     Function chr_len(str As String) As Integer
         If str <> String.Empty Then
@@ -429,43 +381,39 @@ Public Class HardPDF
         End If
     End Function
     'CMD 에 아무값이 없을때
-    Function FormatCommand2(str As String)
-        '입력받은 경로를 붙여줘야하는 명령어들
-        Dim tt As New List(Of String) From {"-o", "-D", "-i", "-C"}
-        rs = str
-        For Each t In tt
-            If t = "-o" Then
-                If rs.IndexOf("-o") <> -1 Then
-                    Dim opt2 As String = Path.ChangeExtension(opt, ".pdf")
-                    rs = rs.Substring(0, rs.IndexOf("-o") + 2) & $" {opt2} " & rs.Substring(rs.IndexOf("-o") + 2)
-                End If
-            End If
+    'Function FormatCommand2(str As String)
+    '    '입력받은 경로를 붙여줘야하는 명령어들
+    '    Dim tt As New List(Of String) From {"-o", "-D", "-i", "-C"}
+    '    rs = str
+    '    For Each t In tt
+    '        If t = "-o" Then
+    '            If rs.IndexOf("-o") <> -1 Then
+    '                Dim opt2 As String = Path.ChangeExtension(opt, ".pdf")
+    '                rs = rs.Substring(0, rs.IndexOf("-o") + 2) & $" {opt2} " & rs.Substring(rs.IndexOf("-o") + 2)
+    '            End If
+    '        End If
 
-            If t = "-D" Then
-                If rs.IndexOf("-D") <> -1 Then
-                    rs = rs.Substring(0, rs.IndexOf("-D") + 2) & $" {txtboxOutput2.Text} " & rs.Substring(rs.IndexOf("-D") + +2)
-                End If
-            End If
+    '        If t = "-D" Then
+    '            If rs.IndexOf("-D") <> -1 Then
+    '                rs = rs.Substring(0, rs.IndexOf("-D") + 2) & $" {txtboxOutput2.Text} " & rs.Substring(rs.IndexOf("-D") + +2)
+    '            End If
+    '        End If
 
-            If t = "-i" Then
-                If rs.IndexOf("-i") <> -1 Then
-                    rs = rs.Substring(0, rs.IndexOf("-i") + 2) & $" {opt} " & rs.Substring(rs.IndexOf("-i") + 2)
-                End If
-            End If
+    '        If t = "-i" Then
+    '            If rs.IndexOf("-i") <> -1 Then
+    '                rs = rs.Substring(0, rs.IndexOf("-i") + 2) & $" {checkFiles(i)} " & rs.Substring(rs.IndexOf("-i") + 2)
+    '            End If
+    '        End If
 
-            If t = "-C" Then
-                If rs.IndexOf("-C") <> -1 Then
-                    rs = rs.Substring(0, rs.IndexOf("-C") + 2) & $" {"""PDFMODE Yes"""} " & rs.Substring(rs.IndexOf("-C") + 2)
-                End If
-            End If
-        Next
-        Return rs
-    End Function
-    Private Sub chkLst_putFilelst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles chkLst_putFilelst.SelectedIndexChanged
-        FormatCommand(chkLst_putFilelst.SelectedItem, "o")
-        txtboxInput.Text = chkLst_putFilelst.SelectedItem
-        txtboxOutput2.Text = chkFileAnsdFolder2(txtboxInput.Text)
-    End Sub
+    '        If t = "-C" Then
+    '            If rs.IndexOf("-C") <> -1 Then
+    '                rs = rs.Substring(0, rs.IndexOf("-C") + 2) & $" {"""PDFMODE Yes"""} " & rs.Substring(rs.IndexOf("-C") + 2)
+    '            End If
+    '        End If
+    '    Next
+    '    Return rs
+    'End Function
+
     Private Sub btn_cmdClear_Click(sender As Object, e As EventArgs) Handles btn_cmdClear.Click
         commandBox.Text = ""
         opt = ""
@@ -506,17 +454,64 @@ Public Class HardPDF
             ErrorHandler("HardPdf.vb Button2_Click 결과 폴더 비정상", errorValue)
         End If
     End Sub
-
-    Private Sub txtInputLb_GotFocus(sender As Object, e As EventArgs) Handles txtInputLb.Click, txtboxInput.Click
-        txtInputLb.Visible = False
-    End Sub
     Private Sub txtInputLb_LostFocus(sender As Object, e As EventArgs) Handles txtInputLb.LostFocus
         txtInputLb.Visible = True
     End Sub
-
-    Private Sub txtboxOutput2_TextChanged(sender As Object, e As EventArgs) Handles txtboxOutput2.TextChanged
-        If File.Exists(txtboxOutput.Text) <> True Then
-            txtboxOutput2.Text = ""
+    Dim chkBtn As Boolean = False
+    Private Sub btn_selectAll_Click(sender As Object, e As EventArgs) Handles btn_selectAll.Click
+        If chkBtn = False Then
+            chkBtn = True
+            For i = 0 To chkLst_putFilelst.Items.Count - 1
+                chkLst_putFilelst.SetItemChecked(i, True)
+            Next
+        ElseIf chkBtn = True Then
+            chkBtn = False
+            For i = 0 To chkLst_putFilelst.Items.Count - 1
+                chkLst_putFilelst.SetItemChecked(i, False)
+            Next
         End If
+
+    End Sub
+    Public exe_path As String = String.Empty
+    Public exe_command As String = String.Empty
+    Public exe_file As New List(Of String)
+    ' EXE, EXE Command, File 의 변화를 감지해서 CMD 박스에 넣어주는 기능
+    Private Sub chkLst_putFilelst_SelectedIndexChanged2(sender As Object, e As EventArgs) Handles chkLst_putFilelst.SelectedIndexChanged, cbbox_workLst.SelectedIndexChanged
+        'EXE 의 명령어들을 list box에 넣어줌
+        SetExeSelectBox()
+        ' 파일 선택할때마다 input Box 변화하기
+        chkLst_putFilelst_SelectedIndexChange()
+        SetValueLoop(chkLst_putFilelst.CheckedItems, exe_file)
+        SetValue2(cbbox_workLst.SelectedItem, exe_path)
+        SetValue2(lst_commandBox.SelectedItem, exe_command)
+
+        MessageBox.Show($"{exe_path} {exe_command} {exe_file.Count}")
+
+    End Sub
+    '배열 값을 넣어주는 함수
+    Sub SetValueLoop(values, s)
+        Try
+            If values IsNot Nothing Then
+                For Each value In values
+                    s.Add(value)
+                Next
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString)
+        End Try
+    End Sub
+    Sub SetValue2(value, ByRef properT)
+        Try
+            If value IsNot Nothing Then
+                properT = value
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString)
+        End Try
+    End Sub
+    ' 파일 선택할때마다 input Box 변화하기
+    Sub chkLst_putFilelst_SelectedIndexChange()
+        txtboxInput.Text = chkLst_putFilelst.SelectedItem
+        txtboxOutput2.Text = chkFileAnsdFolder2(txtboxInput.Text)
     End Sub
 End Class
