@@ -306,7 +306,4 @@ Public Class SelectForm
         ProcessFn(textfile, GETValue("cmd"))
     End Sub
 
-    Private Sub Panel9_Paint(sender As Object, e As PaintEventArgs) Handles Panel9.Paint
-
-    End Sub
 End Class

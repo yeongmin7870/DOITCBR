@@ -25,6 +25,7 @@ Partial Class HardPDF
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.lst_commandBox = New System.Windows.Forms.CheckedListBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.txtboxOutput2 = New System.Windows.Forms.TextBox()
         Me.txtboxOutput = New System.Windows.Forms.TextBox()
@@ -48,7 +49,6 @@ Partial Class HardPDF
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btn_selectAll = New System.Windows.Forms.Button()
-        Me.lst_commandBox = New System.Windows.Forms.CheckedListBox()
         Me.Panel4.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -68,6 +68,18 @@ Partial Class HardPDF
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(545, 192)
         Me.Panel4.TabIndex = 17
+        '
+        'lst_commandBox
+        '
+        Me.lst_commandBox.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.lst_commandBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.lst_commandBox.Font = New System.Drawing.Font("굴림", 10.0!)
+        Me.lst_commandBox.ForeColor = System.Drawing.SystemColors.Info
+        Me.lst_commandBox.FormattingEnabled = True
+        Me.lst_commandBox.Location = New System.Drawing.Point(16, 15)
+        Me.lst_commandBox.Name = "lst_commandBox"
+        Me.lst_commandBox.Size = New System.Drawing.Size(511, 162)
+        Me.lst_commandBox.TabIndex = 0
         '
         'Panel2
         '
@@ -167,11 +179,11 @@ Partial Class HardPDF
         Me.txtInputLb.BackColor = System.Drawing.Color.Transparent
         Me.txtInputLb.Font = New System.Drawing.Font("굴림", 20.0!)
         Me.txtInputLb.ForeColor = System.Drawing.Color.Fuchsia
-        Me.txtInputLb.Location = New System.Drawing.Point(174, 5)
+        Me.txtInputLb.Location = New System.Drawing.Point(89, 18)
         Me.txtInputLb.Name = "txtInputLb"
-        Me.txtInputLb.Size = New System.Drawing.Size(183, 54)
+        Me.txtInputLb.Size = New System.Drawing.Size(363, 27)
         Me.txtInputLb.TabIndex = 2
-        Me.txtInputLb.Text = "📃 Drag & Drop" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "         🔻 " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.txtInputLb.Text = "여기에 파일 끌어다 놓으세요"
         '
         'txtboxInput
         '
@@ -341,18 +353,6 @@ Partial Class HardPDF
         Me.btn_selectAll.TabIndex = 25
         Me.btn_selectAll.Text = "모두 선택"
         Me.btn_selectAll.UseVisualStyleBackColor = False
-        '
-        'lst_commandBox
-        '
-        Me.lst_commandBox.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
-        Me.lst_commandBox.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.lst_commandBox.Font = New System.Drawing.Font("굴림", 10.0!)
-        Me.lst_commandBox.ForeColor = System.Drawing.SystemColors.Info
-        Me.lst_commandBox.FormattingEnabled = True
-        Me.lst_commandBox.Location = New System.Drawing.Point(16, 15)
-        Me.lst_commandBox.Name = "lst_commandBox"
-        Me.lst_commandBox.Size = New System.Drawing.Size(511, 162)
-        Me.lst_commandBox.TabIndex = 0
         '
         'HardPDF
         '

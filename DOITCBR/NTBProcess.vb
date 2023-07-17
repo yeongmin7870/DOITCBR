@@ -122,7 +122,66 @@ Module NTBProcess
                 logger.log(errorState, "w")
                 MessageBox.Show("작업실패")
             End If
-                Return 1
+            Return 1
+        Catch ex As Exception
+            PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
+            Return -1
+        End Try
+    End Function
+    '여러명령줄을 실행하기 위한 함수
+    Function MultiProcessFn(cmd)
+        Try
+            '작업전의 해당 경로에 있는 모든 파일 리스트
+            Dim prefiles As String() = Directory.GetFiles(GETValue("txtOutput"))
+
+
+            Dim exeSplit As String() = cmd.split("&")
+            Dim exe_path As New List(Of String)()
+            Dim exe_cmd As New List(Of String)()
+
+            For Each cmdPart In exeSplit
+                Dim exe_path_ As String = cmdPart.Trim.Split(" ")(0)
+                Dim exe_cmd_ As String = cmdPart.Trim.Substring(cmdPart.Trim.IndexOf(" "))
+
+                exe_path.Add(exe_path_)
+                exe_cmd.Add(exe_cmd_)
+            Next
+
+            For i = 0 To exe_path.Count - 1
+                Dim process As New Process()
+                process.StartInfo.FileName = exe_path(i)
+                process.StartInfo.Arguments = exe_cmd(i)
+                '오류를 출력
+                process.StartInfo.RedirectStandardError = True
+                '결과를 읽기 위해 
+                process.StartInfo.RedirectStandardOutput = True
+                '출력을 읽기 위해
+                process.StartInfo.UseShellExecute = False
+                process.Start()
+                process.WaitForExit()
+
+                '결과 읽기
+                resultState = process.StandardOutput.ReadToEnd()
+                Dim errorState = process.StandardError.ReadToEnd()
+
+                '작업후의 해당 경로에 있는 모든 파일 리스트
+                Dim nowfiles As New List(Of String(Directory.GetFiles(GETValue("txtOutput"))))
+                '작업 결과 파일들
+                'Dim workfiles As New List(Of String)
+                For Each nf In nowfiles
+                    For Each pref In prefiles
+                        If nf = pref Then
+                            nowfiles.
+                        End If
+                    Next
+                Next
+                'hardpdf에 있는 작업 업로드 파일 추가 작업
+                For Each item In nf
+                    HardPDF.chkLst_putFilelst.Items.Add(item)
+                Next
+                logger.log(resultState, "i")
+            Next
+            Return 1
         Catch ex As Exception
             PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
             Return -1
