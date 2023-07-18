@@ -129,13 +129,13 @@ Module NTBProcess
         End Try
     End Function
     '여러명령줄을 실행하기 위한 함수
-    Function MultiProcessFn(cmd)
+    Function MultiProcessFn(cmd As String, ByVal formInstance As HardPDF)
         Try
             '작업전의 해당 경로에 있는 모든 파일 리스트
             Dim prefiles As String() = Directory.GetFiles(GETValue("txtOutput"))
 
 
-            Dim exeSplit As String() = cmd.split("&")
+            Dim exeSplit As String() = cmd.Split("&")
             Dim exe_path As New List(Of String)()
             Dim exe_cmd As New List(Of String)()
 
@@ -164,23 +164,26 @@ Module NTBProcess
                 resultState = process.StandardOutput.ReadToEnd()
                 Dim errorState = process.StandardError.ReadToEnd()
 
-                '작업후의 해당 경로에 있는 모든 파일 리스트
-                Dim nowfiles As New List(Of String(Directory.GetFiles(GETValue("txtOutput"))))
-                '작업 결과 파일들
-                'Dim workfiles As New List(Of String)
-                For Each nf In nowfiles
-                    For Each pref In prefiles
-                        If nf = pref Then
-                            nowfiles.
-                        End If
-                    Next
-                Next
-                'hardpdf에 있는 작업 업로드 파일 추가 작업
-                For Each item In nf
-                    HardPDF.chkLst_putFilelst.Items.Add(item)
-                Next
                 logger.log(resultState, "i")
             Next
+
+            '작업후의 해당 경로에 있는 모든 파일 리스트
+            Dim nowfiles As New List(Of String)(Directory.GetFiles(GETValue("txtOutput")))
+            '작업 결과 파일들
+            Dim workfiles As New List(Of String)(nowfiles)
+            For Each nf In nowfiles
+                For Each pref In prefiles
+                    If nf = pref Then
+                        workfiles.Remove(nf)
+                    End If
+                Next
+            Next
+            'hardpdf에 있는 작업 업로드 파일 추가 작업  
+            For Each item In workfiles
+                formInstance.chkLst_putFilelst.Items.Add($"{Path.GetExtension(item)}{vbTab}{item}")
+                settingPath.UPDATEDATA(item, "putFiles", settingPath.settingFilePath)
+            Next
+
             Return 1
         Catch ex As Exception
             PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")

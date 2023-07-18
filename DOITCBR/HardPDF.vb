@@ -44,13 +44,14 @@ Public Class HardPDF
         Try
             'inputbox 에 들어갈 값을 저장해둠
             Dim txtboxInput2 As String = String.Empty
+            commandBox.Text = ""
             If e.Data.GetDataPresent(DataFormats.FileDrop) Then
                 Dim filePaths As String() = e.Data.GetData(DataFormats.FileDrop)
 
                 If filePaths.Length > 0 Then
                     For Each t In filePaths
                         If File.Exists(t) Then
-                            txtboxInput2 += t & ","
+                            txtboxInput2 += t & vbCrLf
                             filePath = t
                             errorValue = settingPath.UPDATEDATA(t, "putFiles", settingPath.settingFilePath)
                         End If
@@ -140,7 +141,7 @@ Public Class HardPDF
 
             '빈값 이라면 
             If txtboxInput.Text.Trim IsNot String.Empty Then
-                Dim outputPathlst As String() = txtboxInput.Text.Split(",")
+                Dim outputPathlst As String() = txtboxInput.Text.Split(vbCrLf)
                 folderPath = chkFileAnsdFolder2(outputPathlst(0))
                 'input 값이 비어 있지 않다면
                 If folderPath <> String.Empty Then
@@ -216,9 +217,19 @@ Public Class HardPDF
     Private Sub btn_putFileDelete_Click(sender As Object, e As EventArgs) Handles btn_putFileDelete.Click
         Try
             For Each file In chkLst_putFilelst.CheckedItems
-                errorValue = settingPath.REMOVEDATA(file, "putFiles")
+                errorValue = settingPath.REMOVEDATA(file.split(vbTab)(1), "putFiles")
             Next
             Update_chkLst_putLst()
+            commandBox.Text = ""
+
+            '현재 실행파일
+            exe_path = String.Empty
+            exe_command = New List(Of String)
+            exe_file = New List(Of String)
+
+            '업로드 된 파일 목록 체크 풀기
+            unChkSelectFile()
+            CMDunChkSelectFile()
         Catch ex As Exception
             ErrorHandler($"{ex.Message & ex.StackTrace & ex.Source}", errorValue)
         End Try
@@ -252,7 +263,7 @@ Public Class HardPDF
         Dim jsonArray As JArray = GETValue("putFiles")
         For Each d In jsonArray
             If d <> String.Empty Then
-                chkLst_putFilelst.Items.Add(d)
+                chkLst_putFilelst.Items.Add($"{Path.GetExtension(d)}{vbTab}{d}")
             End If
         Next
     End Sub
@@ -450,7 +461,7 @@ Public Class HardPDF
         Dim dates As String = $"{currentdt.Year}.{chkz(currentdt.Month)}.{chkz(currentdt.Day)} {chkz(currentdt.Hour)}:{chkz(currentdt.Minute)}:{chkz(currentdt.Second)}"
         Dim text As String = $"{commandBox.Text}"
 
-        errorValue = NTBProcess.MultiProcessFn(commandBox.Text)
+        errorValue = NTBProcess.MultiProcessFn(commandBox.Text, Me)
         'Command History에 남김
         WriteLog(dates, text, GETValue("cmd"))
         sForm.ListFilesAndFolders(GETValue("txtOutput"))
@@ -542,7 +553,14 @@ Public Class HardPDF
     ' 파일 선택할때마다 input Box 변화하기
     'C
     Sub chkLst_putFilelst_SelectedIndexChange(sender As Object, e As ItemCheckEventArgs) Handles chkLst_putFilelst.ItemCheck
-        Dim checkedItem As String = chkLst_putFilelst.Items(e.Index).ToString
+
+        Dim checkedItems As String() = chkLst_putFilelst.Items(e.Index).ToString.Split(vbTab)
+        Dim checkedItem As String = String.Empty
+        If checkedItems.Count <> 1 Then
+            checkedItem = checkedItems(1)
+        Else
+            checkedItem = checkedItems(0)
+        End If
         If e.NewValue = CheckState.Checked Then
             If Not exe_file.Contains(checkedItem) Then
                 exe_file.Add(checkedItem)
@@ -555,14 +573,26 @@ Public Class HardPDF
         'GenerateCommand()
     End Sub
     Sub chkLst_putFilelst_SelectedIndexChange(sender As Object, e As EventArgs) Handles chkLst_putFilelst.SelectedIndexChanged, chkLst_putFilelst.ItemCheck
-        txtboxInput.Text = chkLst_putFilelst.SelectedItem
-        txtboxOutput2.Text = chkFileAnsdFolder2(GETValue("txtOutput"))
-        GenerateCommand()
+        If chkLst_putFilelst.SelectedItem <> Nothing Then
+            Dim intxt As String() = chkLst_putFilelst.SelectedItem.split(vbTab)
+            If intxt.Count <> 1 Then
+                txtboxInput.Text = intxt(1)
+            Else
+                txtboxInput.Text = intxt(0)
+            End If
+            txtboxOutput2.Text = chkFileAnsdFolder2(GETValue("txtOutput"))
+            GenerateCommand()
+        End If
     End Sub
     'lst_commandBox 리스트에 데이터 추가
     'A
     Sub SetExeSelectBox(sender As Object, e As EventArgs) Handles cbbox_workLst.SelectedIndexChanged
         lst_commandBox.Items.Clear()
+        commandBox.Text = ""
+        exe_path = String.Empty
+        exe_command = New List(Of String)
+        exe_file = New List(Of String)
+        unChkSelectFile()
 
         '찾고자 하는 키
         Dim targetKey As String = "cbrUtilCmd"
@@ -571,7 +601,6 @@ Public Class HardPDF
             lst_commandBox.Items.Add($"{d.Name.Trim}        {d.Value}")
         Next
         SetValue2(cbbox_workLst.SelectedItem, exe_path)
-        GenerateCommand()
     End Sub
     Sub GenerateCommand()
         Dim result As String = String.Empty
@@ -607,7 +636,7 @@ Public Class HardPDF
             For Each c In exe_command
                 result += " " + c
             Next
-            commandBox.Text += $" {changeExePath(exe_path)} {result.Trim}"
+            commandBox.Text += $"{changeExePath(exe_path)} {result.Trim}"
         End If
     End Sub
 

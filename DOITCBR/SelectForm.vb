@@ -119,7 +119,7 @@ Public Class SelectForm
                 Dim files As String() = Directory.GetFiles(staticPath)
                 For Each file As String In files
                     Dim fileInfo As New FileInfo(file)
-                    Dim item As New ListViewItem(fileInfo.Name)
+                    Dim item As New ListViewItem($"{Path.GetExtension(fileInfo.Name)}   {fileInfo.Name}")
                     item.SubItems.Add("파일")
                     item.Tag = file
                     UpdateImageList(file, "file")
