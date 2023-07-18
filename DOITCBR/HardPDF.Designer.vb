@@ -138,6 +138,7 @@ Partial Class HardPDF
         Me.chkLst_putFilelst.HorizontalScrollbar = True
         Me.chkLst_putFilelst.Location = New System.Drawing.Point(3, 12)
         Me.chkLst_putFilelst.Name = "chkLst_putFilelst"
+        Me.chkLst_putFilelst.ScrollAlwaysVisible = True
         Me.chkLst_putFilelst.Size = New System.Drawing.Size(530, 160)
         Me.chkLst_putFilelst.TabIndex = 7
         '
