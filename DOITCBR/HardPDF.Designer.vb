@@ -309,7 +309,7 @@ Partial Class HardPDF
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(109, 24)
         Me.Label3.TabIndex = 24
-        Me.Label3.Text = "3) 업로드 된 파일" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & """작업 할 파일 클릭"""
+        Me.Label3.Text = "4) 업로드 된 파일" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & """작업 할 파일 클릭"""
         '
         'Label4
         '
@@ -319,7 +319,7 @@ Partial Class HardPDF
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(502, 24)
         Me.Label4.TabIndex = 24
-        Me.Label4.Text = "4) EXE 명령어 생성기" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & """ComboBox 에서 EXE 실행 파일을 선택 => ListBox 에서 명령어 클릭 => 오른쪽 박스 변화"""
+        Me.Label4.Text = "3) EXE 명령어 생성기" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & """ComboBox 에서 EXE 실행 파일을 선택 => ListBox 에서 명령어 클릭 => 오른쪽 박스 변화"""
         '
         'Label5
         '

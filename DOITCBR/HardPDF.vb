@@ -30,6 +30,21 @@ Public Class HardPDF
     'EXE 실행파일 명령어 체크 여부
     Dim CMDchk As Boolean = False
 
+    'crtacvres format 예시
+    Dim crtacvres_format As String = "예시) pcxmono pcxgray pcx16 pcx256 pcx24b pcxcmyk pbm pbmraw pgm pgmraw" &
+                     "pgnm pgnmraw tiffcrle tiffg3 tiffg32d tiffg4 tifflzw tiffpack bmpmono" &
+                     "bmpgray bmp16 bmp256 bmp16m tiff12nc tiff24nc psmono bit bitrgb bitcmyk" &
+                     "pngmono pnggray png16 png256 png16m jpeg jpeggray pdfwrite epswrite"
+
+    Dim output As String = crtacvres_format.Replace(" ", Environment.NewLine)
+    Dim preCommandBoxText As String = String.Empty
+    '이전에 입력했던 CRTACVRES FORMAT
+    Dim preformat As String = String.Empty
+    '입력
+    Dim format As String = String.Empty
+    '한번만 CRTACVRES FORMAT 입력하게하는 변수
+    'Dim formatbool As Boolean = False
+
     'Input 박스로 마우스 드래그가 들어갈때
     Private Sub txtboxInput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxInput.DragEnter, txtInputLb.DragEnter
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
@@ -431,7 +446,7 @@ Public Class HardPDF
         commandBox.Text = ""
 
         '현재 실행파일
-        exe_path = String.Empty
+        exe_path = cbbox_workLst.SelectedItem
         exe_command = New List(Of String)
         exe_file = New List(Of String)
 
@@ -478,8 +493,10 @@ Public Class HardPDF
     Private Sub btn_selectAll_Click(sender As Object, e As EventArgs) Handles btn_selectAll.Click
         If chkBtn = False Then
             chkAllSelectFile()
+            GenerateCommand()
         ElseIf chkBtn = True Then
             unChkSelectFile()
+            GenerateCommand()
         End If
     End Sub
     '업로드된 파일 목록체크리스트 체크
@@ -548,6 +565,11 @@ Public Class HardPDF
                 exe_command.Remove(checkedItem)
             End If
         End If
+
+        preformat = String.Empty
+        'formatbool = False
+
+
         GenerateCommand()
     End Sub
     ' 파일 선택할때마다 input Box 변화하기
@@ -602,10 +624,12 @@ Public Class HardPDF
         Next
         SetValue2(cbbox_workLst.SelectedItem, exe_path)
     End Sub
+
     Sub GenerateCommand()
         Dim result As String = String.Empty
         Dim preResult As String = String.Empty
         Dim cntAnd As Integer = 0
+        preCommandBoxText = commandBox.Text
         commandBox.Text = ""
         If exe_file.Count <> 0 Then
             For Each fp In exe_file
@@ -613,13 +637,37 @@ Public Class HardPDF
                     If c = "-i" Then
                         result += " " + c + " " + fp
                     ElseIf c = "-o" Then
-                        result += " " + c + " " + txtboxOutput2.Text
+                        If exe_path.ToUpper = "CRTACVRES.EXE" Then
+                            '이전에 이미 입력을 했었다면
+                            If preformat <> String.Empty Then
+                                result += " " + c + " " + ChangeFileExtension(fp, "." & preformat)
+                            Else
+                                If format <> String.Empty Then
+                                    result += " " + c + " " + ChangeFileExtension(fp, "." & preformat)
+                                Else
+                                    format = InputBox(output)
+                                    result += " " + c + " " + ChangeFileExtension(fp, "." & format)
+                                End If
+                                'formatbool = True
+                                preformat = format
+                            End If
+                        Else
+                            result += " " + c + " " + txtboxOutput2.Text
+                        End If
                     ElseIf c = "-D" Then
-                        result += " " + c + " " + txtboxOutput2.Text
+                        If exe_path.ToUpper = "COBRADOC.EXE" Then
+                            result += " " + c + " " + txtboxOutput2.Text
+                        ElseIf exe_path.ToUpper = "CRTPDFC.EXE" Then
+                            result += " " + c + " "
+                        End If
                     ElseIf c = "-C" Then
-                        result += " " + c + " " + """PDFMODE Yes"""
+                        If exe_path.ToUpper = "COBRADOC.EXE" Then
+                            result += " " + c + " " + """PDFMODE Yes"""
+                        Else
+                            result += " " + c + " "
+                        End If
                     Else
-                        result += " " + c
+                        result += " " + c + " "
                     End If
                 Next
                 If cntAnd <> 0 Then
@@ -640,6 +688,12 @@ Public Class HardPDF
         End If
     End Sub
 
+    Function ChangeFileExtension(filePath As String, newExtension As String) As String
+        Dim directoryPath As String = Path.GetDirectoryName(filePath)
+        Dim fileNameWithoutExtension As String = Path.GetFileNameWithoutExtension(filePath)
+        Dim newFilePath As String = Path.Combine(directoryPath, $"{fileNameWithoutExtension}{newExtension}")
+        Return newFilePath
+    End Function
     Function changeExePath(n As String)
         For Each p In GETValue("cbrUtil")
             If p.ToString.IndexOf(n) <> -1 Then
