@@ -182,6 +182,7 @@ Module NTBProcess
             For Each item In workfiles
                 formInstance.chkLst_putFilelst.Items.Add($"{Path.GetExtension(item)}{vbTab}{item}")
                 settingPath.UPDATEDATA(item, "putFiles", settingPath.settingFilePath)
+                sortModule.SortListBox(formInstance.chkLst_putFilelst)
             Next
 
             Return 1

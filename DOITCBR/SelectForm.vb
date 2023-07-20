@@ -32,15 +32,17 @@ Public Class SelectForm
 
     Private Const SHGFI_ICON As UInteger = &H100
     Private Const SHGFI_SMALLICON As UInteger = &H1
-
+    Sub Forminit()
+        errorValue = Init()
+        PanelRound(25, Panel5)
+        HardForm()
+        '파일 및 폴더 나열
+        ListFilesAndFolders(GETValue("txtOutput"))
+    End Sub
     Private Sub SelectForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            errorValue = Init()
-            PanelRound(25, Panel5)
+            Forminit()
             errorValue = logger.loggerInit(GETValue("log"))
-            HardForm()
-            '파일 및 폴더 나열
-            ListFilesAndFolders(GETValue("txtOutput"))
         Catch ex As Exception
             ErrorHandler($"{ex.Message & ex.StackTrace & ex.Source}", errorValue)
         End Try
@@ -119,7 +121,7 @@ Public Class SelectForm
                 Dim files As String() = Directory.GetFiles(staticPath)
                 For Each file As String In files
                     Dim fileInfo As New FileInfo(file)
-                    Dim item As New ListViewItem($"{Path.GetExtension(fileInfo.Name)}   {fileInfo.Name}")
+                    Dim item As New ListViewItem($"{Path.GetExtension(fileInfo.Name)}{vbTab}{fileInfo.Name}")
                     item.SubItems.Add("파일")
                     item.Tag = file
                     UpdateImageList(file, "file")
@@ -141,6 +143,8 @@ Public Class SelectForm
                 Next
                 folderList.SmallImageList = iconImgList
                 folderList.Items.AddRange(items.ToArray())
+
+                SortListView(folderList)
             End If
         Catch ex As Exception
             PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
@@ -289,7 +293,8 @@ Public Class SelectForm
     End Sub
 
     Private Sub Panel6_Click(sender As Object, e As EventArgs) Handles btn_hard.Click, btn_hard_lb.Click, Label7.Click
-        HardForm()
+        Forminit()
+        'HardForm()
     End Sub
 
     Private Sub lb_exit_Click(sender As Object, e As EventArgs) Handles lb_exit.Click

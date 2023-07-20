@@ -155,12 +155,11 @@ Partial Class HardPDF
         '
         Me.commandBox.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
         Me.commandBox.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.commandBox.Font = New System.Drawing.Font("굴림", 10.0!)
-        Me.commandBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.commandBox.Location = New System.Drawing.Point(20, 13)
+        Me.commandBox.ForeColor = System.Drawing.SystemColors.Info
+        Me.commandBox.Location = New System.Drawing.Point(13, 9)
         Me.commandBox.Name = "commandBox"
-        Me.commandBox.Size = New System.Drawing.Size(506, 86)
-        Me.commandBox.TabIndex = 10
+        Me.commandBox.Size = New System.Drawing.Size(513, 96)
+        Me.commandBox.TabIndex = 26
         Me.commandBox.Text = ""
         '
         'txtInput_Pn
@@ -325,11 +324,11 @@ Partial Class HardPDF
         '
         Me.Label5.AutoSize = True
         Me.Label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label5.Location = New System.Drawing.Point(597, 293)
+        Me.Label5.Location = New System.Drawing.Point(693, 288)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(421, 24)
+        Me.Label5.Size = New System.Drawing.Size(144, 24)
         Me.Label5.TabIndex = 24
-        Me.Label5.Text = "5) CMD에 입력될 명령어" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & """작업실행 버튼을 눌렀을때, CMD에 왼쪽 박스 TEXT가 입력되고 실행되어짐"""
+        Me.Label5.Text = "5) CMD에 입력될 명령어 " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "&& 지우지마세요!"""
         '
         'Label6
         '
@@ -405,7 +404,6 @@ Partial Class HardPDF
     Friend WithEvents txtboxOutput As TextBox
     Friend WithEvents Panel3 As Panel
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents commandBox As RichTextBox
     Friend WithEvents txtInput_Pn As Panel
     Friend WithEvents txtboxInput As TextBox
     Friend WithEvents btn_start As Button
@@ -424,4 +422,5 @@ Partial Class HardPDF
     Friend WithEvents chkLst_putFilelst As CheckedListBox
     Friend WithEvents btn_selectAll As Button
     Friend WithEvents lst_commandBox As CheckedListBox
+    Friend WithEvents commandBox As RichTextBox
 End Class

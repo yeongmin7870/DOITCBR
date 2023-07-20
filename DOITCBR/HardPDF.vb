@@ -86,6 +86,7 @@ Public Class HardPDF
                 txtboxInput.Text = filePath
             End If
             Update_chkLst_putLst()
+            txtboxInput.Text = ""
         Catch ex As Exception
             ErrorHandler($"{ex.Message & ex.StackTrace & ex.Source}", errorValue)
         End Try
@@ -281,6 +282,7 @@ Public Class HardPDF
                 chkLst_putFilelst.Items.Add($"{Path.GetExtension(d)}{vbTab}{d}")
             End If
         Next
+        sortModule.SortListBox(chkLst_putFilelst)
     End Sub
 
     'Private Sub cbbox_workLst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbox_workLst.SelectedIndexChanged
@@ -461,8 +463,9 @@ Public Class HardPDF
         Try
             If commandBox.Text <> String.Empty Then
                 SetProcessAndLog(commandBox.Text)
-
-                Else
+                '선택된 파일들을 다시 초기화
+                exe_file = New List(Of String)
+            Else
                     PrintLog($"명령어가 공백")
             End If
         Catch ex As Exception
@@ -506,7 +509,7 @@ Public Class HardPDF
             chkLst_putFilelst.SetItemChecked(i, True)
         Next
     End Sub
-    '업로드된 파일 목록체크리스트 해제
+    '업로드된 파일 목록체크리스트 해제 
     Sub unChkSelectFile()
         chkBtn = False
         For i = 0 To chkLst_putFilelst.Items.Count - 1
@@ -613,8 +616,8 @@ Public Class HardPDF
         commandBox.Text = ""
         exe_path = String.Empty
         exe_command = New List(Of String)
-        exe_file = New List(Of String)
-        unChkSelectFile()
+        'exe_file = New List(Of String)
+        'unChkSelectFile()
 
         '찾고자 하는 키
         Dim targetKey As String = "cbrUtilCmd"
@@ -631,6 +634,7 @@ Public Class HardPDF
         Dim cntAnd As Integer = 0
         preCommandBoxText = commandBox.Text
         commandBox.Text = ""
+        exe_path = cbbox_workLst.SelectedItem
         If exe_file.Count <> 0 Then
             For Each fp In exe_file
                 For Each c In exe_command
@@ -643,13 +647,13 @@ Public Class HardPDF
                                 result += " " + c + " " + ChangeFileExtension(fp, "." & preformat)
                             Else
                                 If format <> String.Empty Then
-                                    result += " " + c + " " + ChangeFileExtension(fp, "." & preformat)
+                                    result += " " + c + " " + ChangeFileExtension(fp, "." & format)
                                 Else
                                     format = InputBox(output)
                                     result += " " + c + " " + ChangeFileExtension(fp, "." & format)
+                                    preformat = format
                                 End If
                                 'formatbool = True
-                                preformat = format
                             End If
                         Else
                             result += " " + c + " " + txtboxOutput2.Text
@@ -671,7 +675,7 @@ Public Class HardPDF
                     End If
                 Next
                 If cntAnd <> 0 Then
-                    preResult += $" & {changeExePath(exe_path)} {result.Trim}"
+                    preResult += $" &{vbNewLine}{vbNewLine}{changeExePath(exe_path)} {result.Trim}"
                 Else
                     preResult += $" {changeExePath(exe_path)} {result.Trim}"
                 End If
@@ -680,14 +684,35 @@ Public Class HardPDF
                 result = String.Empty
             Next
             commandBox.Text = preResult.Trim
+            ApplyColorToText("&", Color.FromArgb(26, 28, 30))
+
         Else
             For Each c In exe_command
                 result += " " + c
             Next
             commandBox.Text += $"{changeExePath(exe_path)} {result.Trim}"
+            ApplyColorToText("&", Color.FromArgb(26, 28, 30))
+
         End If
     End Sub
+    'Command Box Text 색깔 입히기 
+    Sub ApplyColorToText(targetText As String, color As Color)
+        Dim startIndex As Integer = 0
+        If commandBox.Text.Contains(targetText) Then
+            While startIndex < commandBox.Text.Length
+                Dim foundIndex As Integer = commandBox.Text.IndexOf(targetText, startIndex)
+                If foundIndex = -1 Then Exit While
 
+
+                commandBox.SelectionStart = foundIndex
+                commandBox.SelectionLength = 1
+                commandBox.SelectionColor = color
+
+                startIndex = foundIndex + 1
+            End While
+
+        End If
+    End Sub
     Function ChangeFileExtension(filePath As String, newExtension As String) As String
         Dim directoryPath As String = Path.GetDirectoryName(filePath)
         Dim fileNameWithoutExtension As String = Path.GetFileNameWithoutExtension(filePath)
@@ -703,4 +728,14 @@ Public Class HardPDF
         Return n
     End Function
 
+    Private Sub lst_commandBox_SelectedIndexChanged(sender As Object, e As ItemCheckEventArgs) Handles lst_commandBox.ItemCheck
+        Dim targetItem As String = "-o"
+        If lst_commandBox.GetItemText(lst_commandBox.Items(e.Index)).Split(" ")(0) = targetItem And exe_path.ToUpper = "CRTACVRES.EXE" Then
+            If e.NewValue = CheckState.Checked Then
+            Else
+                format = ""
+                preformat = ""
+            End If
+        End If
+    End Sub
 End Class
