@@ -128,12 +128,26 @@ Module NTBProcess
             Return -1
         End Try
     End Function
+    '파일 경로와 날짜를 저장하는 함수
+    Sub SavePathAndDate(files, fileList)
+        For Each f In files
+            fileList.Add(f, sortModule.GetFileDate(f))
+        Next
+    End Sub
     '여러명령줄을 실행하기 위한 함수
     Function MultiProcessFn(cmd As String, ByVal formInstance As HardPDF)
         Try
             '작업전의 해당 경로에 있는 모든 파일 리스트
             Dim prefiles As String() = Directory.GetFiles(GETValue("txtOutput"))
+            '이전 파일 경로와 파일 생성 날짜를 저장하는 변수
+            Dim preFileList As New Dictionary(Of String, DateTime)
 
+            '현재 파일 경로와 파일 생성 날짜를 저장하는 변수
+            Dim nowFileList As New Dictionary(Of String, DateTime)
+            '작업 결과 파일들
+            Dim workfiles As New Dictionary(Of String, DateTime)
+
+            SavePathAndDate(prefiles, preFileList)
 
             Dim exeSplit As String() = cmd.Split("&")
             Dim exe_path As New List(Of String)()
@@ -158,32 +172,49 @@ Module NTBProcess
                 '출력을 읽기 위해
                 process.StartInfo.UseShellExecute = False
                 process.Start()
-                process.WaitForExit()
 
                 '결과 읽기
                 resultState = process.StandardOutput.ReadToEnd()
                 Dim errorState = process.StandardError.ReadToEnd()
-
-                logger.log(resultState, "i")
+                If errorState <> String.Empty Then
+                    logger.log(errorState, "i")
+                ElseIf resultState <> String.Empty Then
+                    logger.log(resultState, "i")
+                End If
             Next
-
             '작업후의 해당 경로에 있는 모든 파일 리스트
             Dim nowfiles As New List(Of String)(Directory.GetFiles(GETValue("txtOutput")))
-            '작업 결과 파일들
-            Dim workfiles As New List(Of String)(nowfiles)
-            For Each nf In nowfiles
-                For Each pref In prefiles
-                    If nf = pref Then
-                        workfiles.Remove(nf)
+            '현재 파일리스트
+            SavePathAndDate(nowfiles, nowFileList)
+
+            '작업할 파일리스트
+            SavePathAndDate(nowfiles, workfiles)
+            '이전 파일리스트와 현재파일리스트를 비교해가면서 작업결과물만 추가하는 작업
+            For Each nf In nowFileList
+                For Each pref In preFileList
+                    If nf.Key = pref.Key And nf.Value = pref.Value Then
+                        workfiles.Remove(pref.Key)
                     End If
                 Next
             Next
-            'hardpdf에 있는 작업 업로드 파일 추가 작업  
-            For Each item In workfiles
-                formInstance.chkLst_putFilelst.Items.Add($"{Path.GetExtension(item)}{vbTab}{item}")
-                settingPath.UPDATEDATA(item, "putFiles", settingPath.settingFilePath)
-                sortModule.SortListBox(formInstance.chkLst_putFilelst)
-            Next
+            '아무런 output이 없다면 
+            If workfiles.Count > 0 Then
+                'hardpdf에 있는 작업 업로드 파일 추가 작업  
+                For Each item In workfiles
+                    If formInstance.chkLst_putFilelst.Items.IndexOf($"{Path.GetExtension(item.Key)}{vbTab}{item.Key}") > -1 Then '이미 같은 이름의 파일이 있다면 기존 파일 주소를 삭제해주는 작업
+                        formInstance.chkLst_putFilelst.Items.Remove($"{Path.GetExtension(item.Key)}{vbTab}{item.Key}")
+                        settingPath.REMOVEDATA(item.Key, "putFiles")
+                    End If
+                    formInstance.chkLst_putFilelst.Items.Add($"{Path.GetExtension(item.Key)}{vbTab}{item.Key}")
+                    settingPath.UPDATEDATA(item.Key, "putFiles", settingPath.settingFilePath)
+                    sortModule.SortListBox(formInstance.chkLst_putFilelst)
+                    logger.log($"{item.Key} 생성완료", "i")
+                Next
+                MessageBox.Show("성공적으로 작업을 수행했습니다.")
+            Else
+                logger.log("Output이 없음", "w")
+                MessageBox.Show("아무런 결과물이 없습니다., 다시 확인해보세요")
+            End If
 
             Return 1
         Catch ex As Exception

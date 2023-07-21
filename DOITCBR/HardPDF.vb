@@ -650,6 +650,9 @@ Public Class HardPDF
                                     result += " " + c + " " + ChangeFileExtension(fp, "." & format)
                                 Else
                                     format = InputBox(output)
+                                    If format = String.Empty Then
+                                        format = "pdf"
+                                    End If
                                     result += " " + c + " " + ChangeFileExtension(fp, "." & format)
                                     preformat = format
                                 End If

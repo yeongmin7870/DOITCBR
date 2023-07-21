@@ -33,14 +33,15 @@ Partial Class History
         Me.cmdHistory.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
         Me.cmdHistory.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.cmdHistory.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.cmdHistory.Font = New System.Drawing.Font("굴림", 10.0!)
+        Me.cmdHistory.Font = New System.Drawing.Font("굴림", 15.0!)
         Me.cmdHistory.ForeColor = System.Drawing.Color.FromArgb(CType(CType(199, Byte), Integer), CType(CType(201, Byte), Integer), CType(CType(202, Byte), Integer))
         Me.cmdHistory.FormattingEnabled = True
         Me.cmdHistory.HorizontalScrollbar = True
+        Me.cmdHistory.ItemHeight = 20
         Me.cmdHistory.Location = New System.Drawing.Point(14, 65)
         Me.cmdHistory.Name = "cmdHistory"
         Me.cmdHistory.ScrollAlwaysVisible = True
-        Me.cmdHistory.Size = New System.Drawing.Size(1307, 559)
+        Me.cmdHistory.Size = New System.Drawing.Size(1307, 540)
         Me.cmdHistory.TabIndex = 0
         '
         'historyNavbar

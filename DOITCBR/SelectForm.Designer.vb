@@ -117,7 +117,6 @@ Partial Class SelectForm
         Me.folderList.ShowItemToolTips = True
         Me.folderList.Size = New System.Drawing.Size(145, 567)
         Me.folderList.SmallImageList = Me.iconImgList
-        Me.folderList.Sorting = System.Windows.Forms.SortOrder.Descending
         Me.folderList.TabIndex = 2
         Me.folderList.UseCompatibleStateImageBehavior = False
         Me.folderList.View = System.Windows.Forms.View.Tile

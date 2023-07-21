@@ -12,6 +12,7 @@
         Dim hForm As HardPDF = TryCast(sForm.preForm, HardPDF)
         If hForm IsNot Nothing Then
             hForm.commandBox.Text = GetHistoryFormat(cmdHistory.SelectedItem.Trim)
+            hForm.ApplyColorToText("&", Color.FromArgb(26, 28, 30))
         End If
         Me.Close()
     End Sub
@@ -52,4 +53,5 @@
     Private Sub historyNavbar_MouseUp(sender As Object, e As MouseEventArgs) Handles historyNavbar.MouseUp, Me.MouseUp
         isDragging = False
     End Sub
+
 End Class

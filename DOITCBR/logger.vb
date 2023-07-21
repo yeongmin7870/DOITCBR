@@ -52,7 +52,7 @@ Module logger
 
             Dim logArray As JArray = jsonData("history")
             If logArray IsNot Nothing Then
-                For Each logItem As JObject In logArray
+                For Each logItem As JObject In logArray.Reverse
                     Dim time As String = logItem.Value(Of String)("time")
                     Dim content As String = logItem.Value(Of String)("content")
                     hForm.cmdHistory.Items.Add($"[{time}][{content}]")
