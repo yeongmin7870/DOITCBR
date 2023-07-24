@@ -28,6 +28,9 @@ Partial Class SelectForm
         Me.Label7 = New System.Windows.Forms.Label()
         Me.logMSG = New System.Windows.Forms.RichTextBox()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.rd_date = New System.Windows.Forms.RadioButton()
+        Me.rd_extension = New System.Windows.Forms.RadioButton()
         Me.folderList = New System.Windows.Forms.ListView()
         Me.iconImgList = New System.Windows.Forms.ImageList(Me.components)
         Me.Panel9 = New System.Windows.Forms.Panel()
@@ -48,6 +51,7 @@ Partial Class SelectForm
         Me.ToolStripDropDownButton1 = New System.Windows.Forms.Label()
         Me.Panel3.SuspendLayout()
         Me.Panel4.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.Panel9.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel8.SuspendLayout()
@@ -94,6 +98,7 @@ Partial Class SelectForm
         'Panel4
         '
         Me.Panel4.BackColor = System.Drawing.Color.FromArgb(CType(CType(26, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(30, Byte), Integer))
+        Me.Panel4.Controls.Add(Me.GroupBox1)
         Me.Panel4.Controls.Add(Me.folderList)
         Me.Panel4.Controls.Add(Me.Panel9)
         Me.Panel4.Location = New System.Drawing.Point(1177, 91)
@@ -101,6 +106,41 @@ Partial Class SelectForm
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(154, 690)
         Me.Panel4.TabIndex = 4
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox1.Controls.Add(Me.rd_date)
+        Me.GroupBox1.Controls.Add(Me.rd_extension)
+        Me.GroupBox1.ForeColor = System.Drawing.Color.White
+        Me.GroupBox1.Location = New System.Drawing.Point(5, 18)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(142, 47)
+        Me.GroupBox1.TabIndex = 29
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "정렬"
+        '
+        'rd_date
+        '
+        Me.rd_date.AutoSize = True
+        Me.rd_date.Location = New System.Drawing.Point(6, 20)
+        Me.rd_date.Name = "rd_date"
+        Me.rd_date.Size = New System.Drawing.Size(71, 16)
+        Me.rd_date.TabIndex = 26
+        Me.rd_date.TabStop = True
+        Me.rd_date.Text = "최신날짜"
+        Me.rd_date.UseVisualStyleBackColor = True
+        '
+        'rd_extension
+        '
+        Me.rd_extension.AutoSize = True
+        Me.rd_extension.Location = New System.Drawing.Point(83, 20)
+        Me.rd_extension.Name = "rd_extension"
+        Me.rd_extension.Size = New System.Drawing.Size(59, 16)
+        Me.rd_extension.TabIndex = 27
+        Me.rd_extension.TabStop = True
+        Me.rd_extension.Text = "확장자"
+        Me.rd_extension.UseVisualStyleBackColor = True
         '
         'folderList
         '
@@ -111,11 +151,11 @@ Partial Class SelectForm
         Me.folderList.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(228, Byte), Integer))
         Me.folderList.HideSelection = False
         Me.folderList.LargeImageList = Me.iconImgList
-        Me.folderList.Location = New System.Drawing.Point(5, 74)
+        Me.folderList.Location = New System.Drawing.Point(5, 120)
         Me.folderList.MultiSelect = False
         Me.folderList.Name = "folderList"
         Me.folderList.ShowItemToolTips = True
-        Me.folderList.Size = New System.Drawing.Size(145, 567)
+        Me.folderList.Size = New System.Drawing.Size(145, 521)
         Me.folderList.SmallImageList = Me.iconImgList
         Me.folderList.TabIndex = 2
         Me.folderList.UseCompatibleStateImageBehavior = False
@@ -133,7 +173,7 @@ Partial Class SelectForm
         Me.Panel9.Controls.Add(Me.Label3)
         Me.Panel9.Controls.Add(Me.pathBox)
         Me.Panel9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.Panel9.Location = New System.Drawing.Point(3, 15)
+        Me.Panel9.Location = New System.Drawing.Point(3, 71)
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(148, 43)
         Me.Panel9.TabIndex = 1
@@ -323,6 +363,8 @@ Partial Class SelectForm
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
         Me.Panel4.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -361,4 +403,7 @@ Partial Class SelectForm
     Friend WithEvents lb_exit As Label
     Friend WithEvents ToolStripDropDownButton1 As Label
     Friend WithEvents iconImgList As ImageList
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents rd_date As RadioButton
+    Friend WithEvents rd_extension As RadioButton
 End Class

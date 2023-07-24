@@ -49,11 +49,15 @@ Partial Class HardPDF
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btn_selectAll = New System.Windows.Forms.Button()
+        Me.rd_date = New System.Windows.Forms.RadioButton()
+        Me.rd_extension = New System.Windows.Forms.RadioButton()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Panel4.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.txtInput_Pn.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'OpenFileDialog1
@@ -296,9 +300,9 @@ Partial Class HardPDF
         Me.Label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Label2.Location = New System.Drawing.Point(12, 134)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(411, 24)
+        Me.Label2.Size = New System.Drawing.Size(279, 24)
         Me.Label2.TabIndex = 24
-        Me.Label2.Text = "2) 작업 결과 폴더" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & """폴더를 Drag & Drop =>  Output 경로 수정 가능, 해당 경로에 작업물 떨어짐"""
+        Me.Label2.Text = "2) 작업 결과 폴더" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & """폴더를 Drag & Drop => 해당 경로에 작업물 떨어짐"""
         '
         'Label3
         '
@@ -354,6 +358,41 @@ Partial Class HardPDF
         Me.btn_selectAll.Text = "모두 선택"
         Me.btn_selectAll.UseVisualStyleBackColor = False
         '
+        'rd_date
+        '
+        Me.rd_date.AutoSize = True
+        Me.rd_date.Location = New System.Drawing.Point(6, 20)
+        Me.rd_date.Name = "rd_date"
+        Me.rd_date.Size = New System.Drawing.Size(71, 16)
+        Me.rd_date.TabIndex = 26
+        Me.rd_date.TabStop = True
+        Me.rd_date.Text = "최신날짜"
+        Me.rd_date.UseVisualStyleBackColor = True
+        '
+        'rd_extension
+        '
+        Me.rd_extension.AutoSize = True
+        Me.rd_extension.Location = New System.Drawing.Point(83, 20)
+        Me.rd_extension.Name = "rd_extension"
+        Me.rd_extension.Size = New System.Drawing.Size(59, 16)
+        Me.rd_extension.TabIndex = 27
+        Me.rd_extension.TabStop = True
+        Me.rd_extension.Text = "확장자"
+        Me.rd_extension.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox1.Controls.Add(Me.rd_date)
+        Me.GroupBox1.Controls.Add(Me.rd_extension)
+        Me.GroupBox1.ForeColor = System.Drawing.Color.White
+        Me.GroupBox1.Location = New System.Drawing.Point(993, 16)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(142, 47)
+        Me.GroupBox1.TabIndex = 28
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "정렬"
+        '
         'HardPDF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -362,6 +401,7 @@ Partial Class HardPDF
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ClientSize = New System.Drawing.Size(1137, 528)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btn_selectAll)
         Me.Controls.Add(Me.btn_putFileDelete)
         Me.Controls.Add(Me.Label6)
@@ -392,6 +432,8 @@ Partial Class HardPDF
         Me.Panel5.ResumeLayout(False)
         Me.txtInput_Pn.ResumeLayout(False)
         Me.txtInput_Pn.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -423,4 +465,7 @@ Partial Class HardPDF
     Friend WithEvents btn_selectAll As Button
     Friend WithEvents lst_commandBox As CheckedListBox
     Friend WithEvents commandBox As RichTextBox
+    Friend WithEvents rd_date As RadioButton
+    Friend WithEvents rd_extension As RadioButton
+    Friend WithEvents GroupBox1 As GroupBox
 End Class

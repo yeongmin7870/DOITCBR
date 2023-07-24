@@ -30,20 +30,28 @@ Public Class HardPDF
     'EXE 실행파일 명령어 체크 여부
     Dim CMDchk As Boolean = False
 
-    'crtacvres format 예시
-    Dim crtacvres_format As String = "예시) pcxmono pcxgray pcx16 pcx256 pcx24b pcxcmyk pbm pbmraw pgm pgmraw" &
+
+    '-O 내용
+    Dim output As String = "Format을 입력하세요!" & vbNewLine & " 예시) pcxmono pcxgray pcx16 pcx256 pcx24b pcxcmyk pbm pbmraw pgm pgmraw" &
                      "pgnm pgnmraw tiffcrle tiffg3 tiffg32d tiffg4 tifflzw tiffpack bmpmono" &
                      "bmpgray bmp16 bmp256 bmp16m tiff12nc tiff24nc psmono bit bitrgb bitcmyk" &
                      "pngmono pnggray png16 png256 png16m jpeg jpeggray pdfwrite epswrite"
-
-    Dim output As String = crtacvres_format.Replace(" ", Environment.NewLine)
+    '-o 내용
+    Dim output2 As String = "확장자를 입력해주세요. 예) pdf, jpg, jpeg, etc..."
     Dim preCommandBoxText As String = String.Empty
-    '이전에 입력했던 CRTACVRES FORMAT
+    '이전에 입력했던 CRTACVRES -o
     Dim preformat As String = String.Empty
-    '입력
+    '이전에 입력했던 CRTACVRES -O
+    Dim preformat2 As String = String.Empty
+    '입력 -o
     Dim format As String = String.Empty
+    '입력 -O
+    Dim format2 As String = String.Empty
     '한번만 CRTACVRES FORMAT 입력하게하는 변수
     'Dim formatbool As Boolean = False
+
+    '현재 체크되어있는 Radio Button 
+    Public NowchkRadioBtn As RadioButton
 
     'Input 박스로 마우스 드래그가 들어갈때
     Private Sub txtboxInput_DragEnter(sender As Object, e As DragEventArgs) Handles txtboxInput.DragEnter, txtInputLb.DragEnter
@@ -214,6 +222,8 @@ Public Class HardPDF
 
         'EXE ComboBox를 처음에 선택
         cbbox_workLst.SelectedIndex = 0
+        rd_date.Checked = True
+
     End Sub
 
     'Component 4 모서리를 깎는 함수
@@ -282,7 +292,7 @@ Public Class HardPDF
                 chkLst_putFilelst.Items.Add($"{Path.GetExtension(d)}{vbTab}{d}")
             End If
         Next
-        sortModule.SortListBox(chkLst_putFilelst)
+        'sortModule.SortListBox(chkLst_putFilelst, NowchkRadioBtn.Text)
     End Sub
 
     'Private Sub cbbox_workLst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbbox_workLst.SelectedIndexChanged
@@ -466,7 +476,7 @@ Public Class HardPDF
                 '선택된 파일들을 다시 초기화
                 exe_file = New List(Of String)
             Else
-                    PrintLog($"명령어가 공백")
+                PrintLog($"명령어가 공백")
             End If
         Catch ex As Exception
             ErrorHandler($"{ex.Message & ex.StackTrace & ex.Source}", errorValue)
@@ -649,14 +659,33 @@ Public Class HardPDF
                                 If format <> String.Empty Then
                                     result += " " + c + " " + ChangeFileExtension(fp, "." & format)
                                 Else
-                                    format = InputBox(output)
+                                    format = InputBox(output2)
                                     If format = String.Empty Then
                                         format = "pdf"
                                     End If
                                     result += " " + c + " " + ChangeFileExtension(fp, "." & format)
                                     preformat = format
                                 End If
-                                'formatbool = True
+                            End If
+                        Else
+                            result += " " + c + " " + txtboxOutput2.Text
+                        End If
+                    ElseIf c = "-O" Then
+                        If exe_path.ToUpper = "CRTACVRES.EXE" Then
+                            '이전에 이미 입력을 했었다면
+                            If preformat2 <> String.Empty Then
+                                result += " " + c + " " + preformat2
+                            Else
+                                If format2 <> String.Empty Then
+                                    result += " " + c + " " + format2
+                                Else
+                                    format2 = InputBox(output)
+                                    If format2 = String.Empty Then
+                                        format2 = "jpeg"
+                                    End If
+                                    result += " " + c + " " + format2
+                                    preformat2 = format2
+                                End If
                             End If
                         Else
                             result += " " + c + " " + txtboxOutput2.Text
@@ -730,15 +759,33 @@ Public Class HardPDF
         Next
         Return n
     End Function
-
+    ' command box 제조 박스에서 특별히 inputbox를 사용해야할때
+    ' 체크 이벤트를 제어하기 위한 함수
     Private Sub lst_commandBox_SelectedIndexChanged(sender As Object, e As ItemCheckEventArgs) Handles lst_commandBox.ItemCheck
-        Dim targetItem As String = "-o"
-        If lst_commandBox.GetItemText(lst_commandBox.Items(e.Index)).Split(" ")(0) = targetItem And exe_path.ToUpper = "CRTACVRES.EXE" Then
+        Dim targetItem1 As String = "-o"
+        Dim targetItem2 As String = "-O"
+
+        If lst_commandBox.GetItemText(lst_commandBox.Items(e.Index)).Split(" ")(0) = targetItem1 And exe_path.ToUpper = "CRTACVRES.EXE" Then
             If e.NewValue = CheckState.Checked Then
             Else
                 format = ""
                 preformat = ""
             End If
+        End If
+        If lst_commandBox.GetItemText(lst_commandBox.Items(e.Index)).Split(" ")(0) = targetItem2 And exe_path.ToUpper = "CRTACVRES.EXE" Then
+            If e.NewValue = CheckState.Checked Then
+            Else
+                format2 = ""
+                preformat2 = ""
+            End If
+        End If
+    End Sub
+
+    Private Sub rd_CheckedChanged(sender As Object, e As EventArgs) Handles rd_date.CheckedChanged, rd_extension.CheckedChanged
+        NowchkRadioBtn = CType(sender, RadioButton)
+        If NowchkRadioBtn.Checked = True Then
+            NowchkRadioBtn = CType(sender, RadioButton)
+            sortModule.SortListBox(chkLst_putFilelst, NowchkRadioBtn.Text)
         End If
     End Sub
 End Class

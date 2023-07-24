@@ -32,10 +32,14 @@ Public Class SelectForm
 
     Private Const SHGFI_ICON As UInteger = &H100
     Private Const SHGFI_SMALLICON As UInteger = &H1
+
+    '결과 창 라디오 정렬 버튼
+    Public nowChkRadioBtn As RadioButton
     Sub Forminit()
         errorValue = Init()
         PanelRound(25, Panel5)
         HardForm()
+        rd_date.Checked = True
         '파일 및 폴더 나열
         ListFilesAndFolders(GETValue("txtOutput"))
     End Sub
@@ -144,7 +148,7 @@ Public Class SelectForm
                 folderList.SmallImageList = iconImgList
                 folderList.Items.AddRange(items.ToArray())
 
-                SortListView(folderList)
+                SortListView(folderList, nowChkRadioBtn.Text)
             End If
         Catch ex As Exception
             PrintLog($"{ex.Message & ex.StackTrace & ex.Source}")
@@ -309,5 +313,12 @@ Public Class SelectForm
     Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click, Panel8.Click
         Dim textfile As String = "C:\Windows\System32\notepad.exe"
         ProcessFn(textfile, GETValue("cmd"))
+    End Sub
+    Private Sub rd_CheckedChanged(sender As Object, e As EventArgs) Handles rd_date.CheckedChanged, rd_extension.CheckedChanged
+        nowChkRadioBtn = CType(sender, RadioButton)
+        If nowChkRadioBtn.Checked = True Then
+            nowChkRadioBtn = CType(sender, RadioButton)
+            sortModule.SortListView(folderList, nowChkRadioBtn.Text)
+        End If
     End Sub
 End Class

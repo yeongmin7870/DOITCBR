@@ -207,7 +207,7 @@ Module NTBProcess
                     End If
                     formInstance.chkLst_putFilelst.Items.Add($"{Path.GetExtension(item.Key)}{vbTab}{item.Key}")
                     settingPath.UPDATEDATA(item.Key, "putFiles", settingPath.settingFilePath)
-                    sortModule.SortListBox(formInstance.chkLst_putFilelst)
+                    sortModule.SortListBox(formInstance.chkLst_putFilelst, formInstance.NowchkRadioBtn.Text)
                     logger.log($"{item.Key} 생성완료", "i")
                 Next
                 MessageBox.Show("성공적으로 작업을 수행했습니다.")

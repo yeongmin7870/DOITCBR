@@ -2,7 +2,7 @@
 
 Module sortModule
     'ListBox Sort 하는 모듈
-    Sub SortListBox(listBox)
+    Sub SortListBox(listBox, radioButton)
         ' Listbox의 항목을 저장할 리스트
         Dim itemsList As New List(Of String)
 
@@ -11,11 +11,13 @@ Module sortModule
             itemsList.Add(item)
         Next
 
-        ' 확장자를 기준으로 정렬
-        itemsList.Sort(Function(x, y) String.Compare(IO.Path.GetExtension(x.Split(vbTab)(1)), IO.Path.GetExtension(y.Split(vbTab)(1))))
-
-        ' 날짜를 기준으로 정렬
-        itemsList.Sort(Function(x, y) DateTime.Compare(GetFileDate(x.Split(vbTab)(1)), GetFileDate(y.Split(vbTab)(1))))
+        If radioButton.Equals("최신날짜") Then
+            ' 날짜를 기준으로 정렬
+            itemsList.Sort(Function(x, y) DateTime.Compare(GetFileDate(x.Split(vbTab)(1)), GetFileDate(y.Split(vbTab)(1))))
+        ElseIf radioButton.Equals("확장자") Then
+            ' 날짜를 기준으로 정렬
+            itemsList.Sort(Function(x, y) String.Compare(IO.Path.GetExtension(x.Split(vbTab)(1)), IO.Path.GetExtension(y.Split(vbTab)(1))))
+        End If
 
         itemsList.Reverse()
 
@@ -28,7 +30,7 @@ Module sortModule
         Next
     End Sub
 
-    Sub SortListView(listview)
+    Sub SortListView(listview, radioBtn)
         ' ListView의 항목을 저장할 List(Of ListViewItem)
         Dim itemsList As New List(Of ListViewItem)
 
@@ -37,12 +39,13 @@ Module sortModule
             itemsList.Add(item)
         Next
 
-
-        '' 확장자를 기준으로 정렬
-        itemsList.Sort(Function(x, y) String.Compare(IO.Path.GetExtension(x.Tag), IO.Path.GetExtension(y.Tag)))
-
-        '' 날짜를 기준으로 정렬 (오름차순)
-        itemsList.Sort(Function(x, y) DateTime.Compare(GetFileDate(x.Tag), GetFileDate(y.Tag)))
+        If radioBtn.Equals("최신날짜") Then
+            '' 날짜를 기준으로 정렬 (오름차순)
+            itemsList.Sort(Function(x, y) DateTime.Compare(GetFileDate(x.Tag), GetFileDate(y.Tag)))
+        ElseIf radioBtn.Equals("확장자") Then
+            '' 확장자를 기준으로 정렬
+            itemsList.Sort(Function(x, y) String.Compare(IO.Path.GetExtension(x.Tag), IO.Path.GetExtension(y.Tag)))
+        End If
 
         ' List를 뒤집어서 가장 최근 날짜가 위로 오도록 함
         itemsList.Reverse()
