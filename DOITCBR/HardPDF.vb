@@ -35,18 +35,19 @@ Public Class HardPDF
     Dim output As String = "Format을 입력하세요!" & vbNewLine & " 예시) pcxmono pcxgray pcx16 pcx256 pcx24b pcxcmyk pbm pbmraw pgm pgmraw" &
                      "pgnm pgnmraw tiffcrle tiffg3 tiffg32d tiffg4 tifflzw tiffpack bmpmono" &
                      "bmpgray bmp16 bmp256 bmp16m tiff12nc tiff24nc psmono bit bitrgb bitcmyk" &
-                     "pngmono pnggray png16 png256 png16m jpeg jpeggray pdfwrite epswrite"
+                     "pngmono pnggray png16 png256   
+png16m jpeg jpeggray pdfwrite epswrite"
     '-o 내용
     Dim output2 As String = "확장자를 입력해주세요. 예) pdf, jpg, jpeg, etc..."
     Dim preCommandBoxText As String = String.Empty
     '이전에 입력했던 CRTACVRES -o
-    Dim preformat As String = String.Empty
+    Public preformat As String = String.Empty
     '이전에 입력했던 CRTACVRES -O
-    Dim preformat2 As String = String.Empty
+    Public preformat2 As String = String.Empty
     '입력 -o
-    Dim format As String = String.Empty
+    Public format As String = String.Empty
     '입력 -O
-    Dim format2 As String = String.Empty
+    Public format2 As String = String.Empty
     '한번만 CRTACVRES FORMAT 입력하게하는 변수
     'Dim formatbool As Boolean = False
 
@@ -526,7 +527,26 @@ Public Class HardPDF
             chkLst_putFilelst.SetItemChecked(i, False)
         Next
     End Sub
-
+    '업로드된 파일 목록체크리스트 선택 체크
+    Sub chkAllSelectFile_Auto()
+        chkBtn = True
+        For i = 0 To chkLst_putFilelst.Items.Count - 1
+            Dim itemText As String = chkLst_putFilelst.Items(i).ToString()
+            If exe_file.Contains(itemText) Then
+                chkLst_putFilelst.SetItemChecked(i, True)
+            End If
+        Next
+    End Sub
+    'EXE 명령어 목록체크리스트 선택 체크
+    Sub CMDchkAllSelectFile_Auto()
+        CMDchk = True
+        For i = 0 To lst_commandBox.Items.Count - 1
+            Dim itemText As String = chkLst_putFilelst.Items(i).ToString()
+            If exe_command.Contains(itemText) Then
+                lst_commandBox.SetItemChecked(i, True)
+            End If
+        Next
+    End Sub
     'EXE 명령어 목록체크리스트 체크
     Sub CMDchkAllSelectFile()
         CMDchk = True
@@ -541,7 +561,16 @@ Public Class HardPDF
             lst_commandBox.SetItemChecked(i, False)
         Next
     End Sub
-
+    '
+    ' history 에서 클릭해서 command에 값이 들어왔을때 자동으로 체크해주는 함수
+    Sub historyAutoChecked_before()
+        CMDunChkSelectFile()
+        unChkSelectFile()
+    End Sub
+    'Sub historyAutoChecked_after()
+    '    chkAllSelectFile_Auto()
+    '    CMDchkAllSelectFile_Auto()
+    'End Sub
     '배열 값을 넣어주는 함수
     Sub SetValueLoop(values, s)
         Try
@@ -616,9 +645,12 @@ Public Class HardPDF
                 txtboxInput.Text = intxt(0)
             End If
             txtboxOutput2.Text = chkFileAnsdFolder2(GETValue("txtOutput"))
-            GenerateCommand()
         End If
     End Sub
+    Sub chkLst_putFilels_checkItem(sender As Object, e As EventArgs) Handles chkLst_putFilelst.ItemCheck
+        GenerateCommand()
+    End Sub
+
     'lst_commandBox 리스트에 데이터 추가
     'A
     Sub SetExeSelectBox(sender As Object, e As EventArgs) Handles cbbox_workLst.SelectedIndexChanged
